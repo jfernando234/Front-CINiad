@@ -1,0 +1,72 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  height: 70px;
+  z-index: 10;
+  .logo img {
+    height: 200px;
+  }
+
+  .menu {
+    display: flex;
+    gap: 25px;
+  }
+
+  .menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+}
+
+.banner {
+  display: flex;
+  flex-direction: column; // title arriba, imagen, botón debajo
+  align-items: center; // centra horizontalmente
+  justify-content: flex-start; // contenido al inicio (arriba)
+  height: auto;
+  background-color: #f8f9fa;
+  gap: 10px; // espacio entre title, imagen y botón
+  padding: 10px;
+
+  .title {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+
+    a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 18px;
+
+      &:hover {
+        color: #007bff; // efecto hover
+      }
+    }
+  }
+
+  .video-container {
+    width: 600px; // ancho máximo del video
+    max-width: 100%; // que no se pase del contenedor padre
+    margin: 0 auto; // centrado horizontal
+  }
+
+  button {
+    margin-top: 10px;
+  }
+}
+
+.conten {
+  flex: 1; // ocupa el espacio restante
+  padding: 20px;
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative; // NO usar absolute!
+}
