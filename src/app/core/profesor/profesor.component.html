@@ -1,0 +1,65 @@
+<div class="profesor-container">
+  <!-- Header del Profesor -->
+  <header class="profesor-header">
+    <div class="header-content">
+      <h1>Panel del Profesor</h1>
+      <div class="user-info">
+        <span>Bienvenido, {{ authService.currentUser?.nombre }}</span>
+        <button class="btn btn-outline-danger btn-sm" (click)="authService.logout()">
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menú de Navegación del Profesor -->
+  <nav class="profesor-nav">
+    <div class="nav-container">
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a routerLink="/profesor/dashboard" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-speedometer2"></i>
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/profesor/mis-cursos" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-journal"></i>
+            Mis Cursos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/profesor/crear-material" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-file-earmark-plus"></i>
+            Crear Material
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/profesor/actividades" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-tasks"></i>
+            Actividades
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/profesor/estudiantes" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-people"></i>
+            Mis Estudiantes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/profesor/calificaciones" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-clipboard-check"></i>
+            Calificaciones
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Área de contenido principal -->
+  <main class="profesor-main">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

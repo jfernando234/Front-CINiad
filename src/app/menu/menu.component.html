@@ -1,0 +1,25 @@
+<!-- menu.component.html -->
+<nav class="menu">
+  <a routerLink="/inicio" routerLinkActive="active">Inicio</a>
+  <a routerLink="/inicio/actividades-casa" routerLinkActive="active" aria-current="page"
+    (keydown.enter)="navigateTo('/inicio')"
+    (keydown.space)="navigateTo('/inicio');
+    $event.preventDefault()">>
+    Actividades en Casa</a>
+  <a routerLink="/inicio/recursos" routerLinkActive="active">Recursos</a>
+  <a routerLink="/inicio/ayuda" routerLinkActive="active">Ayuda Rápida</a>
+
+  <!-- Mostrar botón de login si no hay usuario -->
+  <a *ngIf="!authService.currentUser" (click)="login()" class="login-link">
+    <i class="fas fa-sign-in-alt me-2"></i>Ingresar
+  </a>
+
+  <!-- Mostrar nombre de usuario y logout si está logueado -->
+  <span *ngIf="authService.currentUser" class="user-info">
+    <i class="fas fa-user-circle me-1"></i>
+    Hola, {{ authService.currentUser.nombre }}
+    <a (click)="authService.logout()" class="ms-2">
+      <i class="fas fa-sign-out-alt me-1"></i>Cerrar sesión
+    </a>
+  </span>
+</nav>

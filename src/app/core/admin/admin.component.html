@@ -1,0 +1,64 @@
+<div class="admin-container">
+  <!-- Header del Admin -->
+  <header class="admin-header">
+    <div class="header-content">
+      <h1>Panel de Administración</h1>
+      <div class="user-info">
+        <span>Bienvenido, {{ authService.currentUser?.nombre }}</span>
+        <button class="btn btn-outline-danger btn-sm" (click)="authService.logout()">
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- Menú de Navegación del Admin -->
+  <nav class="admin-nav">
+    <div class="nav-container">
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-speedometer2"></i>
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/admin/usuarios" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-people"></i>
+            Gestión de Usuarios
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/admin/recursos" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-folder"></i>
+            Recursos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/admin/materiales" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-journal"></i>
+            Materiales
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/admin/cursos" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-book"></i>
+            Gestión de Cursos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/admin/configuracion" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-gear"></i>
+            Configuración
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Área de contenido principal -->
+  <main class="admin-main">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

@@ -1,87 +1,187 @@
-<div>
-  <div class="header">
-    <div class="logo">
-      <img src="assets/logo.png" alt="logo">
-    </div>
-    <div class="menu">
-      <a routerLink="actividades-casa">Actividades en Casa</a>
-      <a routerLink="recursos">Recurso</a>
-      <a routerLink="ayuda">Ayuda Rapida</a>
-      <a href="#">Ingresar</a>
-    </div>
-  </div>
-  <div class="banner">
-    <div class="title">
-      <a href="#">Mis terapias</a>
-      <a href="#">Mis Programas</a>
-      <a href="#">Mis Talleres</a>
-    </div>
-    <div class="video-container">
-      <div class="ratio ratio-16x9">
-        <video>
-          <source src="assets/banner.mp4" type="video/mp4">
-          Tu navegador no soporta la etiqueta de video.
-        </video>
+<!-- home.component.html -->
+<div class="home-container">
+  <!-- Header -->
+  <header class="header bg-white shadow-sm sticky-top">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center py-2">
+        <div class="logo">
+          <img src="assets/logo.png" alt="logo" class="img-fluid" style="max-height: 200px;">
+        </div>
+        <app-menu></app-menu>
       </div>
     </div>
-    <button class="btn btn-primary">Conocer más</button>
-  </div>
-  <div class="conten">
-    <div class="terapias">
-      <h2>Terapias</h2>
-      <ul>
-        <li><iframe src="https://www.youtube.com/embed/VIDEO_ID_1" allowfullscreen></iframe></li>
-        <li><iframe src="https://www.youtube.com/embed/VIDEO_ID_2" allowfullscreen></iframe></li>
-      </ul>
-    </div>
+  </header>
 
-    <div class="programas">
-      <h2>Programas</h2>
-      <ul>
-        <li><iframe src="https://www.youtube.com/embed/VIDEO_ID_3" allowfullscreen></iframe></li>
-        <li><iframe src="https://www.youtube.com/embed/VIDEO_ID_4" allowfullscreen></iframe></li>
-      </ul>
+  <!-- Banner Principal -->
+  <section class="banner position-relative overflow-hidden">
+    <div class="container">
+      <div class="row align-items-center min-vh-50 py-5">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <div class="title-section">
+            <h1 class="display-5 fw-bold text-primary mb-4">Bienestar Integral</h1>
+            <div class="d-flex flex-wrap gap-3 mb-4">
+              <a href="javascript:void(0)" (click)="scrollToSection('terapias')" class="btn btn-outline-primary rounded-pill px-4">
+                Mis Terapias
+              </a>
+              <a href="javascript:void(0)" (click)="scrollToSection('programas')" class="btn btn-outline-primary rounded-pill px-4">
+                Mis Programas
+              </a>
+              <a href="javascript:void(0)" (click)="scrollToSection('talleres')" class="btn btn-outline-primary rounded-pill px-4">
+                Mis Talleres
+              </a>
+            </div>
+            <p class="lead text-muted mb-4">
+              Descubre nuestro enfoque integral para tu bienestar físico y mental.
+            </p>
+            <button class="btn btn-primary btn-lg rounded-pill px-4">
+              Conocer más <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="video-container rounded-4 overflow-hidden shadow-lg">
+            <div class="ratio ratio-16x9">
+              <video class="w-100 h-100" autoplay muted loop playsinline>
+                <source src="assets/banner.mp4" type="video/mp4">
+                Tu navegador no soporta la etiqueta de video.
+              </video>
+              <div class="video-overlay d-flex align-items-center justify-content-center">
+                <button class="btn btn-light rounded-circle play-btn" style="width: 60px; height: 60px;">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="actividades-casa">
-      <h2>Actividades en Casa</h2>
-      <ul>
-        <li><iframe src="https://www.youtube.com/embed/VIDEO_ID_5" allowfullscreen></iframe></li>
-        <li><iframe src="https://www.youtube.com/embed/VIDEO_ID_6" allowfullscreen></iframe></li>
-      </ul>
+  <!-- Contenido Principal -->
+  <main class="content py-5 bg-light">
+    <div class="container">
+      <!-- Secciones de contenido dinámicas -->
+      <div *ngFor="let section; of sections; let i = index"
+           [id]="section.title.toLowerCase().replace(' ', '-')"
+           class="content-section mb-5">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="section-title mb-4 text-center text-md-start">
+              {{section.title}}
+              <span class="text-primary">.</span>
+            </h2>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div *ngFor="let video; of section.videos; let j = index" class="col-12 col-md-6 col-lg-4">
+            <div class="video-card card h-100 border-0 shadow-sm">
+              <div class="card-img-top ratio ratio-16x9">
+                <iframe
+                  [src]="getSafeUrl(video.id)"
+                  allowfullscreen
+                  class="rounded-top">
+                </iframe>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{video.title}}</h5>
+                <p class="card-text text-muted small">
+                  Descripción del video relacionado con {{section.title}}.
+                </p>
+              </div>
+              <div class="card-footer bg-transparent border-0">
+                <button class="btn btn-outline-primary btn-sm">
+                  Ver más <i class="fas fa-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </main>
 
-    <div class="recursos">
-      <h2>Recursos</h2>
-      <ul>
-        <li><iframe src="https://www.youtube.com/embed/VIDEO_ID_7" allowfullscreen></iframe></li>
-        <li><iframe src="https://www.youtube.com/embed/VIDEO_ID_8" allowfullscreen></iframe></li>
-      </ul>
-    </div>
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white py-5">
+    <div class="container">
+      <div class="row">
+        <!-- Enlaces rápidos -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <h5 class="mb-3">Enlaces Rápidos</h5>
+          <div class="footer-links d-flex flex-column">
+            <a href="#" class="text-white-50 text-decoration-none mb-2">Inicio</a>
+            <a href="#" class="text-white-50 text-decoration-none mb-2">Nosotros</a>
+            <a href="#" class="text-white-50 text-decoration-none mb-2">Servicios</a>
+            <a href="#" class="text-white-50 text-decoration-none mb-2">Contacto</a>
+          </div>
+        </div>
 
-    <div class="ayuda">
-      <h2>Ayuda</h2>
-      <ul>
-        <li><iframe src="https://www.youtube.com/embed/VIDEO_ID_9" allowfullscreen></iframe></li>
-        <li><iframe src="https://www.youtube.com/embed/VIDEO_ID_10" allowfullscreen></iframe></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer">
-    <div class="footer-links">
-      <a href="#">Inicio</a>
-      <a href="#">Nosotros</a>
-      <a href="#">Servicios</a>
-      <a href="#">Contacto</a>
-    </div>
+        <!-- Información de contacto -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <h5 class="mb-3">Contacto</h5>
+          <div class="contact-info">
+            <p class="text-white-50 mb-1">
+              <i class="fas fa-phone me-2"></i> +1 234 567 890
+            </p>
+            <p class="text-white-50 mb-1">
+              <i class="fas fa-envelope me-2"></i> info@misitio.com
+            </p>
+            <p class="text-white-50">
+              <i class="fas fa-map-marker-alt me-2"></i> Ciudad, País
+            </p>
+          </div>
+        </div>
 
-    <div class="social-icons">
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"></a>
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="YouTube"></a>
-    </div>
+        <!-- Redes sociales -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <h5 class="mb-3">Síguenos</h5>
+          <div class="social-icons d-flex gap-3">
+            <a href="#" class="text-white-50">
+              <i class="fab fa-facebook-f fa-lg"></i>
+            </a>
+            <a href="#" class="text-white-50">
+              <i class="fab fa-instagram fa-lg"></i>
+            </a>
+            <a href="#" class="text-white-50">
+              <i class="fab fa-twitter fa-lg"></i>
+            </a>
+            <a href="#" class="text-white-50">
+              <i class="fab fa-youtube fa-lg"></i>
+            </a>
+          </div>
+        </div>
 
-    <p>&copy; 2025 Mi Sitio Web. Todos los derechos reservados.</p>
-  </div>
+        <!-- Newsletter -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <h5 class="mb-3">Newsletter</h5>
+          <div class="newsletter">
+            <p class="text-white-50 small mb-2">
+              Suscríbete para recibir novedades
+            </p>
+            <div class="input-group">
+              <input type="email" class="form-control" placeholder="Tu email">
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-4 bg-white-50">
+
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+          <p class="mb-0 text-white-50">
+            &copy; 2025 Mi Sitio Web. Todos los derechos reservados.
+          </p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <div class="legal-links">
+            <a href="#" class="text-white-50 text-decoration-none me-3">Política de Privacidad</a>
+            <a href="#" class="text-white-50 text-decoration-none">Términos de Servicio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>

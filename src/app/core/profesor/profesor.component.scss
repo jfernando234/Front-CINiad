@@ -1,0 +1,104 @@
+.profesor-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.profesor-header {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      span {
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.profesor-nav {
+  background: white;
+  border-bottom: 1px solid #e1e5e9;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  .nav-container {
+    padding: 0 2rem;
+  }
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+  }
+
+  .nav-item {
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 1.5rem;
+      color: #495057;
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+      font-weight: 500;
+
+      i {
+        font-size: 1.1rem;
+      }
+
+      &:hover {
+        background-color: #f8f9fa;
+        color: #27ae60;
+      }
+
+      &.active {
+        color: #27ae60;
+        border-bottom-color: #27ae60;
+        background-color: #f8f9fa;
+      }
+    }
+  }
+}
+
+.profesor-main {
+  padding: 2rem;
+  min-height: calc(100vh - 140px);
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .profesor-header .header-content {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .profesor-nav .nav-menu {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .nav-item .nav-link {
+    justify-content: center;
+  }
+}
