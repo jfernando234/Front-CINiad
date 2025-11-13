@@ -76,11 +76,7 @@
           <div *ngFor="let video; of section.videos; let j = index" class="col-12 col-md-6 col-lg-4">
             <div class="video-card card h-100 border-0 shadow-sm">
               <div class="card-img-top ratio ratio-16x9">
-                <iframe
-                  [src]="getSafeUrl(video.id)"
-                  allowfullscreen
-                  class="rounded-top">
-                </iframe>
+
               </div>
               <div class="card-body">
                 <h5 class="card-title">{{video.title}}</h5>

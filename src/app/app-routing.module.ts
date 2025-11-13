@@ -2,36 +2,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './core/inicio/inicio.component';
-import { ActividadesCasaComponent } from './core/actividades-casa/actividades-casa.component';
-import { RecursosComponent } from './core/recursos/recursos.component';
+import { AdminComponent } from './core/admin/admin.component';
 
 
-const routes: Routes = [
+/*const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   {
     path: 'inicio',
     component: InicioComponent,
     children: [
-      { path: '', component: InicioComponent },
-      { path: 'actividades-casa', component: ActividadesCasaComponent },
-      { path: 'recursos', component: RecursosComponent }
+      { path: '', component: InicioComponent }
     ]
   },
   {
     path: 'admin',
     loadChildren: () => import('./core/admin/admin.module').then(m => m.AdminModule)
   },
+  { path: '**', redirectTo: 'inicio' }
+];*/
+/** para trabajar en el admin  */
+const routes: Routes = [
+  { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  { path: 'inicio', component: InicioComponent },
   {
-    path: 'profesor',
-    loadChildren: () => import('./core/profesor/profesor.module').then(m => m.ProfesorModule)
-  },
-  {
-    path: 'alumno',
-    loadChildren: () => import('./core/alumno/alumno.module').then(m => m.AlumnoModule)
+    path: 'admin',
+    loadChildren: () =>
+      import('./core/admin/admin.module').then(m => m.AdminModule)
   },
   { path: '**', redirectTo: 'inicio' }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

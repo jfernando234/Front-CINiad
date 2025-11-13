@@ -3,4 +3,4 @@ export interface User {
   nombre: string;
   rol: Role;
 }
-export type Role = 'admin' | 'profesor' | 'alumno';
+export type Role = 'admin';

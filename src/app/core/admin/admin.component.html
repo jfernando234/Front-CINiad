@@ -11,54 +11,41 @@
       </div>
     </div>
   </header>
-  <!-- Menú de Navegación del Admin -->
-  <nav class="admin-nav">
-    <div class="nav-container">
-      <ul class="nav-menu">
-        <li class="nav-item">
-          <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link">
-            <i class="bi bi-speedometer2"></i>
-            Dashboard
-          </a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/admin/usuarios" routerLinkActive="active" class="nav-link">
-            <i class="bi bi-people"></i>
-            Gestión de Usuarios
-          </a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/admin/recursos" routerLinkActive="active" class="nav-link">
-            <i class="bi bi-folder"></i>
-            Recursos
-          </a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/admin/materiales" routerLinkActive="active" class="nav-link">
-            <i class="bi bi-journal"></i>
-            Materiales
-          </a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/admin/cursos" routerLinkActive="active" class="nav-link">
-            <i class="bi bi-book"></i>
-            Gestión de Cursos
-          </a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/admin/configuracion" routerLinkActive="active" class="nav-link">
-            <i class="bi bi-gear"></i>
-            Configuración
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <!-- Cuerpo: menú izquierdo + contenido principal -->
+  <div class="admin-body">
+    <!-- Menú de Navegación del Admin -->
+    <aside class="admin-aside">
+      <ng-scrollbar class="sidebar-scroll" style="height: calc(100vh - 60px);">
+        <nav class="admin-nav">
+          <ul class="nav flex-column">
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" routerLink="/admin/usuarios">Gestión de Usuarios</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" routerLink="/admin/cursos">Gestión de Terapias</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" routerLink="/admin/cursos">Gestión de Programas</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" routerLink="/admin/cursos">Gestión de Talleres</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" routerLink="">Gestión de Actividades</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" routerLink="/admin/configuracion">Gestión de Recursos</a>
+            </li>
+          </ul>
+        </nav>
+      </ng-scrollbar>
+    </aside>
 
-  <!-- Área de contenido principal -->
-  <main class="admin-main">
-    <div class="container-fluid">
-      <router-outlet></router-outlet>
-    </div>
-  </main>
+    <!-- Área de contenido principal  -->
+    <main class="admin-main">
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
 </div>

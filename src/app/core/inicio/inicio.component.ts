@@ -52,7 +52,9 @@ export class InicioComponent implements OnInit {
   ngOnInit(): void {
     this.sections;
   }
-
+  cambiar(){
+    
+  }
   // Método para navegar a secciones
   scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);

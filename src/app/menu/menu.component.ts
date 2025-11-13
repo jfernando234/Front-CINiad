@@ -43,11 +43,8 @@ export class MenuComponent {
         case 'admin':
           this.router.navigate(['/admin']);
           break;
-        case 'profesor':
-          this.router.navigate(['/profesor']);
-          break;
-        case 'alumno':
-          this.router.navigate(['/alumno']);
+        default:
+          this.router.navigate(['/inicio']);
           break;
       }
     }
