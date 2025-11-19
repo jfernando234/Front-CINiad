@@ -11,6 +11,7 @@ import { MenuComponent } from './menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './core/admin/admin.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,12 +24,13 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule, // necesario para modales
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
     FormsModule,
     CommonModule,
     NgScrollbarModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { UsuariosAdminComponent } from './usuarios-admin/usuarios-admin.component';
 import { RecursosAdminComponent } from './recursos-admin/recursos-admin.component';
 
 import { AuthGuard } from 'src/app/shared/auth/auth.guard';
+import { TerapiasAdminComponent } from './terapias-admin/terapias-admin.component';
+import { ProgramasAdminComponent } from './programas-admin/programas-admin.component';
+import { TalleresAdminComponent } from './talleres-admin/talleres-admin.component';
+import { ActividadesAdminComponent } from './actividades-admin/actividades-admin.component';
 
 const routes: Routes = [
   {
@@ -14,8 +17,12 @@ const routes: Routes = [
     // data: { roles: ['admin'] },
     children: [
       { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
-      { path: 'usuarios', component: UsuariosAdminComponent },
-      { path: 'recursos', component: RecursosAdminComponent },
+      { path: 'usuarios', loadChildren: () => import('./usuarios-admin/usuarios-admin.module').then(m => m.UsuariosAdminModule) },
+      { path: 'terapias',  component: TerapiasAdminComponent },
+      { path: 'programas', component: ProgramasAdminComponent },
+      { path: 'talleres',  component: TalleresAdminComponent },
+      { path: 'actividades',  component: ActividadesAdminComponent },
+      { path: 'recursos',  component: RecursosAdminComponent },
     ]
   }
 ];
