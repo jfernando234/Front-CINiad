@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EditarTerapiasComponent } from './editar-terapias/editar-terapias.component';
 import { AddTerapiasComponent } from './add-terapias/add-terapias.component';
+import { ITerapia } from 'src/app/shared/models/terapias';
+import { TerapiasService } from 'src/app/shared/services/terapias.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-terapias-admin',
@@ -12,8 +15,30 @@ export class TerapiasAdminComponent {
 
   bsModalRef?: BsModalRef;
   isLoading = false;
-  constructor(private modalService: BsModalService) { }
 
+
+  /**variables para data y paginacion */
+  serialNumberArray: Array<number> = [];
+  TerapiasList: ITerapia[] = [];
+  totalData = 0;
+  pageNumberArray: Array<number> = [];
+  currentPage = 1;
+  pageSize = 10;
+  displayList: any[] = [];
+  constructor(private modalService: BsModalService, private terapiasService: TerapiasService) { }
+
+  ngOnInit() {
+    this.obtenerTerapiasData();
+  }
+  obtenerTerapiasData(): void {
+    this.terapiasService.obtenerAllTerapias().pipe(finalize(() => this.isLoading = false))
+      .subscribe((data: ITerapia[]) => {
+        this.TerapiasList = data;
+        this.totalData = data.length;
+        this.calculateTotalPages();
+        this.moveToPage(1);
+      })
+  }
   filtroData() {
 
   }
@@ -25,14 +50,39 @@ export class TerapiasAdminComponent {
       class: 'modal-lg',
     });
   }
-  editarTerapias(usuarioId: number) {
+  editarTerapias(terapiaId: number) {
     const initialState = {
-      usuarioId: usuarioId
+      terapiasId: terapiaId
     };
     this.bsModalRef = this.modalService.show(EditarTerapiasComponent, { class: 'modal-lg', initialState }),
       this.bsModalRef.onHidden?.subscribe(() => {
         this.refreshData();
       });
+  }
+
+
+  /**Metodos de paginacion  */
+  getMoreData(direction: 'next' | 'previous'): void {
+    if (direction === 'next' && this.currentPage < this.pageNumberArray.length) {
+      this.moveToPage(this.currentPage + 1);
+    } else if (direction === 'previous' && this.currentPage > 1) {
+      this.moveToPage(this.currentPage - 1);
+    }
+  }
+
+  moveToPage(page: number): void {
+    this.currentPage = page;
+    const startIndex = (page - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.displayList = this.TerapiasList.slice(startIndex, endIndex);
+
+    // Opcional: actualizar números de serie
+    this.serialNumberArray = this.displayList.map((_, i) => startIndex + i + 1);
+  }
+
+  calculateTotalPages(): void {
+    const totalPages = Math.ceil(this.totalData / this.pageSize);
+    this.pageNumberArray = Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 }
 
