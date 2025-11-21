@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { IUsuario } from 'src/app/shared/models/usuarios';
 import { UsuariosService } from 'src/app/shared/services/usuarios.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-usuario',
   templateUrl: './add-usuario.component.html',
@@ -11,7 +12,7 @@ import { UsuariosService } from 'src/app/shared/services/usuarios.service';
 export class AddUsuarioComponent implements OnInit {
 
   form!: FormGroup;
-
+  Usuario: IUsuario [] = [];
   public mostrarErrores = false;
   fotoPreview: string | ArrayBuffer | null = null;
   ngOnInit(): void {
@@ -31,15 +32,32 @@ export class AddUsuarioComponent implements OnInit {
 
   /**Metodos */
 
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => this.fotoPreview = reader.result;
-      reader.readAsDataURL(file);
+
+  crearUsuario() {
+    if (this.form.invalid) {
+      this.isTouched()
+      return;
     }
+    const Usuario: IUsuario = {
+      nombreUsuario: this.form.value.nombre,
+      apellidos: this.form.value.apellidos,
+      edad: this.form.value.edad,
+      telefono: this.form.value.telefono,
+    };
+    console.log(this.Usuario);
+    this.usuarioService.agregarUsuario(Usuario).subscribe(
+      (response) => {
+        if (response.isSuccess) {
+          Swal.fire(response.message, 'Usuario Agregado correctamente', 'success');
+          this.bsModalRef.hide();
+        } else {
+          console.error(response.message);
+        }
+      },
+      (error) => {
+        console.error(error);
+      });
   }
-  crearUsuario() { }
   Cancelar() {
 
   }
@@ -51,5 +69,18 @@ export class AddUsuarioComponent implements OnInit {
   isRequerido(controlName: string) {
     const control = this.form.get(controlName);
     return control?.errors && control.errors['required'];
+  }
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => this.fotoPreview = reader.result;
+      reader.readAsDataURL(file);
+    }
+  }
+  isTouched() {
+    Object.values(this.form.controls).forEach((control) => {
+      control.markAsTouched();
+    });
   }
 }
