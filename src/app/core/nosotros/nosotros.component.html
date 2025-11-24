@@ -1,0 +1,270 @@
+<!-- home.component.html -->
+<div class="home-container">
+
+  <!-- Header -->
+  <header class="header bg-white shadow-sm sticky-top">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center py-2">
+        <div class="logo">
+          <img src="assets/logo.png" alt="logo" class="img-fluid">
+        </div>
+        <app-menu></app-menu>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner Principal -->
+  <section class="banner position-relative overflow-hidden" aria-labelledby="banner-heading">
+    <div class="container">
+      <h2 id="banner-heading" class="visually-hidden">Navegación principal</h2>
+
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-10">
+          <div class="d-flex flex-wrap justify-content-center gap-3 mb-2">
+            <!-- Botón Nosotros - ID corregido -->
+            <button (click)="scrollToSection('nosotros')"
+              class="btn btn-outline-primary rounded-pill px-3 py-2 d-flex flex-column align-items-center service-nav-btn"
+              role="button" aria-label="Navegar a la sección Sobre Nosotros">
+              <i class="fas fa-hands-helping mb-1" aria-hidden="true"></i>
+              <span>Nosotros</span>
+            </button>
+
+            <!-- Botón Misión y Visión - ID corregido -->
+            <button (click)="scrollToSection('misionVision')"
+              class="btn btn-outline-primary rounded-pill px-3 py-2 d-flex flex-column align-items-center service-nav-btn"
+              role="button" aria-label="Navegar a la sección Misión y Visión">
+              <i class="fas fa-tasks mb-1" aria-hidden="true"></i>
+              <span>Misión y Visión</span>
+            </button>
+
+            <!-- Botón Servicios - ID corregido -->
+            <button (click)="scrollToSection('servicios')"
+              class="btn btn-outline-primary rounded-pill px-3 py-2 d-flex flex-column align-items-center service-nav-btn"
+              role="button" aria-label="Navegar a la sección Nuestros Servicios">
+              <i class="fas fa-users mb-1" aria-hidden="true"></i>
+              <span>Nuestros Servicios</span>
+            </button>
+
+            <!-- Botón Unirte - ID corregido -->
+            <button (click)="scrollToSection('unirte')"
+              class="btn btn-outline-primary rounded-pill px-3 py-2 d-flex flex-column align-items-center service-nav-btn"
+              role="button" aria-label="Navegar a la sección ¿Quieres Ser Parte de CINiad?">
+              <i class="fas fa-home mb-1" aria-hidden="true"></i>
+              <span>¿Quieres Ser Parte de CINiad?</span>
+            </button>
+
+            <!-- Botón Contacto - ID corregido -->
+            <button (click)="scrollToSection('contacto')"
+              class="btn btn-outline-primary rounded-pill px-3 py-2 d-flex flex-column align-items-center service-nav-btn"
+              role="button" aria-label="Navegar a la sección Contacto">
+              <i class="fas fa-book mb-1" aria-hidden="true"></i>
+              <span>Contacto</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row align-items-center py-3">
+        <div class="col-12">
+          <div class="video-container rounded-4 overflow-hidden shadow-lg">
+            <div class="ratio ratio-16x9">
+              <video class="w-100 h-100" autoplay muted loop playsinline aria-label="Video presentación de CINIAD">
+                <source src="assets/videos/presentacion.mp4" type="video/mp4">
+                Tu navegador no soporta la etiqueta de video.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Contenido Principal -->
+  <main class="content bg-white">
+    <div class="container">
+
+      <!-- Nosotros -->
+      <section id="nosotros" class="content-section mb-5" tabindex="-1" aria-labelledby="nosotros-heading">
+        <h2 id="nosotros-heading" class="section-title mb-4 text-center">Sobre Nosotros<span
+            class="text-primary">.</span></h2>
+        <p class="text-center text-muted mb-5">Conoce más sobre nuestra institución y nuestro compromiso con el
+          desarrollo infantil.</p>
+
+        <div class="row align-items-center">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <img src="assets/images/nosotros.jpg" alt="Niños participando en actividades terapéuticas en CINIAD"
+              class="img-fluid rounded shadow-sm">
+          </div>
+          <div class="col-md-6">
+            <div class="p-4 bg-light rounded">
+              <p class="mb-0">CINIAD es una institución que se enfoca en el desarrollo infantil de manera integral.
+                Proporciona atención terapéutica a niños con problemas en áreas como el lenguaje, la psicomotricidad, el
+                aprendizaje, la conducta y el desarrollo emocional. Nuestro objetivo es entender al niño de manera
+                completa y atender sus necesidades desde una perspectiva biopsicosocial. CINIAD ofrece evaluaciones y
+                planes de intervención personalizados con la ayuda de psicólogos, terapeutas de lenguaje, y otros
+                especialistas.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Misión y Visión -->
+      <section id="misionVision" class="content-section mb-5" tabindex="-1" aria-labelledby="misionVision-heading">
+        <h2 id="misionVision-heading" class="section-title mb-4 text-center">Misión y Visión <span
+            class="text-primary">.</span></h2>
+        <p class="text-center text-muted mb-5">Nuestros principios fundamentales que guían nuestro trabajo</p>
+
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-primary rounded-circle p-3 me-3">
+                    <i class="fas fa-bullseye text-white fa-lg"></i>
+                  </div>
+                  <h3 class="card-title h4 mb-0">Misión</h3>
+                </div>
+                <p class="card-text">Proporcionar un entorno de apoyo para niños con autismo y TDAH. Ofrecer terapias
+                  personalizadas y programas innovadores para mejorar su desarrollo en diferentes áreas. Empoderar a
+                  familias y cuidadores para que apoyen efectivamente el crecimiento de los niños. Promover la inclusión
+                  y la participación en la sociedad.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-primary rounded-circle p-3 me-3">
+                    <i class="fas fa-eye text-white fa-lg"></i>
+                  </div>
+                  <h3 class="card-title h4 mb-0">Visión</h3>
+                </div>
+                <p class="card-text">Ser un centro de terapias integrales y aprendizaje reconocido nacionalmente como
+                  sólido y confiable. Ser valorado por empleados y colaboradores como un lugar donde se trabaja en
+                  equipo, con dignidad y orgullo. Ser reconocido por la sociedad por reforzar valores humanos y
+                  contribuir al desarrollo y crecimiento sano de todos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Programas -->
+      <section id="servicios" class="content-section mb-5" tabindex="-1" aria-labelledby="servicios-heading">
+        <h2 id="servicios-heading" class="section-title mb-4 text-center">Nuestros Servicios<span
+            class="text-primary">.</span></h2>
+        <p class="text-center text-muted mb-5">Ofrecemos diversas terapias especializadas para atender las necesidades
+          específicas de cada niño.</p>
+
+        <div class="cards-container">
+          <app-componnets *ngFor="let item of programaList" [title]="item.title" [description]="item.description"
+            [imageUrl]="item.imageUrl" [altText]="item.altText" [itemId]="item.tallerId">
+          </app-componnets>
+        </div>
+      </section>
+
+      <!-- Unirte -->
+      <section id="unirte" class="content-section mb-5" tabindex="-1" aria-labelledby="unirte-heading">
+        <h2 id="unirte-heading" class="section-title mb-4 text-center">¿Quieres ser parte de CINIAD?<span
+            class="text-primary">.</span></h2>
+        <p class="text-center text-muted mb-5">¿Te interesa formar parte de nosotros? Envíanos un mensaje para unirte a
+          este hermoso equipo</p>
+
+        <div class="row align-items-center">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <img src="assets/images/equipo.jpg" alt="Equipo de trabajo de CINIAD colaborando juntos"
+              class="img-fluid rounded shadow-sm">
+          </div>
+          <div class="col-md-6">
+            <form class="bg-light p-4 rounded">
+              <div class="mb-3">
+                <label for="nombre" class="form-label h5">Nombre completo</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre completo"
+                  aria-required="true">
+              </div>
+              <div class="mb-3">
+                <label for="correo" class="form-label h5">Correo electrónico</label>
+                <input type="email" class="form-control" id="correo" placeholder="ejemplo@correo.com"
+                  aria-required="true">
+              </div>
+              <div class="mb-3">
+                <label for="mensaje" class="form-label h5">Mensaje</label>
+                <textarea class="form-control" id="mensaje" rows="4"
+                  placeholder="Cuéntanos por qué te interesa unirte a nuestro equipo" aria-required="true"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg w-100">Enviar solicitud</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contacto -->
+      <section id="contacto" class="content-section mb-5" tabindex="-1" aria-labelledby="contacto-heading">
+        <h2 id="contacto-heading" class="section-title mb-4 text-center">Contacto <span class="text-primary">.</span>
+        </h2>
+        <p class="text-center text-muted mb-5">¿Buscas la ayuda de un asesor? Escríbenos y nos pondremos en contacto
+          contigo en la brevedad posible</p>
+
+        <div class="row">
+          <div class="col-lg-6 mb-4">
+            <div class="bg-light p-4 rounded h-100">
+              <h3 class="h4 mb-3">Solicitar ayuda</h3>
+              <form>
+                <div class="mb-3">
+                  <label for="contacto-nombre" class="form-label">Nombre completo</label>
+                  <input type="text" class="form-control" id="contacto-nombre" placeholder="Ingresa tu nombre"
+                    aria-required="true">
+                </div>
+                <div class="mb-3">
+                  <label for="contacto-correo" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="contacto-correo" placeholder="ejemplo@correo.com"
+                    aria-required="true">
+                </div>
+                <div class="mb-3">
+                  <label for="contacto-asunto" class="form-label">Asunto</label>
+                  <input type="text" class="form-control" id="contacto-asunto" placeholder="Asunto de tu mensaje"
+                    aria-required="true">
+                </div>
+                <div class="mb-3">
+                  <label for="contacto-mensaje" class="form-label">Mensaje</label>
+                  <textarea class="form-control" id="contacto-mensaje" rows="4"
+                    placeholder="Describe cómo podemos ayudarte" aria-required="true"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">Solicitar ayuda</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="bg-light p-4 rounded h-100">
+              <h3 class="h4 mb-3"><strong>Información de contacto</strong></h3>
+              <p class="mb-4">Puedes visitarnos en nuestro centro o contactarnos por cualquiera de nuestras 2 sedes</p>
+
+              <div class="mb-4">
+                <h4 class="h5 text-primary">Sede Los Olivos</h4>
+                <p class="mb-1">Av. Marañón Mz. 07 Lote 17, Laura Caller - Los Olivos</p>
+                <p class="mb-0"><strong>Teléfono:</strong> +51 975 741 001</p>
+              </div>
+
+              <div class="mb-4">
+                <h4 class="h5 text-primary">Sede Breña</h4>
+                <p class="mb-1">Jr. Pozuso 112 Breña ref. Cerca al parque las banderas 51 Lima, Peru</p>
+                <p class="mb-0"><strong>Teléfono:</strong> +51 906 616 86</p>
+              </div>
+
+              <div class="text-center mt-4">
+                <button class="btn btn-outline-primary me-2 mb-2">Ver ubicación Los Olivos</button>
+                <button class="btn btn-outline-primary mb-2">Ver ubicación Breña</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer >
+    <app-footer></app-footer>
+  </footer>
+
+</div>

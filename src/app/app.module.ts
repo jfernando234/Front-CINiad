@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponnetsComponent } from './core/componnets/componnets.component';
 import { ContenidoComponent } from './core/contenido/contenido.component';
 import { FooterComponent } from './core/footer/footer.component';
+import { NosotrosComponent } from './core/nosotros/nosotros.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FooterComponent } from './core/footer/footer.component';
     ComponnetsComponent,
     ContenidoComponent,
     FooterComponent,
+    NosotrosComponent,
   ],
   imports: [
     BrowserModule,

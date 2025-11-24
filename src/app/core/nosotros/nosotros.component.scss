@@ -1,0 +1,329 @@
+/* ====== Contenedor general ====== */
+.home-container {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  min-height: 100vh
+}
+
+/* ====== Header ====== */
+
+.header {
+  z-index: 1000;
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e5e5e5;
+  height: 100px; // fija la altura del header
+  display: flex;
+  align-items: center;
+
+  .logo {
+    img {
+      max-height: 250px; // más grande que el header
+      width: auto;
+      object-fit: contain;
+      display: block;
+      position: relative;
+      top: -10px; // sube la imagen un poco sin aumentar el header
+    }
+  }
+}
+
+/* ====== Banner Principal ====== */
+.banner {
+  background: linear-gradient(135deg, #e8f3ff 0%, #ffffff 100%);
+  padding: 15px 0;
+  /* Reducido aún más el padding */
+
+  .row.justify-content-center.mb-3 {
+    margin-bottom: 15px;
+    /* Menos espacio entre botones y video */
+  }
+
+  .video-container {
+    position: relative;
+    max-height: 380px;
+    /* Ligeramente reducida la altura máxima */
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    video {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Eliminado completamente el overlay y botón de reproducción */
+  }
+}
+
+/* ====== Botones de navegación ====== */
+.service-nav-btn {
+  margin-bottom: 5px;
+  border-width: 2px;
+  border-color: #6c9bcf; // Usando el color pastel definido
+  color: #6c9bcf; // Usando el color pastel definido
+  font-weight: 500;
+  transition: all 0.25s ease;
+  cursor: pointer; // Asegurar que muestre el cursor pointer
+  min-height: 44px; // Tamaño mínimo para accesibilidad
+  min-width: 120px; // Ancho mínimo para mejor usabilidad
+  position: relative;
+  /* asegurar que el botón pueda elevarse por z-index */
+  z-index: 1100;
+  /* por encima de otros elementos como video o overlays */
+  pointer-events: auto;
+  /* forzar que acepte eventos pointer */
+
+  i {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: #6c9bcf; // Color pastel
+    color: #ffffff;
+    border-color: #6c9bcf; // Color pastel
+    transform: translateY(-2px);
+  }
+
+  /* Estados para accesibilidad */
+  &:focus {
+    outline: 3px solid #6c9bcf; // Color pastel
+    outline-offset: 2px;
+  }
+
+  // Estado activo para mejor feedback
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* ====== Mejoras adicionales para botones ====== */
+.btn {
+
+  // Asegurar que todos los botones tengan buen contraste
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  // Mejorar legibilidad del texto en botones
+  span {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+}
+
+/* ====== Clase para elementos visualmente ocultos pero accesibles ====== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ====== Contenido Principal ====== */
+.content {
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+
+  span {
+    color: #007bff;
+  }
+}
+
+.content-section {
+  position: relative;
+  z-index: 1;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+/* Fondo de ancho completo (visual) para cada sección usando ::before */
+.content-section::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  /* ocupar todo el ancho de la ventana */
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  /* detrás del contenido */
+}
+
+/* Colores diferentes por sección (ajusta los colores como prefieras) */
+.container>.content-section:nth-of-type(1)::before,
+.container>#nosotros::before {
+  background: linear-gradient(135deg, #f8fbff 0%, #e6f0ff 100%);
+}
+
+.container>.content-section:nth-of-type(2)::before,
+.container>#misionVision::before {
+  background: linear-gradient(135deg, #fffaf0 0%, #fff0d9 100%);
+}
+
+.container>.content-section:nth-of-type(3)::before,
+.container>#servicios::before {
+  background: linear-gradient(135deg, #f6fff6 0%, #e6f7ea 100%);
+}
+
+.container>.content-section:nth-of-type(4)::before,
+.container>#unirte::before {
+  background: linear-gradient(135deg, #fff6fb 0%, #fde6f5 100%);
+}
+
+.container>.content-section:nth-of-type(5)::before,
+.container>#contacto::before {
+  background: linear-gradient(135deg, #f0f7ff 0%, #dfeeff 100%);
+}
+
+/* Clase opcional para que una sección ocupe toda la altura de la ventana */
+.content-section.full-height {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  /* centra el contenido verticalmente */
+}
+
+.cards-container {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ====== Mejoras de accesibilidad y colores pastel ====== */
+
+// Colores pastel para mejor contraste y accesibilidad
+$primary-pastel: #6c9bcf;
+$secondary-pastel: #a8d5ba;
+$accent-pastel: #f9c846;
+$light-pastel: #f8f9fa;
+$text-color: #2c3e50;
+$primary-pastel: #6c9bcf;
+
+// Aplicar colores a elementos específicos
+.bg-light {
+  background-color: lighten($light-pastel, 2%) !important;
+}
+
+.btn-primary {
+  background-color: $primary-pastel;
+  border-color: $primary-pastel;
+
+  &:hover,
+  &:focus {
+    background-color: darken($primary-pastel, 10%);
+    border-color: darken($primary-pastel, 10%);
+  }
+}
+
+.btn-outline-primary {
+  color: $primary-pastel;
+  border-color: $primary-pastel;
+
+  &:hover,
+  &:focus {
+    background-color: #0056b3;
+    color: #ffffff;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+  }
+}
+
+.text-primary {
+  color: $primary-pastel !important;
+}
+
+.bg-primary {
+  background-color: $primary-pastel !important;
+}
+
+// Mejorar contraste de texto
+.text-muted {
+  color: #5a6c7d !important; // Color más oscuro para mejor contraste
+}
+
+// Mejorar accesibilidad de formularios
+.form-label {
+  font-weight: 600;
+  color: $text-color;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  border: 2px solid #dee2e6;
+
+  &:focus {
+    border-color: $primary-pastel;
+    box-shadow: 0 0 0 0.2rem rgba($primary-pastel, 0.25);
+  }
+}
+
+// Mejorar tarjetas
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover,
+  &:focus-within {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+/* ====== Accesibilidad mejorada ====== */
+
+:focus {
+  outline: 3px solid $primary-pastel !important;
+  outline-offset: 3px;
+}
+
+// Mejorar navegación por teclado
+.content-section:focus {
+  outline: 3px solid $primary-pastel !important;
+  outline-offset: 5px;
+}
+
+// Mejorar contraste de imágenes
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Asegurar que los botones sean lo suficientemente grandes
+.btn {
+  min-height: 44px; // Tamaño mínimo para facilitar la interacción
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Mejorar legibilidad
+p,
+label,
+.form-control {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+// Asegurar suficiente espacio entre elementos
+.content-section {
+  margin-bottom: 0 !important; /* Anulado para evitar huecos entre fondos full-width */
+}
