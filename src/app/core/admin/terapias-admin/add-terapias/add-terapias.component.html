@@ -17,10 +17,9 @@
               <!-- Encabezado de detalles -->
               <div class="row mb-3">
                 <div class="col-12">
-                  <h4 class="modal-content">Detalles de la terapia</h4>
+                  <h2 class="modal-content"><strong>Detalles de la terapia</strong></h2>
                 </div>
               </div>
-
               <!-- Nombre y Descripción -->
               <div class="row mb-3">
                 <div class="col-12 col-md-6">
@@ -53,7 +52,7 @@
                           style="max-width: 150px;">
                       </div>
                       <div class="photo-upload">
-                        <input type="file" #fotoInput (change)="onFileSelected($event)" hidden>
+                        <input type="file" formControlName="imagen" #fotoInput (change)="onFileSelected($event)" hidden>
                         <button type="button" class="btn btn-primary" (click)="fotoInput.click()">Subir Foto</button>
                       </div>
                     </div>
@@ -94,18 +93,19 @@
                 </div>
               </div>
 
-              <!-- Botones Guardar / Cancelar -->
-              <div class="row mt-4">
-                <div class="col-12 d-flex gap-2">
-                  <button type="button" (click)="crearTerapia()" class="btn btn-primary">Guardar</button>
-                  <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
-                </div>
-              </div>
+
 
             </div>
           </div>
         </div>
       </div>
     </form>
+    <!-- Botones Guardar / Cancelar -->
+    <div class="row mt-4">
+      <div class="col-12 d-flex gap-2">
+        <button type="button" (click)="crearTerapia()" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+      </div>
+    </div>
   </div>
 </div>

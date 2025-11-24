@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { TerapiasService } from 'src/app/shared/services/terapias.service';
 import { AddDetallesComponent } from './add-detalles/add-detalles.component';
+import { ITerapia } from 'src/app/shared/models/terapias';
 
 @Component({
   selector: 'app-add-terapias',
@@ -15,7 +16,6 @@ export class AddTerapiasComponent implements OnInit {
   form!: FormGroup;
   bsModalRef?: BsModalRef;
   public mostrarErrores = false;
-  fotoPreview: string | ArrayBuffer | null = null;
   detalles: any[] = [];
   constructor(
     private router: Router,
@@ -27,24 +27,39 @@ export class AddTerapiasComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      descripcion: ['', Validators.required],
+      imagen: ['']
     });
   }
   /**Metodos */
   crearTerapia() {
     this.mostrarErrores = false;
+
     if (this.form.invalid) {
       this.mostrarErrores = true;
       this.form.markAllAsTouched();
       return;
     }
 
-    const payload = this.form.value;
-    this.terapiasService.agregarTerapias(payload).subscribe({
-      next: () => this.router.navigate(['admin/terapias']),
-      error: (err) => console.error('Error al crear terapia', err)
+    const formData = new FormData();
+
+    formData.append('nombre', this.form.get('nombre')?.value);
+    formData.append('descripcion', this.form.get('descripcion')?.value);
+    formData.append('imagen', this.imagenSubirFoto); // archivo
+
+    // === Enviar detalles como JSON ===
+    formData.append('detalle', JSON.stringify(this.detalles));
+
+    this.terapiasService.agregarTerapias(formData).subscribe({
+      next: (resp) => {
+        console.log('Terapia creada', resp);
+      },
+      error: (err) => {
+        console.error('Error al crear terapia', err);
+      }
     });
   }
+
 
   agregarDetalle() {
     this.bsModalRef = this.modalService.show(AddDetallesComponent, {
@@ -69,12 +84,25 @@ export class AddTerapiasComponent implements OnInit {
     const control = this.form.get(controlName);
     return control?.errors && control.errors['required'];
   }
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
+  imagenSubirFoto!: File;
+  fotoPreview!: string | ArrayBuffer | null;
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0] as File;
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => this.fotoPreview = reader.result;
+      reader.onload = (e) => {
+        this.fotoPreview = e.target!.result; // previsualización
+        this.imagenSubirFoto = file; // archivo para enviar al backend
+      };
       reader.readAsDataURL(file);
+    } else {
+      this.fotoPreview = null;
+      this.imagenSubirFoto = undefined!;
     }
   }
+
+
+
+
 }

@@ -18,7 +18,7 @@ export class TerapiasService {
   obetenerTerapiasId(terapiasId: number) {
     return this.http.get<ITerapia>(`${this.apiUrl}Terapias/ObtenerTerapiasId?TerapiasId=${terapiasId}`);
   }
-  agregarTerapias(terapia: ITerapia): Observable<any> {
+  agregarTerapias(terapia: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}Terapias/RegistrarTerapias`, terapia);
   }
   editarTerapias(terapiasId: number): Observable<any> {
