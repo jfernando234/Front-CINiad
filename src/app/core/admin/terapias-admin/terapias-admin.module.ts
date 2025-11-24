@@ -15,7 +15,7 @@ import { EditarDetallesComponent } from './editar-terapias/editar-detalles/edita
     AddTerapiasComponent,
     EditarTerapiasComponent,
     AddDetallesComponent,
-    EditarDetallesComponent
+    EditarDetallesComponent,
   ],
   imports: [
     CommonModule,

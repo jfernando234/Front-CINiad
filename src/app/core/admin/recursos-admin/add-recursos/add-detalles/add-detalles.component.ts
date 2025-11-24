@@ -11,6 +11,7 @@ export class AddDetallesRecursosComponent implements OnInit {
   form!: FormGroup;
   public mostrarErrores = false;
   fotoPreview: string | ArrayBuffer | null = null;
+  onSave!: (detalle: any) => void;
   constructor(public bsModalRef: BsModalRef, public fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -36,13 +37,25 @@ export class AddDetallesRecursosComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-  crearDetalle() {
+  guardarDetalle() {
     if (this.form.invalid) {
-      this.mostrarErrores = true;
       this.form.markAllAsTouched();
       return;
     }
-    this.bsModalRef?.hide();
+
+    const detalle = {
+      nombre: this.form.value.nombre,
+      descripcion: this.form.value.descripcion,
+      fotoPreview: this.fotoPreview || null,
+    };
+
+    // Llamamos al callback del padre
+    if (this.onSave) {
+      this.onSave(detalle);
+    }
+
+    // Cerramos el modal
+    this.bsModalRef.hide();
   }
   cancelar() { this.bsModalRef?.hide(); }
 }

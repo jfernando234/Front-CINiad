@@ -101,7 +101,4 @@ export class AddTerapiasComponent implements OnInit {
     }
   }
 
-
-
-
 }

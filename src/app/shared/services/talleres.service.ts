@@ -18,7 +18,7 @@ export class TalleresService {
   obetenerTalleresId(tallerId: number) {
     return this.http.get<ITaller>(`${this.apiUrl}Talleres/ObtenerTalleresId?TalleresId=${tallerId}`);
   }
-  agregarTalleres(taller: ITaller): Observable<any> {
+  agregarTalleres(taller: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}Talleres/RegistrarTalleres`, taller);
   }
   editarTalleres(tallerId: number): Observable<any> {

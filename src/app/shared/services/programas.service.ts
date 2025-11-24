@@ -18,7 +18,7 @@ export class ProgramasService {
   obetenerProgramasId(programasId: number) {
     return this.http.get<IProgramas>(`${this.apiUrl}Programas/ObtenerProgramasId?ProgramasId=${programasId}`);
   }
-  agregarProgramas(programa: IProgramas): Observable<any> {
+  agregarProgramas(programa: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}Programas/RegistrarProgramas`, programa);
   }
   editarProgramas(programasId: number): Observable<any> {

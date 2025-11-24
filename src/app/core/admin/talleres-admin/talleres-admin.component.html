@@ -4,7 +4,7 @@
     <div class="page-header">
       <div class="row">
         <div class="col-sm-12">
-          <h1>Lista de Terapias</h1>
+          <h1>Lista de Talleres</h1>
         </div>
       </div>
     </div>
@@ -47,7 +47,6 @@
                   </tr>
                 </thead>
                 <tbody>
-
                   <tr *ngFor="let data of displayList; let i = index">
                     <td>{{serialNumberArray[i]}}</td>
                     <td>{{data.imagen}}</td>
@@ -65,9 +64,7 @@
                       </div>
                     </td>
                   </tr>
-
               </table>
-
             </div>
             <!-- Paginación -->
             <div class="table-flooter d-flex justify-content-between  mt-3 flex-wrap">

@@ -1,65 +1,59 @@
-<div class="content-modal">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="card">
-        <div class="card-body">
-          <form [formGroup]="form">
-            <div class="row form-grid">
-              <div class="col-left">
-                <div class="form-heading">
-                  <h4>Agregar Detalle</h4>
-                </div>
-                <div class="row">
-                  <div class="col-12 col-md-6">
-                    <div class="form-group local-forms">
-                      <label>Nombre<span class="login-danger">*</span></label>
-                      <input formControlName="nombre" class="form-control" type="text">
-                      <div *ngIf="isInvalid('nombre') || mostrarErrores" class="invalid-feedback">
-                        <div *ngIf="isRequerido('nombre')|| mostrarErrores">
-                          Debe completar el campo*
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-12 col-md-6">
-                    <div class="form-group local-forms">
-                      <label>Descripcion<span class="login-danger">*</span></label>
-                      <input formControlName="descripcion" class="form-control" type="text">
-                      <div *ngIf="isInvalid('descripcion') || mostrarErrores" class="invalid-feedback">
-                        <div *ngIf="isRequerido('descripcion')|| mostrarErrores">
-                          Debe completar el campo*
-                        </div>
-                      </div>
-                    </div>
+<div class="content-modal p-3">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form [formGroup]="form">
+        <div class="row g-4">
+          <!-- Columna izquierda: formulario -->
+          <div class="col-md-8">
+            <h4 class="mb-3"><strong>Agregar Contenido</strong></h4>
+            <div class="row g-3">
+              <!-- Nombre -->
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label>Nombre <span class="text-danger">*</span></label>
+                  <input formControlName="nombre" class="form-control" type="text" placeholder="Ingrese nombre">
+                  <div *ngIf="isInvalid('nombre') || mostrarErrores" class="invalid-feedback d-block">
+                    Debe completar el campo*
                   </div>
                 </div>
               </div>
-              <div class="col-right">
-                <div class="profile-block">
-                  <label><strong>Imagen</strong></label>
-                  <div class="profile-photo-container">
-                    <div class="photo-preview">
-                      <img [src]="fotoPreview || 'assets/img/default-profile.png'" alt="Imagen">
-                    </div>
-                    <div class="photo-upload">
-                      <input type="file" #fotoInput (change)="onFileSelected($event)" hidden>
-                      <button type="button" class="btn btn-primary" (click)="fotoInput.click()">
-                        Subir Imagen
-                      </button>
-                    </div>
+              <!-- Descripción -->
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label>Descripción <span class="text-danger">*</span></label>
+                  <textarea formControlName="descripcion" class="form-control" rows="3"
+                    placeholder="Ingrese descripción"></textarea>
+                  <div *ngIf="isInvalid('descripcion') || mostrarErrores" class="invalid-feedback d-block">
+                    Debe completar el campo*
                   </div>
                 </div>
               </div>
             </div>
-          </form>
-          <div class="col-12 mt-3">
-            <div class="doctor-submit ">
-              <button type="button" class="btn btn-primary submit-form me-2" (click)="crearDetalle()">Guardar</button>
-              <button type="button" class="btn btn-secondary cancel-form" (click)="cancelar()">Cancelar</button>
+          </div>
+
+          <!-- Columna derecha: foto de perfil -->
+          <div class="col-md-4 text-center">
+            <label class="form-label"><strong>Foto de perfil</strong></label>
+            <div class="profile-photo-container mb-3">
+              <div class="photo-preview mb-2">
+                <img [src]="fotoPreview || 'assets/img/user.jpg'" alt="Foto de perfil"
+                  style="width: 150px; height: 150px; ">
+              </div>
+              <div class="photo-upload">
+                <input type="file" #fotoInput (change)="onFileSelected($event)" hidden>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="fotoInput.click()">
+                  Subir Foto
+                </button>
+              </div>
             </div>
           </div>
         </div>
+      </form>
+
+      <!-- Botones al final, centrados -->
+      <div class="mt-4 ">
+        <button type="button" (click)="guardarDetalle()" class="btn btn-primary me-2">Guardar</button>
+        <button type="button" (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
       </div>
     </div>
   </div>

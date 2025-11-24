@@ -18,7 +18,7 @@ export class RecursosService {
   obetenerRecursosId(recursosId: number) {
     return this.http.get<IRecurso>(`${this.apiUrl}Recursos/ObtenerRecursosId?RecursosId=${recursosId}`);
   }
-  agregarRecursos(recurso: IRecurso): Observable<any> {
+  agregarRecursos(recurso: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}Recursos/RegistrarRecursos`, recurso);
   }
   editarRecursos(recursosId: number): Observable<any> {

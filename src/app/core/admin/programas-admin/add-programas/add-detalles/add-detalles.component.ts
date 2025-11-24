@@ -11,6 +11,7 @@ export class AddDetallesProgramasComponent implements OnInit {
   form!: FormGroup;
   public mostrarErrores = false;
   fotoPreview: string | ArrayBuffer | null = null;
+  onSave!: (detalle: any) => void;
   constructor(public bsModalRef: BsModalRef, public fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -19,7 +20,29 @@ export class AddDetallesProgramasComponent implements OnInit {
       descripcion: ['', Validators.required]
     });
   }
+  guardarDetalle() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
+    const detalle = {
+      nombre: this.form.value.nombre,
+      descripcion: this.form.value.descripcion,
+      fotoPreview: this.fotoPreview || null,
+    };
+
+    // Llamamos al callback del padre
+    if (this.onSave) {
+      this.onSave(detalle);
+    }
+
+    // Cerramos el modal
+    this.bsModalRef.hide();
+  }
+  cancelar() { this.bsModalRef?.hide(); }
+
+  /***valiaciones  */
   isInvalid(controlName: string) {
     const control = this.form.get(controlName);
     return control?.invalid && control?.touched;
@@ -36,14 +59,9 @@ export class AddDetallesProgramasComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-  crearDetalle() {
-    if (this.form.invalid) {
-      this.mostrarErrores = true;
-      this.form.markAllAsTouched();
-      return;
-    }
-    // Caller should handle adding the detail; here we'll just close modal
-    this.bsModalRef?.hide();
+  isTouched() {
+    Object.values(this.form.controls).forEach((control) => {
+      control.markAsTouched();
+    });
   }
-  cancelar() { this.bsModalRef?.hide(); }
 }

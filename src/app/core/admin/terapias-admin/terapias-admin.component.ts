@@ -24,6 +24,8 @@ export class TerapiasAdminComponent {
   currentPage = 1;
   pageSize = 10;
   displayList: any[] = [];
+  imagenSubirFoto!: File;
+  fotoPreview!: string | ArrayBuffer | null;
   constructor(private modalService: BsModalService, private terapiasService: TerapiasService,
     private router: Router
   ) { }
@@ -53,7 +55,7 @@ export class TerapiasAdminComponent {
     const initialState = {
       terapiasId: terapiaId
     };
-    this.router.navigate(['admin/terapias/editar',initialState]);
+    this.router.navigate(['admin/terapias/editar', initialState]);
   }
 
 

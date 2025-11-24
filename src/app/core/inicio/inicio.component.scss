@@ -11,83 +11,81 @@
   z-index: 1000;
   background-color: #ffffff !important;
   border-bottom: 1px solid #e5e5e5;
+  height: 100px; // fija la altura del header
+  display: flex;
+  align-items: center;
 
-  .logo img {
-    max-height: 80px;
-    object-fit: contain;
+  .logo {
+    img {
+      max-height: 250px; // más grande que el header
+      width: auto;
+      object-fit: contain;
+      display: block;
+      position: relative;
+      top: -10px; // sube la imagen un poco sin aumentar el header
+    }
   }
 }
-
 /* ====== Banner Principal ====== */
-
 .banner {
-  background: linear-gradient(135deg,
-      #e8f3ff 0%,
-      #ffffff 100%);
-  padding: 60px 0;
+  background: linear-gradient(135deg, #e8f3ff 0%, #ffffff 100%);
+  padding: 15px 0;
+  /* Reducido aún más el padding */
 
-  .title-section h1 {
-    line-height: 1.2;
+  .row.justify-content-center.mb-3 {
+    margin-bottom: 15px;
+    /* Menos espacio entre botones y video */
   }
 
   .video-container {
     position: relative;
+    max-height: 380px;
+    /* Ligeramente reducida la altura máxima */
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      transition: 0.3s ease;
-
-      .play-btn {
-        background-color: #ffffff;
-        border: 2px solid #007bff;
-        color: #007bff;
-        font-weight: bold;
-        transition: 0.2s ease;
-
-        &:hover {
-          background-color: #007bff;
-          color: #ffffff;
-        }
-      }
+    video {
+      width: 100%;
+      height: 100%;
     }
 
-    &:hover .video-overlay,
-    &:focus-within .video-overlay {
-      opacity: 1;
-    }
+    /* Eliminado completamente el overlay y botón de reproducción */
   }
 }
 
-/* ====== Sección de Navegación Rápida ====== */
+/* ====== Botones de navegación ====== */
+.service-nav-btn {
+  margin-bottom: 5px;
+  /* Menos espacio vertical entre botones */
+  border-width: 2px;
+  border-color: #0056b3;
+  /* Color más oscuro para mejor contraste */
+  color: #0056b3;
+  /* Color más oscuro para mejor contraste */
+  font-weight: 500;
+  transition: all 0.25s ease;
 
-.navigation-section {
-  background-color: #f8f9fa;
-
-  .section-title {
-    font-size: 2rem;
-    color: #1a1a1a;
+  i {
+    font-size: 1.5rem;
+    /* Ligeramente reducido */
+    margin-bottom: 4px;
+    /* Reducido espacio entre icono y texto */
   }
 
-  .service-nav-btn {
-    min-width: 140px;
-    text-align: center;
-    font-weight: 500;
-    transition: 0.25s ease;
-    border-width: 2px;
+  &:hover,
+  &:focus {
+    background-color: #0056b3;
+    color: #ffffff;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+    /* Efecto sutil al hover */
+  }
 
-    i {
-      font-size: 1.8rem;
-    }
-
-    &:hover,
-    &:focus {
-      background-color: #007bff;
-      color: #ffffff;
-      border-color: #007bff;
-    }
+  /* Estados para accesibilidad */
+  &:focus {
+    outline: 3px solid #0056b3;
+    outline-offset: 2px;
   }
 }
 

@@ -18,7 +18,7 @@ export class ActividadesService {
   obetenerActividadesId(actividadesId: number) {
     return this.http.get<IActividad>(`${this.apiUrl}Actividades/ObtenerActividadesId?ActividadesId=${actividadesId}`);
   }
-  agregarActividades(actividad: IActividad): Observable<any> {
+  agregarActividades(actividad: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}Actividades/RegistrarActividades`, actividad);
   }
   editarActividades(actividadesId: number): Observable<any> {

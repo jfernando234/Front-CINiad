@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProgramasAdminRoutingModule } from './programas-admin-routing.module';
+import { ProgramasAdminComponent } from './programas-admin.component';
 import { EditarProgramasComponent } from './editar-programas/editar-programas.component';
 import { AddProgramasComponent } from './add-programas/add-programas.component';
 import { AddDetallesProgramasComponent } from './add-programas/add-detalles/add-detalles.component';
