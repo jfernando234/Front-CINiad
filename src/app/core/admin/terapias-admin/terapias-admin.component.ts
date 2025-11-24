@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EditarTerapiasComponent } from './editar-terapias/editar-terapias.component';
-import { AddTerapiasComponent } from './add-terapias/add-terapias.component';
+import { Router } from '@angular/router';
 import { ITerapia } from 'src/app/shared/models/terapias';
 import { TerapiasService } from 'src/app/shared/services/terapias.service';
 import { finalize } from 'rxjs';
@@ -16,7 +16,6 @@ export class TerapiasAdminComponent {
   bsModalRef?: BsModalRef;
   isLoading = false;
 
-
   /**variables para data y paginacion */
   serialNumberArray: Array<number> = [];
   TerapiasList: ITerapia[] = [];
@@ -25,7 +24,9 @@ export class TerapiasAdminComponent {
   currentPage = 1;
   pageSize = 10;
   displayList: any[] = [];
-  constructor(private modalService: BsModalService, private terapiasService: TerapiasService) { }
+  constructor(private modalService: BsModalService, private terapiasService: TerapiasService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.obtenerTerapiasData();
@@ -46,9 +47,7 @@ export class TerapiasAdminComponent {
     // Lógica para refrescar los datos
   }
   agregarTerapias() {
-    this.bsModalRef = this.modalService.show(AddTerapiasComponent, {
-      class: 'modal-lg',
-    });
+    this.router.navigate(['admin/terapias/add']);
   }
   editarTerapias(terapiaId: number) {
     const initialState = {
@@ -84,5 +83,6 @@ export class TerapiasAdminComponent {
     const totalPages = Math.ceil(this.totalData / this.pageSize);
     this.pageNumberArray = Array.from({ length: totalPages }, (_, i) => i + 1);
   }
+
 }
 

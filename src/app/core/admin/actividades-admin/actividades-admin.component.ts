@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ActividadesService } from 'src/app/shared/services/actividades.service';
 import { IActividad } from 'src/app/shared/models/actividades';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { AddActividadesComponent } from './add-actividades/add-actividades.component';
 import { EditarActividadesComponent } from './editar-actividades/editar-actividades.component';
 
 @Component({
@@ -24,7 +24,7 @@ export class ActividadesAdminComponent {
   pageSize = 10;
   displayList: any[] = [];
 
-  constructor(private modalService: BsModalService, private actividadesService: ActividadesService) { }
+  constructor(private modalService: BsModalService, private actividadesService: ActividadesService, private router: Router) { }
 
   filtroData() {
 
@@ -46,9 +46,7 @@ export class ActividadesAdminComponent {
       });
   }
   agregarActividades() {
-    this.bsModalRef = this.modalService.show(AddActividadesComponent, {
-      class: 'modal-lg',
-    });
+    this.router.navigate(['admin/actividades/add']);
   }
   editarActividades(actividadId: number) {
     const initialState = {

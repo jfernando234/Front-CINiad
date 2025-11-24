@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ProgramasService } from 'src/app/shared/services/programas.service';
 import { IProgramas } from 'src/app/shared/models/programas';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { AddProgramasComponent } from './add-programas/add-programas.component';
 import { EditarProgramasComponent } from './editar-programas/editar-programas.component';
 
 @Component({
@@ -24,7 +24,7 @@ export class ProgramasAdminComponent {
   pageSize = 10;
   displayList: any[] = [];
 
-  constructor(private modalService: BsModalService, private programasService: ProgramasService) { }
+  constructor(private modalService: BsModalService, private programasService: ProgramasService, private router: Router) { }
 
   ngOnInit() {
     this.obtenerProgramasData();
@@ -47,9 +47,7 @@ export class ProgramasAdminComponent {
     // Lógica para refrescar los datos
   }
   agregarProgramas() {
-    this.bsModalRef = this.modalService.show(AddProgramasComponent, {
-      class: 'modal-lg',
-    });
+    this.router.navigate(['admin/programas/add']);
   }
   editarProgramas(programaId: number) {
     const initialState = {

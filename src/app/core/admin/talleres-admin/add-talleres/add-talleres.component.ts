@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
 import { TalleresService } from 'src/app/shared/services/talleres.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class AddTalleresComponent implements OnInit {
   public mostrarErrores = false;
   fotoPreview: string | ArrayBuffer | null = null;
 
-  constructor(public bsModalRef: BsModalRef, private talleresService: TalleresService, public fb: FormBuilder) { }
+  constructor(private router: Router, private talleresService: TalleresService, public fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -31,8 +31,20 @@ export class AddTalleresComponent implements OnInit {
     }
   }
 
-  crearTaller() { }
-  Cancelar() { this.bsModalRef?.hide(); }
+  crearTaller() {
+    this.mostrarErrores = false;
+    if (this.form.invalid) {
+      this.mostrarErrores = true;
+      this.form.markAllAsTouched();
+      return;
+    }
+    const payload = this.form.value;
+    this.talleresService.agregarTalleres(payload).subscribe({
+      next: () => this.router.navigate(['admin/talleres']),
+      error: (err) => console.error('Error al crear taller', err)
+    });
+  }
+  Cancelar() { this.router.navigate(['admin/talleres']); }
 
   isInvalid(controlName: string) {
     const control = this.form.get(controlName);

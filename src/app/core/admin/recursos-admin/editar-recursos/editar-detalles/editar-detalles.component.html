@@ -1,0 +1,64 @@
+<div class="content-modal">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="form">
+            <div class="row form-grid">
+              <div class="col-left">
+                <div class="form-heading">
+                  <h4>Editar Detalle</h4>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group local-forms">
+                      <label>Nombre<span class="login-danger">*</span></label>
+                      <input formControlName="nombre" class="form-control" type="text">
+                      <div *ngIf="isInvalid('nombre') || mostrarErrores" class="invalid-feedback">
+                        <div *ngIf="isRequerido('nombre')|| mostrarErrores">
+                          Debe completar el campo*
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <div class="form-group local-forms">
+                      <label>Descripcion<span class="login-danger">*</span></label>
+                      <input formControlName="descripcion" class="form-control" type="text">
+                      <div *ngIf="isInvalid('descripcion') || mostrarErrores" class="invalid-feedback">
+                        <div *ngIf="isRequerido('descripcion')|| mostrarErrores">
+                          Debe completar el campo*
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-right">
+                <div class="profile-block">
+                  <label><strong>Imagen</strong></label>
+                  <div class="profile-photo-container">
+                    <div class="photo-preview">
+                      <img [src]="fotoPreview || 'assets/img/default-profile.png'" alt="Imagen">
+                    </div>
+                    <div class="photo-upload">
+                      <input type="file" #fotoInput (change)="onFileSelected($event)" hidden>
+                      <button type="button" class="btn btn-primary" (click)="fotoInput.click()">Subir Imagen</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="col-12 mt-3">
+            <div class="doctor-submit ">
+              <button type="button" class="btn btn-primary submit-form me-2" (click)="guardarDetalle()">Guardar</button>
+              <button type="button" class="btn btn-secondary cancel-form" (click)="cancelar()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

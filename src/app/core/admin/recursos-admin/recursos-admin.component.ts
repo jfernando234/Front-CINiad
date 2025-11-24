@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { RecursosService } from 'src/app/shared/services/recursos.service';
 import { IRecurso } from 'src/app/shared/models/recursos';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { AddRecursosComponent } from './add-recursos/add-recursos.component';
 import { EditarRecursosComponent } from './editar-recursos/editar-recursos.component';
 
 @Component({
@@ -24,7 +24,7 @@ export class RecursosAdminComponent {
   pageSize = 10;
   displayList: any[] = [];
 
-  constructor(private modalService: BsModalService, private recursosService: RecursosService) { }
+  constructor(private modalService: BsModalService, private recursosService: RecursosService, private router: Router) { }
 
   ngOnInit() {
     this.obtenerRecursosData();
@@ -47,9 +47,7 @@ export class RecursosAdminComponent {
     // Lógica para refrescar los datos
   }
   agregarRecursos() {
-    this.bsModalRef = this.modalService.show(AddRecursosComponent, {
-      class: 'modal-lg',
-    });
+    this.router.navigate(['admin/recursos/add']);
   }
   editarRecursos(recursoId: number) {
     const initialState = {

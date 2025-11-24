@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { TalleresService } from 'src/app/shared/services/talleres.service';
 import { ITaller } from 'src/app/shared/models/talleres';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { AddTalleresComponent } from './add-talleres/add-talleres.component';
 import { EditarTalleresComponent } from './editar-talleres/editar-talleres.component';
 
 @Component({
@@ -23,7 +23,7 @@ export class TalleresAdminComponent {
   pageSize = 10;
   displayList: any[] = [];
 
-  constructor(private modalService: BsModalService, private talleresService: TalleresService) { }
+  constructor(private modalService: BsModalService, private talleresService: TalleresService, private router: Router) { }
 
   ngOnInit() {
     this.obtenerTalleresData();
@@ -46,9 +46,7 @@ export class TalleresAdminComponent {
     // Lógica para refrescar los datos
   }
   agregarTalleres() {
-    this.bsModalRef = this.modalService.show(AddTalleresComponent, {
-      class: 'modal-lg',
-    });
+    this.router.navigate(['admin/talleres/add']);
   }
   editarTalleres(tallerId: number) {
     const initialState = {

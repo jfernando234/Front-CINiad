@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
 import { ActividadesService } from 'src/app/shared/services/actividades.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class AddActividadesComponent implements OnInit {
   public mostrarErrores = false;
   fotoPreview: string | ArrayBuffer | null = null;
   usuarioId: any;
-  constructor(public bsModalRef: BsModalRef, private actividadesService: ActividadesService, public fb: FormBuilder) { }
+  constructor(private router: Router, private actividadesService: ActividadesService, public fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -40,11 +40,11 @@ export class AddActividadesComponent implements OnInit {
     }
     const payload = this.form.value;
     this.actividadesService.agregarActividades(payload).subscribe({
-      next: () => this.bsModalRef?.hide(),
+      next: () => this.router.navigate(['admin/actividades']),
       error: (err) => console.error('Error al crear actividad', err)
     });
   }
-  Cancelar() { this.bsModalRef?.hide(); }
+  Cancelar() { this.router.navigate(['admin/actividades']); }
 
   isInvalid(controlName: string) {
     const control = this.form.get(controlName);

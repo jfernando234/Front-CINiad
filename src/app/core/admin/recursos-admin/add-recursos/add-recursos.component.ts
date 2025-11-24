@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
 import { RecursosService } from 'src/app/shared/services/recursos.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class AddRecursosComponent implements OnInit {
   public mostrarErrores = false;
   fotoPreview: string | ArrayBuffer | null = null;
 
-  constructor(public bsModalRef: BsModalRef, private recursosService: RecursosService, public fb: FormBuilder) { }
+  constructor(private router: Router, private recursosService: RecursosService, public fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -40,11 +40,11 @@ export class AddRecursosComponent implements OnInit {
     }
     const payload = this.form.value;
     this.recursosService.agregarRecursos(payload).subscribe({
-      next: () => this.bsModalRef?.hide(),
+      next: () => this.router.navigate(['admin/recursos']),
       error: (err) => console.error('Error al crear recurso', err)
     });
   }
-  Cancelar() { this.bsModalRef?.hide(); }
+  Cancelar() { this.router.navigate(['admin/recursos']); }
 
   isInvalid(controlName: string) {
     const control = this.form.get(controlName);

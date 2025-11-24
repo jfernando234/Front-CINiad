@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
 import { ProgramasService } from 'src/app/shared/services/programas.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class AddProgramasComponent implements OnInit {
   public mostrarErrores = false;
   fotoPreview: string | ArrayBuffer | null = null;
 
-  constructor(public bsModalRef: BsModalRef, private programasService: ProgramasService, public fb: FormBuilder) { }
+  constructor(private router: Router, private programasService: ProgramasService, public fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -41,11 +41,11 @@ export class AddProgramasComponent implements OnInit {
 
     const payload = this.form.value;
     this.programasService.agregarProgramas(payload).subscribe({
-      next: () => this.bsModalRef?.hide(),
+      next: () => this.router.navigate(['admin/programas']),
       error: (err) => console.error('Error al crear programa', err)
     });
   }
-  Cancelar() { this.bsModalRef?.hide(); }
+  Cancelar() { this.router.navigate(['admin/programas']); }
 
   isInvalid(controlName: string) {
     const control = this.form.get(controlName);
