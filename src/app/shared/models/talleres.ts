@@ -1,5 +1,5 @@
 export interface ITaller{
-  tallerId: number;
+  tallerId?: number;
   nombre: string;
   descripcion: string;
   imgen: Blob;

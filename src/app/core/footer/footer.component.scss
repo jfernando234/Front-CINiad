@@ -1,0 +1,45 @@
+
+/* ====== Footer ====== */
+
+.footer {
+  background-color: #111111;
+  color: #ffffff;
+
+  .footer-links a,
+  .contact-info p,
+  .social-icons a,
+  .legal-links a {
+    transition: 0.25s ease;
+
+    &:hover,
+    &:focus {
+      color: #ffffff !important;
+      text-decoration: underline;
+    }
+  }
+
+  .social-icons a {
+    font-size: 1.3rem;
+  }
+
+  input.form-control {
+    background-color: #222222;
+    border: 1px solid #444444;
+    color: #ffffff;
+
+    &:focus {
+      border-color: #007bff;
+      outline: 2px solid #007bff;
+    }
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+
+    &:hover,
+    &:focus {
+      background-color: #0056b3;
+    }
+  }
+}

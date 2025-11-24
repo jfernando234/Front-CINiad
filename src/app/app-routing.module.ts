@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './core/inicio/inicio.component';
 import { AdminComponent } from './core/admin/admin.component';
+import { ContenidoComponent } from './core/contenido/contenido.component';
 
 
 /*const routes: Routes = [
@@ -24,6 +25,7 @@ import { AdminComponent } from './core/admin/admin.component';
 const routes: Routes = [
   { path: '', redirectTo: 'admin', pathMatch: 'full' },
   { path: 'inicio', component: InicioComponent },
+  { path: 'detalle/:id', component: ContenidoComponent },
   {
     path: 'admin',
     loadChildren: () =>

@@ -1,5 +1,5 @@
 export interface IActividad{
-  actividadId: number;
+  actividadId?: number;
   nombre: string;
   descripcion: string;
   imgen: Blob;

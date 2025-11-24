@@ -10,6 +10,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+footer {
+  flex-shrink: 0;
+  /* no se encoge */
+}
+
 .page-wrapper {
   padding: 20px;
   background-color: #ccc6c6;
@@ -39,6 +44,7 @@ body {
 .card-table {
   margin-top: 20px;
   border-radius: 10px;
+
   .card-body {
     padding: 20px;
   }

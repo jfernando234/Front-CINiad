@@ -7,13 +7,15 @@ import { EditarTerapiasComponent } from './editar-terapias/editar-terapias.compo
 import { AddDetallesComponent } from './add-terapias/add-detalles/add-detalles.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { EditarDetallesComponent } from './editar-terapias/editar-detalles/editar-detalles.component';
 
 
 @NgModule({
   declarations: [
     AddTerapiasComponent,
     EditarTerapiasComponent,
-    AddDetallesComponent
+    AddDetallesComponent,
+    EditarDetallesComponent
   ],
   imports: [
     CommonModule,

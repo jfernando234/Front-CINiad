@@ -1,5 +1,5 @@
 export interface IRecurso{
-  recursoId: number;
+  recursoId?: number;
   nombre: string;
   descripcion: string;
   imgen: Blob;

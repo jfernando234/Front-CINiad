@@ -12,6 +12,9 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './core/admin/admin.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { HttpClientModule } from '@angular/common/http';
+import { ComponnetsComponent } from './core/componnets/componnets.component';
+import { ContenidoComponent } from './core/contenido/contenido.component';
+import { FooterComponent } from './core/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     MenuComponent,
     AdminComponent,
+    ComponnetsComponent,
+    ContenidoComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

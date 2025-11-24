@@ -1,5 +1,5 @@
 export interface IProgramas{
-  programaId: number;
+  programaId?: number;
   nombre: string;
   descripcion: string;
   imgen: Blob;

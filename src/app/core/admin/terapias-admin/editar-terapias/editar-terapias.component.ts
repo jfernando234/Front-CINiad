@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { TerapiasService } from 'src/app/shared/services/terapias.service';
+import { EditarDetallesComponent } from './editar-detalles/editar-detalles.component';
 
 @Component({
   selector: 'app-editar-terapias',
@@ -11,42 +12,32 @@ import { TerapiasService } from 'src/app/shared/services/terapias.service';
 export class EditarTerapiasComponent implements OnInit {
   form!: FormGroup;
   public mostrarErrores = false;
-  fotoPreview: string | ArrayBuffer | null = null;
+  bsModalRef!: BsModalRef;
   terapiasId: any;
-
-  constructor(public bsModalRef: BsModalRef, private terapiasService: TerapiasService, public fb: FormBuilder) { }
+  imagenSubirFoto!: File;
+  fotoPreview!: string | ArrayBuffer | null;
+  detalles: any[] = [];
+  constructor(public modalService: BsModalService, private terapiasService: TerapiasService, public fb: FormBuilder,) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required]
     });
-    const id = (this as any).usuarioId || this.terapiasId;
-    if (id) {
-      this.terapiasService.obetenerTerapiasId(id).subscribe({
-        next: (data) => {
-          this.form.patchValue({ nombre: (data as any).nombre, descripcion: (data as any).descripcion });
-          const img = (data as any).imgen || (data as any).imagen || (data as any).imagenBase64;
-          if (img) {
-            try {
-              // if img is string (base64 or url)
-              this.fotoPreview = img as any;
-            } catch (e) {
-              console.warn('Unable to set preview image', e);
-            }
-          }
-        },
-        error: (err) => console.error('Error fetching terapia', err)
-      });
-    }
   }
 
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
+  onFileSelected(event: any) {
+    const file = event.target.files[0] as File;
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => this.fotoPreview = reader.result;
+      reader.onload = (e) => {
+        this.fotoPreview = e.target!.result;
+        this.imagenSubirFoto = file;
+      };
       reader.readAsDataURL(file);
+    } else {
+      this.fotoPreview = null;
+      this.imagenSubirFoto = undefined!;
     }
   }
 
@@ -62,6 +53,19 @@ export class EditarTerapiasComponent implements OnInit {
       next: () => this.bsModalRef?.hide(),
       error: (err) => console.error('Error al guardar terapia', err)
     });
+  }
+
+  agregarDetalle() {
+    this.bsModalRef = this.modalService.show(EditarDetallesComponent, {
+      class: 'modal-lg',
+    });
+    this.bsModalRef.content.onSave = (detalle: any) => {
+      this.detalles.push(detalle);
+    };
+  }
+
+  eliminarDetalle(i: number) {
+    this.detalles.splice(i, 1);
   }
   Cancelar() { this.bsModalRef?.hide(); }
 

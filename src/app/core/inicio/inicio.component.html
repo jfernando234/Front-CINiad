@@ -1,11 +1,12 @@
 <!-- home.component.html -->
 <div class="home-container">
+
   <!-- Header -->
   <header class="header bg-white shadow-sm sticky-top">
     <div class="container">
       <div class="d-flex justify-content-between align-items-center py-2">
         <div class="logo">
-          <img src="assets/logo.png" alt="logo" class="img-fluid" style="max-height: 200px;">
+          <img src="assets/logo.png" alt="logo" class="img-fluid" style="max-height: 100px;">
         </div>
         <app-menu></app-menu>
       </div>
@@ -19,22 +20,11 @@
         <div class="col-lg-6 mb-4 mb-lg-0">
           <div class="title-section">
             <h1 class="display-5 fw-bold text-primary mb-4">Bienestar Integral</h1>
-            <div class="d-flex flex-wrap gap-3 mb-4">
-              <a href="javascript:void(0)" (click)="scrollToSection('terapias')" class="btn btn-outline-primary rounded-pill px-4">
-                Mis Terapias
-              </a>
-              <a href="javascript:void(0)" (click)="scrollToSection('programas')" class="btn btn-outline-primary rounded-pill px-4">
-                Mis Programas
-              </a>
-              <a href="javascript:void(0)" (click)="scrollToSection('talleres')" class="btn btn-outline-primary rounded-pill px-4">
-                Mis Talleres
-              </a>
-            </div>
             <p class="lead text-muted mb-4">
               Descubre nuestro enfoque integral para tu bienestar físico y mental.
             </p>
             <button class="btn btn-primary btn-lg rounded-pill px-4">
-              Conocer más <i class="fas fa-arrow-right ms-2"></i>
+              Conocer más <i class="fas fa-arrow-right ms-2" aria-hidden="true"></i>
             </button>
           </div>
         </div>
@@ -47,7 +37,7 @@
               </video>
               <div class="video-overlay d-flex align-items-center justify-content-center">
                 <button class="btn btn-light rounded-circle play-btn" style="width: 60px; height: 60px;">
-                  <i class="fas fa-play"></i>
+                  <i class="fas fa-play" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
@@ -57,127 +47,124 @@
     </div>
   </section>
 
-  <!-- Contenido Principal -->
-  <main class="content py-5 bg-light">
+  <!-- Sección de Navegación Rápida a Servicios -->
+  <section class="navigation-section py-5 bg-light">
     <div class="container">
-      <!-- Secciones de contenido dinámicas -->
-      <div *ngFor="let section; of sections; let i = index"
-           [id]="section.title.toLowerCase().replace(' ', '-')"
-           class="content-section mb-5">
-        <div class="row">
-          <div class="col-12">
-            <h2 class="section-title mb-4 text-center text-md-start">
-              {{section.title}}
-              <span class="text-primary">.</span>
-            </h2>
-          </div>
+      <div class="row justify-content-center text-center">
+        <div class="col-12 mb-4">
+          <h2 class="section-title mb-4">Nuestros Servicios</h2>
+          <p class="lead text-muted mb-5">
+            Ofrecemos diferentes enfoques terapéuticos adaptados a las necesidades específicas de cada niño
+          </p>
         </div>
-        <div class="row g-4">
-          <div *ngFor="let video; of section.videos; let j = index" class="col-12 col-md-6 col-lg-4">
-            <div class="video-card card h-100 border-0 shadow-sm">
-              <div class="card-img-top ratio ratio-16x9">
+      </div>
 
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">{{video.title}}</h5>
-                <p class="card-text text-muted small">
-                  Descripción del video relacionado con {{section.title}}.
-                </p>
-              </div>
-              <div class="card-footer bg-transparent border-0">
-                <button class="btn btn-outline-primary btn-sm">
-                  Ver más <i class="fas fa-arrow-right ms-1"></i>
-                </button>
-              </div>
-            </div>
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-10">
+          <div class="d-flex flex-wrap justify-content-center gap-4 mb-4">
+            <a href="javascript:void(0)" (click)="scrollToSection('terapias')"
+              class="btn btn-outline-primary rounded-pill px-4 py-3 d-flex flex-column align-items-center service-nav-btn"
+              role="button" aria-label="Navegar a la sección de Mis Terapias">
+              <i class="fas fa-hands-helping mb-2" aria-hidden="true"></i>
+              <span>Mis Terapias</span>
+            </a>
+            <a href="javascript:void(0)" (click)="scrollToSection('programas')"
+              class="btn btn-outline-primary rounded-pill px-4 py-3 d-flex flex-column align-items-center service-nav-btn"
+              role="button" aria-label="Navegar a la sección de Mis Programas">
+              <i class="fas fa-tasks mb-2" aria-hidden="true"></i>
+              <span>Mis Programas</span>
+            </a>
+            <a href="javascript:void(0)" (click)="scrollToSection('talleres')"
+              class="btn btn-outline-primary rounded-pill px-4 py-3 d-flex flex-column align-items-center service-nav-btn"
+              role="button" aria-label="Navegar a la sección de Mis Talleres">
+              <i class="fas fa-users mb-2" aria-hidden="true"></i>
+              <span>Mis Talleres</span>
+            </a>
+            <a href="javascript:void(0)" (click)="scrollToSection('actividades')"
+              class="btn btn-outline-primary rounded-pill px-4 py-3 d-flex flex-column align-items-center service-nav-btn"
+              role="button" aria-label="Navegar a la sección de Actividades en Casa">
+              <i class="fas fa-home mb-2" aria-hidden="true"></i>
+              <span>Actividades en Casa</span>
+            </a>
+            <a href="javascript:void(0)" (click)="scrollToSection('recursos')"
+              class="btn btn-outline-primary rounded-pill px-4 py-3 d-flex flex-column align-items-center service-nav-btn"
+              role="button" aria-label="Navegar a la sección de Recursos Adicionales">
+              <i class="fas fa-book mb-2" aria-hidden="true"></i>
+              <span>Recursos Adicionales</span>
+            </a>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Contenido Principal -->
+  <main class="content py-5 bg-white">
+    <div class="container">
+
+      <!-- Mis Terapias -->
+      <section id="terapias" class="content-section mb-5" tabindex="-1">
+        <h2 class="section-title mb-4 text-center">Mis Terapias <span class="text-primary">.</span></h2>
+        <p class="text-center text-muted mb-5">¿Que tipo de terapia haré hoy?</p>
+
+        <div class="cards-container">
+          <app-componnets *ngFor="let item of TerapiasList" [title]="item.title" [description]="item.description"
+            [imageUrl]="item.imageUrl" [altText]="item.altText" [itemId]="item.terapiaId">
+          </app-componnets>
+        </div>
+      </section>
+
+      <!-- Mis Programas -->
+      <section id="programas" class="content-section mb-5" tabindex="-1">
+        <h2 class="section-title mb-4 text-center">Mis Programas <span class="text-primary">.</span></h2>
+        <p class="text-center text-muted mb-5">Programas estructurados diseñados para un progreso integral</p>
+        <div class="cards-container">
+          <app-componnets *ngFor="let item of programaList" [title]="item.title" [description]="item.description"
+            [imageUrl]="item.imagen" [altText]="item.altText" [itemId]="item.programaId">
+          </app-componnets>
+        </div>
+      </section>
+
+      <!-- Mis Talleres -->
+      <section id="talleres" class="content-section mb-5" tabindex="-1">
+        <h2 class="section-title mb-4 text-center">Mis Talleres <span class="text-primary">.</span></h2>
+        <p class="text-center text-muted mb-5">Talleres grupales para fomentar habilidades sociales y desarrollo
+          personal</p>
+        <div class="cards-container">
+          <app-componnets *ngFor="let item of tallerList" [title]="item.title" [description]="item.description"
+            [imageUrl]="item.imageUrl" [altText]="item.altText" [itemId]="item.tallerId">
+          </app-componnets>
+        </div>
+      </section>
+
+      <!-- Actividades en Casa -->
+      <section id="actividades" class="content-section mb-5" tabindex="-1">
+        <h2 class="section-title mb-4 text-center">Actividades en Casa <span class="text-primary">.</span></h2>
+        <p class="text-center text-muted mb-5">Sugerencias y ejercicios para continuar el desarrollo desde casa</p>
+        <div class="cards-container">
+          <app-componnets *ngFor="let item of actividadList" [title]="item.title" [description]="item.description"
+            [imageUrl]="item.imageUrl" [altText]="item.altText" [itemId]="item.actividadId">
+          </app-componnets>
+        </div>
+      </section>
+
+      <!-- Recursos Adicionales -->
+      <section id="recursos" class="content-section mb-5" tabindex="-1">
+        <h2 class="section-title mb-4 text-center">Recursos Adicionales <span class="text-primary">.</span></h2>
+        <p class="text-center text-muted mb-5">Materiales y enlaces para apoyar el aprendizaje y desarrollo continuo</p>
+        <div class="cards-container">
+          <app-componnets *ngFor="let item of recursoList" [title]="item.title" [description]="item.description"
+            [imageUrl]="item.imageUrl" [altText]="item.altText" [itemId]="item.recursoId">
+          </app-componnets>
+        </div>
+      </section>
+
     </div>
   </main>
 
   <!-- Footer -->
-  <footer class="footer bg-dark text-white py-5">
-    <div class="container">
-      <div class="row">
-        <!-- Enlaces rápidos -->
-        <div class="col-md-6 col-lg-3 mb-4">
-          <h5 class="mb-3">Enlaces Rápidos</h5>
-          <div class="footer-links d-flex flex-column">
-            <a href="#" class="text-white-50 text-decoration-none mb-2">Inicio</a>
-            <a href="#" class="text-white-50 text-decoration-none mb-2">Nosotros</a>
-            <a href="#" class="text-white-50 text-decoration-none mb-2">Servicios</a>
-            <a href="#" class="text-white-50 text-decoration-none mb-2">Contacto</a>
-          </div>
-        </div>
-
-        <!-- Información de contacto -->
-        <div class="col-md-6 col-lg-3 mb-4">
-          <h5 class="mb-3">Contacto</h5>
-          <div class="contact-info">
-            <p class="text-white-50 mb-1">
-              <i class="fas fa-phone me-2"></i> +1 234 567 890
-            </p>
-            <p class="text-white-50 mb-1">
-              <i class="fas fa-envelope me-2"></i> info@misitio.com
-            </p>
-            <p class="text-white-50">
-              <i class="fas fa-map-marker-alt me-2"></i> Ciudad, País
-            </p>
-          </div>
-        </div>
-
-        <!-- Redes sociales -->
-        <div class="col-md-6 col-lg-3 mb-4">
-          <h5 class="mb-3">Síguenos</h5>
-          <div class="social-icons d-flex gap-3">
-            <a href="#" class="text-white-50">
-              <i class="fab fa-facebook-f fa-lg"></i>
-            </a>
-            <a href="#" class="text-white-50">
-              <i class="fab fa-instagram fa-lg"></i>
-            </a>
-            <a href="#" class="text-white-50">
-              <i class="fab fa-twitter fa-lg"></i>
-            </a>
-            <a href="#" class="text-white-50">
-              <i class="fab fa-youtube fa-lg"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Newsletter -->
-        <div class="col-md-6 col-lg-3 mb-4">
-          <h5 class="mb-3">Newsletter</h5>
-          <div class="newsletter">
-            <p class="text-white-50 small mb-2">
-              Suscríbete para recibir novedades
-            </p>
-            <div class="input-group">
-              <input type="email" class="form-control" placeholder="Tu email">
-              <button class="btn btn-primary" type="button">
-                <i class="fas fa-paper-plane"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <hr class="my-4 bg-white-50">
-
-      <div class="row align-items-center">
-        <div class="col-md-6 text-center text-md-start">
-          <p class="mb-0 text-white-50">
-            &copy; 2025 Mi Sitio Web. Todos los derechos reservados.
-          </p>
-        </div>
-        <div class="col-md-6 text-center text-md-end">
-          <div class="legal-links">
-            <a href="#" class="text-white-50 text-decoration-none me-3">Política de Privacidad</a>
-            <a href="#" class="text-white-50 text-decoration-none">Términos de Servicio</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <footer>
+    <app-footer></app-footer>
   </footer>
+
 </div>

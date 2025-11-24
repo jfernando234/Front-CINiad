@@ -53,10 +53,7 @@ export class TerapiasAdminComponent {
     const initialState = {
       terapiasId: terapiaId
     };
-    this.bsModalRef = this.modalService.show(EditarTerapiasComponent, { class: 'modal-lg', initialState }),
-      this.bsModalRef.onHidden?.subscribe(() => {
-        this.refreshData();
-      });
+    this.router.navigate(['admin/terapias/editar',initialState]);
   }
 
 

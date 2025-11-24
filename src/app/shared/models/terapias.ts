@@ -6,6 +6,7 @@ export interface ListTerapia {
   detalle: IDetalle[];
 }
 export interface ITerapia {
+  terapiaId?: number;
   nombre: string;
   descripcion: string;
   imagen: Blob;

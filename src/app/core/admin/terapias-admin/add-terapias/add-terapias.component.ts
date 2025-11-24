@@ -60,7 +60,6 @@ export class AddTerapiasComponent implements OnInit {
     });
   }
 
-
   agregarDetalle() {
     this.bsModalRef = this.modalService.show(AddDetallesComponent, {
       class: 'modal-lg',
