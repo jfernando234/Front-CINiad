@@ -3,75 +3,73 @@
   border: 1px solid #cccccc;
   border-radius: 8px;
   overflow: hidden;
-  max-width: 500px; // más ancho para mejor visibilidad
-  width: 100%; // ocupa todo el ancho disponible
+  /* ELIMINA max-width: 500px */
+  width: 100%; // ocupa el ancho que le da el contenedor flex
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  height: 100%; // ← AÑADE ESTO (importante)
 
   &:hover,
   &:focus-within {
     transform: translateY(-4px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    outline: 2px solid #005fcc; // foco visible (WCAG)
+    outline: 2px solid #005fcc;
   }
 }
 
 .card-image {
   width: 100%;
-  height: 400px; // sigue siendo alta para accesibilidad
+  height: 250px; // ← REDUCE la altura (400px es demasiado)
   object-fit: cover;
+  flex-shrink: 0; // ← EVITA que la imagen se comprima
 }
 
 .card-content {
   padding: 20px;
+  flex: 1; // ← HACE que el contenido ocupe el espacio restante
+  display: flex;
+  flex-direction: column;
 }
 
 .card-title {
-  font-size: 1.75rem;
+  font-size: 1.5rem; // ← REDUCE un poco
   font-weight: 700;
   margin: 0 0 12px 0;
   color: #222222;
 }
 
 .card-description {
-  font-size: 1.25rem;
+  font-size: 1.1rem; // ← REDUCE un poco
   color: #333333;
   line-height: 1.6;
+  flex: 1; // ← PERMITE que la descripción ocupe espacio
 }
 
-.card:focus,
-.card-link:focus,
-.card-button:focus {
-  outline: 2px solid #007bff;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-/* Para la solución con tabindex */
-.card[tabindex="0"]:hover {
-  cursor: pointer;
-  transform: translateY(-2px);
-  transition: transform 0.2s ease;
-}
-
-/* Para dispositivos pequeños */
+/* Media queries actualizadas */
 @media (max-width: 600px) {
-  .card {
-    max-width: 100%;
-  }
-
   .card-image {
-    height: 250px;
+    height: 200px; // ← MÁS proporcional en móviles
   }
 
   .card-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .card-description {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+
+  .card-content {
+    padding: 16px;
+  }
+}
+
+/* Para tablets */
+@media (max-width: 768px) {
+  .card-image {
+    height: 220px;
   }
 }
