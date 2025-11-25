@@ -5,6 +5,7 @@ import { ProgramasService } from 'src/app/shared/services/programas.service';
 import { IProgramas } from 'src/app/shared/models/programas';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EditarProgramasComponent } from './editar-programas/editar-programas.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-programas-admin',
@@ -49,36 +50,57 @@ export class ProgramasAdminComponent {
   agregarProgramas() {
     this.router.navigate(['admin/programas/add']);
   }
-  editarProgramas(programaId: number) {
+  editarProgramas(id: number) {
     const initialState = {
-      programasId: programaId
+      id: id
     };
-    this.bsModalRef = this.modalService.show(EditarProgramasComponent, { class: 'modal-lg', initialState }),
-      this.bsModalRef.onHidden?.subscribe(() => {
-          this.refreshData();
-          this.obtenerProgramasData();
-      });
+    this.router.navigate(['admin/programas/editar', initialState]);
   }
 
-    /**Metodos de paginacion  */
-    getMoreData(direction: 'next' | 'previous'): void {
-      if (direction === 'next' && this.currentPage < this.pageNumberArray.length) {
-        this.moveToPage(this.currentPage + 1);
-      } else if (direction === 'previous' && this.currentPage > 1) {
-        this.moveToPage(this.currentPage - 1);
+  eliminarProgramas(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Quieres eliminar esta Programa?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Llamada al servicio para eliminar
+        this.programasService.eliminarProgramas(id).subscribe({
+          next: () => {
+            Swal.fire('Eliminado!', 'Programa ha sido eliminada.', 'success');
+            this.obtenerProgramasData();
+          },
+          error: (err) => {
+            Swal.fire('Error', 'No se pudo eliminar el Programa.', 'error');
+            console.error(err);
+          }
+        });
       }
+    });
+  }
+  /**Metodos de paginacion  */
+  getMoreData(direction: 'next' | 'previous'): void {
+    if (direction === 'next' && this.currentPage < this.pageNumberArray.length) {
+      this.moveToPage(this.currentPage + 1);
+    } else if (direction === 'previous' && this.currentPage > 1) {
+      this.moveToPage(this.currentPage - 1);
     }
+  }
 
-    moveToPage(page: number): void {
-      this.currentPage = page;
-      const startIndex = (page - 1) * this.pageSize;
-      const endIndex = startIndex + this.pageSize;
-      this.displayList = this.ProgramasList.slice(startIndex, endIndex);
-      this.serialNumberArray = this.displayList.map((_, i) => startIndex + i + 1);
-    }
+  moveToPage(page: number): void {
+    this.currentPage = page;
+    const startIndex = (page - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.displayList = this.ProgramasList.slice(startIndex, endIndex);
+    this.serialNumberArray = this.displayList.map((_, i) => startIndex + i + 1);
+  }
 
-    calculateTotalPages(): void {
-      const totalPages = Math.ceil(this.totalData / this.pageSize);
-      this.pageNumberArray = Array.from({ length: totalPages }, (_, i) => i + 1);
-    }
+  calculateTotalPages(): void {
+    const totalPages = Math.ceil(this.totalData / this.pageSize);
+    this.pageNumberArray = Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
 }

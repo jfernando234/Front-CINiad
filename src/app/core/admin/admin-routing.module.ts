@@ -11,7 +11,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],  // comentado temporalmente
     // data: { roles: ['admin'] },
     children: [
-      { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
+      { path: '', redirectTo: 'terapias', pathMatch: 'full' },
       { path: 'usuarios', loadChildren: () => import('./usuarios-admin/usuarios-admin.module').then(m => m.UsuariosAdminModule) },
       { path: 'terapias', loadChildren: () => import('./terapias-admin/terapias-admin.module').then(m => m.TerapiasAdminModule) },
       { path: 'programas', loadChildren: () => import('./programas-admin/programas-admin.module').then(m => m.ProgramasAdminModule) },

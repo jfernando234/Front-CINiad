@@ -5,6 +5,7 @@ import { ActividadesService } from 'src/app/shared/services/actividades.service'
 import { IActividad } from 'src/app/shared/models/actividades';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EditarActividadesComponent } from './editar-actividades/editar-actividades.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-actividades-admin',
@@ -48,17 +49,38 @@ export class ActividadesAdminComponent {
   agregarActividades() {
     this.router.navigate(['admin/actividades/add']);
   }
-  editarActividades(actividadId: number) {
+  editarActividades(id: number) {
     const initialState = {
-      actividadesId: actividadId
+      id: id
     };
-    this.bsModalRef = this.modalService.show(EditarActividadesComponent, { class: 'modal-lg', initialState }),
-      this.bsModalRef.onHidden?.subscribe(() => {
-        this.refreshData();
-        this.obtenerActividadesData();
-      });
+    this.router.navigate(['admin/actividades/editar', initialState]);
   }
 
+  eliminarActividades(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Quieres eliminar esta terapia?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Llamada al servicio para eliminar
+        this.actividadesService.eliminarActividades(id).subscribe({
+          next: () => {
+            Swal.fire('Eliminado!', 'La terapia ha sido eliminada.', 'success');
+            this.obtenerActividadesData();
+          },
+          error: (err) => {
+            Swal.fire('Error', 'No se pudo eliminar la terapia.', 'error');
+            console.error(err);
+          }
+        });
+      }
+    });
+  }
   /**Metodos de paginacion  */
   getMoreData(direction: 'next' | 'previous'): void {
     if (direction === 'next' && this.currentPage < this.pageNumberArray.length) {

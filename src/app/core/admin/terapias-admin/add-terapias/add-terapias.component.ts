@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { TerapiasService } from 'src/app/shared/services/terapias.service';
 import { AddDetallesComponent } from './add-detalles/add-detalles.component';
-import { ITerapia } from 'src/app/shared/models/terapias';
-
+import { environment } from 'src/app/shared/enviroments/environment';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-terapias',
   templateUrl: './add-terapias.component.html',
@@ -17,6 +17,7 @@ export class AddTerapiasComponent implements OnInit {
   bsModalRef?: BsModalRef;
   public mostrarErrores = false;
   detalles: any[] = [];
+  media = environment.apiURL;
   constructor(
     private router: Router,
     private terapiasService: TerapiasService,
@@ -45,17 +46,16 @@ export class AddTerapiasComponent implements OnInit {
 
     formData.append('nombre', this.form.get('nombre')?.value);
     formData.append('descripcion', this.form.get('descripcion')?.value);
-    formData.append('imagen', this.imagenSubirFoto); // archivo
-
+    formData.append('file', this.imagenSubirFoto); // archivo
     // === Enviar detalles como JSON ===
-    formData.append('detalle', JSON.stringify(this.detalles));
-
+    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
     this.terapiasService.agregarTerapias(formData).subscribe({
       next: (resp) => {
-        console.log('Terapia creada', resp);
+        Swal.fire('Exito','Terapia Creada con Exito','success')
+        this.cancelar();
       },
       error: (err) => {
-        console.error('Error al crear terapia', err);
+        Swal.fire('Error','Error al crear la terapia','error')
       }
     });
   }

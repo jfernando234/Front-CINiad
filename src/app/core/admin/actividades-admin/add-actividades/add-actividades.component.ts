@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActividadesService } from 'src/app/shared/services/actividades.service';
 import { AddDetallesActividadesComponent } from './add-detalles/add-detalles.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-actividades',
@@ -21,7 +22,8 @@ export class AddActividadesComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      descripcion: ['', Validators.required],
+      imagen: ['']
     });
   }
   crearActividad() {
@@ -35,17 +37,18 @@ export class AddActividadesComponent implements OnInit {
 
     formData.append('nombre', this.form.get('nombre')?.value);
     formData.append('descripcion', this.form.get('descripcion')?.value);
-    formData.append('imagen', this.imagenSubirFoto); // archivo
+    formData.append('file', this.imagenSubirFoto); // archivo
 
     // === Enviar detalles como JSON ===
     formData.append('detalle', JSON.stringify(this.detalles));
 
     this.actividadesService.agregarActividades(formData).subscribe({
       next: (resp) => {
-        console.log('Terapia creada', resp);
+        Swal.fire('Exito', 'Actividad Creada con Exito', 'success')
+        this.Cancelar();
       },
       error: (err) => {
-        console.error('Error al crear terapia', err);
+        Swal.fire('Error', 'Error al crear la Actividad', 'error')
       }
     });
   }

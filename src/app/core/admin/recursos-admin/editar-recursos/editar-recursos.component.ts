@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { RecursosService } from 'src/app/shared/services/recursos.service';
+import { EditarDetallesRecursosComponent } from './editar-detalles/editar-detalles.component';
+import { IRecurso } from 'src/app/shared/models/recursos';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/app/shared/enviroments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-recursos',
@@ -11,29 +16,49 @@ import { RecursosService } from 'src/app/shared/services/recursos.service';
 export class EditarRecursosComponent implements OnInit {
   form!: FormGroup;
   public mostrarErrores = false;
-  fotoPreview: string | ArrayBuffer | null = null;
-  recursosId: any;
-
-  constructor(public bsModalRef: BsModalRef, private recursosService: RecursosService, public fb: FormBuilder) { }
+  Recurso!: IRecurso
+  recursoId: any;
+  detalles: any[] = [];
+  imagenSubirFoto!: File;
+  fotoPreview!: string | ArrayBuffer | null;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public modalService: BsModalService,
+    public bsModalRef: BsModalRef,
+    private recursosService: RecursosService,
+    public fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.recursoId = Number(params.get('id'));
+    });
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      descripcion: ['', Validators.required],
+      imagen: []
     });
-    const id = (this as any).usuarioId || this.recursosId;
-    if (id) {
-      this.recursosService.obetenerRecursosId(id).subscribe({
-        next: (data) => {
-          this.form.patchValue({ nombre: (data as any).nombre, descripcion: (data as any).descripcion });
-          const img = (data as any).imgen || (data as any).imagen || (data as any).imagenBase64;
-          if (img) { this.fotoPreview = img as any; }
-        },
-        error: (err) => console.error('Error fetching recurso', err)
-      });
-    }
+    this.obtenerRecurso();
   }
+  obtenerRecurso() {
+    this.recursosService.obetenerRecursosId(this.recursoId)
+      .subscribe((data: IRecurso) => {
+        if (data) {
+          this.Recurso = data;
 
+          // Actualiza solo los campos de texto
+          this.form.patchValue({
+            nombre: data.nombre,
+            descripcion: data.descripcion
+          });
+
+          // Prepara la imagen para mostrar en preview
+          this.fotoPreview = data.media_url
+            ? environment.apiURLmedia + data.media_url // URL completa de la imagen
+            : 'assets/img/user.jpg';
+        }
+      });
+  }
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
@@ -50,13 +75,37 @@ export class EditarRecursosComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    const payload = this.form.value;
-    this.recursosService.editarRecursos(payload as any).subscribe({
-      next: () => this.bsModalRef?.hide(),
-      error: (err) => console.error('Error al guardar recurso', err)
+    const formData = new FormData();
+    formData.append('nombre', this.form.get('nombre')?.value);
+    formData.append('descripcion', this.form.get('descripcion')?.value);
+    if (this.imagenSubirFoto) { formData.append('file', this.imagenSubirFoto); }
+    // archivo
+    // === Enviar detalles como JSON ===
+    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    this.recursosService.editarRecursos(this.recursoId, formData).subscribe({
+      next: (resp) => {
+        Swal.fire('Exito', 'Recurso Editado con Exito', 'success')
+        this.Cancelar();
+      },
+      error: (err) => {
+        Swal.fire('Error', 'Error al Editar el Recurso', 'error')
+      }
     });
   }
-  Cancelar() { this.bsModalRef?.hide(); }
+  agregarDetalle() {
+    this.bsModalRef = this.modalService.show(EditarDetallesRecursosComponent, {
+      class: 'modal-lg',
+    });
+    this.bsModalRef.content.onSave = (detalle: any) => {
+      this.detalles.push(detalle);
+    };
+  }
+
+  eliminarDetalle(i: number) {
+    this.detalles.splice(i, 1);
+  }
+  /**valifaciones  */
+  Cancelar() { this.router.navigate(['admin/recursos']); }
 
   isInvalid(controlName: string) {
     const control = this.form.get(controlName);

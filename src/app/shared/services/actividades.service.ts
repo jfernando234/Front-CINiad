@@ -13,18 +13,18 @@ export class ActividadesService {
   constructor(public http: HttpClient) { }
 
   obtenerAllActividades(): Observable<IActividad[]> {
-    return this.http.get<IActividad[]>(`${this.apiUrl}Actividades/ListarAllActividadess`);
+    return this.http.get<IActividad[]>(`${this.apiUrl}actividades`);
   }
   obetenerActividadesId(actividadesId: number) {
-    return this.http.get<IActividad>(`${this.apiUrl}Actividades/ObtenerActividadesId?ActividadesId=${actividadesId}`);
+    return this.http.get<IActividad>(`${this.apiUrl}actividades/${actividadesId}`);
   }
   agregarActividades(actividad: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}Actividades/RegistrarActividades`, actividad);
+    return this.http.post(`${this.apiUrl}actividades`, actividad);
   }
-  editarActividades(actividadesId: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}Actividades/ModificarActividades`, actividadesId);
+  editarActividades(actividadesId: number,actividad: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}actividades/${actividadesId}`, actividad);
   }
   eliminarActividades(actividadesId: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}Actividades/EliminarActividades/${actividadesId}`, null);
+    return this.http.delete<any>(`${this.apiUrl}actividades/${actividadesId}`);
   }
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ITerapia } from 'src/app/shared/models/terapias';
 import { TerapiasService } from 'src/app/shared/services/terapias.service';
 import { finalize } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-terapias-admin',
@@ -51,14 +52,38 @@ export class TerapiasAdminComponent {
   agregarTerapias() {
     this.router.navigate(['admin/terapias/add']);
   }
-  editarTerapias(terapiaId: number) {
+  editarTerapias(id: number) {
     const initialState = {
-      terapiasId: terapiaId
+      id: id
     };
     this.router.navigate(['admin/terapias/editar', initialState]);
   }
 
-
+  eliminarTerapias(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Quieres eliminar esta terapia?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Llamada al servicio para eliminar
+        this.terapiasService.eliminarTerapias(id).subscribe({
+          next: () => {
+            Swal.fire('Eliminado!', 'La terapia ha sido eliminada.', 'success');
+            this.obtenerTerapiasData();
+          },
+          error: (err) => {
+            Swal.fire('Error', 'No se pudo eliminar la terapia.', 'error');
+            console.error(err);
+          }
+        });
+      }
+    });
+  }
   /**Metodos de paginacion  */
   getMoreData(direction: 'next' | 'previous'): void {
     if (direction === 'next' && this.currentPage < this.pageNumberArray.length) {

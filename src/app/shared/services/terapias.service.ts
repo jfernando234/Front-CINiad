@@ -13,19 +13,19 @@ export class TerapiasService {
   constructor(public http: HttpClient) { }
 
   obtenerAllTerapias(): Observable<ITerapia[]> {
-    return this.http.get<ITerapia[]>(`${this.apiUrl}Terapias/ListarAllTerapiass`);
+    return this.http.get<ITerapia[]>(`${this.apiUrl}terapias`);
   }
-  obetenerTerapiasId(terapiasId: number) {
-    return this.http.get<ITerapia>(`${this.apiUrl}Terapias/ObtenerTerapiasId?TerapiasId=${terapiasId}`);
+  obetenerTerapiasId(terapiasId: number):  Observable<ITerapia>{
+    return this.http.get<ITerapia>(`${this.apiUrl}terapias/${terapiasId}`);
   }
   agregarTerapias(terapia: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}Terapias/RegistrarTerapias`, terapia);
+    return this.http.post(`${this.apiUrl}terapias`, terapia);
   }
-  editarTerapias(terapiasId: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}Terapias/ModificarTerapias`, terapiasId);
+  editarTerapias(terapiasId: number,terapia: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}terapias/${terapiasId}`, terapia);
   }
   eliminarTerapias(terapiasId: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}Terapias/EliminarTerapias/${terapiasId}`, null);
+    return this.http.delete<any>(`${this.apiUrl}terapias/${terapiasId}`);
   }
 }
 

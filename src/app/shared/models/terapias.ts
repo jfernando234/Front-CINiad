@@ -10,6 +10,7 @@ export interface ITerapia {
   nombre: string;
   descripcion: string;
   imagen: Blob;
+  media_url?: string;
   detalle: IDetalle[];
 }
 export interface IDetalle {

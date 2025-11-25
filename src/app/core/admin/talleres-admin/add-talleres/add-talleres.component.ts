@@ -5,6 +5,7 @@ import { BsEventCallback } from 'ngx-bootstrap/component-loader/listen-options.m
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { TalleresService } from 'src/app/shared/services/talleres.service';
 import { AddDetallesTalleresComponent } from './add-detalles/add-detalles.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-talleres',
@@ -38,17 +39,18 @@ export class AddTalleresComponent implements OnInit {
 
     formData.append('nombre', this.form.get('nombre')?.value);
     formData.append('descripcion', this.form.get('descripcion')?.value);
-    formData.append('imagen', this.imagenSubirFoto); // archivo
+    formData.append('file', this.imagenSubirFoto);
 
     // === Enviar detalles como JSON ===
-    formData.append('detalle', JSON.stringify(this.detalles));
+    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
 
     this.talleresService.agregarTalleres(formData).subscribe({
       next: (resp) => {
-        console.log('Terapia creada', resp);
+        Swal.fire('Exito', 'Taller Creado con Exito', 'success')
+        this.Cancelar();
       },
       error: (err) => {
-        console.error('Error al crear terapia', err);
+        Swal.fire('Error', 'Error al Crear la Taller', 'error')
       }
     });
   }

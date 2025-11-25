@@ -96,7 +96,7 @@
 }
 
 .section-title {
-  font-size: 2rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: #1a1a1a;
 
@@ -107,12 +107,15 @@
 
 .content-section {
   scroll-margin-top: 120px;
+  P{
+    font-size: 2rem;
+  }
 }
 
 .cards-container {
   display: grid;
   gap: 24px;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr;

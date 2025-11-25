@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { TerapiasService } from 'src/app/shared/services/terapias.service';
 import { EditarDetallesComponent } from './editar-detalles/editar-detalles.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { finalize } from 'rxjs';
+import { ITerapia } from 'src/app/shared/models/terapias';
+import { environment } from 'src/app/shared/enviroments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-terapias',
@@ -13,19 +18,55 @@ export class EditarTerapiasComponent implements OnInit {
   form!: FormGroup;
   public mostrarErrores = false;
   bsModalRef!: BsModalRef;
-  terapiasId: any;
+  Terapia!: ITerapia;
+  terapiaId: any;
   imagenSubirFoto!: File;
   fotoPreview!: string | ArrayBuffer | null;
   detalles: any[] = [];
-  constructor(public modalService: BsModalService, private terapiasService: TerapiasService, public fb: FormBuilder,) { }
+  isLoading = false
+  totalData = 0;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public modalService: BsModalService,
+    private terapiasService: TerapiasService,
+    public fb: FormBuilder,) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.terapiaId = Number(params.get('id'));
+    });
+    console.log(this.terapiaId)
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      descripcion: ['', Validators.required],
+      imagen: []
     });
+    this.obtenerTerapia();
   }
+  obtenerTerapia(): void {
+    this.isLoading = true;
 
+    this.terapiasService.obetenerTerapiasId(this.terapiaId)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe((data: ITerapia) => {
+        if (data) {
+          this.Terapia = data;
+
+          // Actualiza solo los campos de texto
+          this.form.patchValue({
+            nombre: data.nombre,
+            descripcion: data.descripcion
+          });
+
+          // Prepara la imagen para mostrar en preview
+          this.fotoPreview = data.media_url
+            ? environment.apiURLmedia + data.media_url // URL completa de la imagen
+            : 'assets/img/user.jpg';
+        }
+      });
+  }
   onFileSelected(event: any) {
     const file = event.target.files[0] as File;
     if (file) {
@@ -48,10 +89,21 @@ export class EditarTerapiasComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    const payload = this.form.value;
-    this.terapiasService.editarTerapias(payload).subscribe({
-      next: () => this.bsModalRef?.hide(),
-      error: (err) => console.error('Error al guardar terapia', err)
+    const formData = new FormData();
+    formData.append('nombre', this.form.get('nombre')?.value);
+    formData.append('descripcion', this.form.get('descripcion')?.value);
+    if (this.imagenSubirFoto) { formData.append('file', this.imagenSubirFoto); }
+    // archivo
+    // === Enviar detalles como JSON ===
+    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    this.terapiasService.editarTerapias(this.terapiaId, formData).subscribe({
+      next: (resp) => {
+        Swal.fire('Exito', 'Terapia Editado con Exito', 'success')
+        this.Cancelar();
+      },
+      error: (err) => {
+        Swal.fire('Error', 'Error al Editar la terapia', 'error')
+      }
     });
   }
 
@@ -67,7 +119,7 @@ export class EditarTerapiasComponent implements OnInit {
   eliminarDetalle(i: number) {
     this.detalles.splice(i, 1);
   }
-  Cancelar() { this.bsModalRef?.hide(); }
+  Cancelar() { this.router.navigate(['admin/terapias']); }
 
   isInvalid(controlName: string) {
     const control = this.form.get(controlName);

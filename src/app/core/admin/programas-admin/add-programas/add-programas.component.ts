@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ProgramasService } from 'src/app/shared/services/programas.service';
 import { AddDetallesProgramasComponent } from './add-detalles/add-detalles.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-programas',
@@ -15,12 +16,13 @@ export class AddProgramasComponent implements OnInit {
   public mostrarErrores = false;
   detalles: any[] = [];
   bsModalRef!: BsModalRef;
-  constructor(private modalService: BsModalService,private router: Router, private programasService: ProgramasService, public fb: FormBuilder) { }
+  constructor(private modalService: BsModalService, private router: Router, private programasService: ProgramasService, public fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      descripcion: ['', Validators.required],
+      imagen: ['']
     });
   }
 
@@ -36,17 +38,18 @@ export class AddProgramasComponent implements OnInit {
 
     formData.append('nombre', this.form.get('nombre')?.value);
     formData.append('descripcion', this.form.get('descripcion')?.value);
-    formData.append('imagen', this.imagenSubirFoto); // archivo
+    formData.append('file', this.imagenSubirFoto); // archivo
 
     // === Enviar detalles como JSON ===
-    formData.append('detalle', JSON.stringify(this.detalles));
+    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
 
     this.programasService.agregarProgramas(formData).subscribe({
       next: (resp) => {
-        console.log('Terapia creada', resp);
+        Swal.fire('Exito', 'Programa Creado con Exito', 'success')
+        this.Cancelar();
       },
       error: (err) => {
-        console.error('Error al crear terapia', err);
+        Swal.fire('Error', 'Error al Crear el Programa', 'error')
       }
     });
   }

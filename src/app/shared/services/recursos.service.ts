@@ -13,18 +13,18 @@ export class RecursosService {
   constructor(public http: HttpClient) { }
 
   obtenerAllRecursos(): Observable<IRecurso[]> {
-    return this.http.get<IRecurso[]>(`${this.apiUrl}Recursos/ListarAllRecursoss`);
+    return this.http.get<IRecurso[]>(`${this.apiUrl}recursos`);
   }
-  obetenerRecursosId(recursosId: number) {
-    return this.http.get<IRecurso>(`${this.apiUrl}Recursos/ObtenerRecursosId?RecursosId=${recursosId}`);
+  obetenerRecursosId(recursosId: number): Observable<IRecurso>  {
+    return this.http.get<IRecurso>(`${this.apiUrl}recursos/${recursosId}`);
   }
   agregarRecursos(recurso: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}Recursos/RegistrarRecursos`, recurso);
+    return this.http.post(`${this.apiUrl}recursos`, recurso);
   }
-  editarRecursos(recursosId: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}Recursos/ModificarRecursos`, recursosId);
+  editarRecursos(recursosId: number,recurso: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}recursos/${recursosId}`, recurso);
   }
   eliminarRecursos(recursosId: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}Recursos/EliminarRecursos/${recursosId}`, null);
+    return this.http.delete<any>(`${this.apiUrl}recursos/${recursosId}`);
   }
 }

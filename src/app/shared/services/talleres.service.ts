@@ -13,18 +13,18 @@ export class TalleresService {
   constructor(public http: HttpClient) { }
 
   obtenerAllTalleres(): Observable<ITaller[]> {
-    return this.http.get<ITaller[]>(`${this.apiUrl}Talleres/ListarAllTalleress`);
+    return this.http.get<ITaller[]>(`${this.apiUrl}talleres`);
   }
-  obetenerTalleresId(tallerId: number) {
-    return this.http.get<ITaller>(`${this.apiUrl}Talleres/ObtenerTalleresId?TalleresId=${tallerId}`);
+  obetenerTalleresId(tallerId: number):  Observable<ITaller> {
+    return this.http.get<ITaller>(`${this.apiUrl}talleres/${tallerId}`);
   }
   agregarTalleres(taller: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}Talleres/RegistrarTalleres`, taller);
+    return this.http.post(`${this.apiUrl}talleres`, taller);
   }
-  editarTalleres(tallerId: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}Talleres/ModificarTalleres`, tallerId);
+  editarTalleres(tallerId: number,taller: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}talleres/${tallerId}`, taller);
   }
   eliminarTalleres(tallerId: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}Talleres/EliminarTalleres/${tallerId}`, null);
+    return this.http.delete<any>(`${this.apiUrl}talleres/${tallerId}`);
   }
 }

@@ -38,17 +38,16 @@ export class AddRecursosComponent implements OnInit {
 
     formData.append('nombre', this.form.get('nombre')?.value);
     formData.append('descripcion', this.form.get('descripcion')?.value);
-    formData.append('imagen', this.imagenSubirFoto); // archivo
+    formData.append('file', this.imagenSubirFoto); // archivo
 
-    // === Enviar detalles como JSON ===
-    formData.append('detalle', JSON.stringify(this.detalles));
-
+    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
     this.recursosService.agregarRecursos(formData).subscribe({
       next: (resp) => {
-        Swal.fire('success','Error al guardar una terapia ','success');
+        Swal.fire('Exito', 'Recurso Creado con Exito', 'success')
+        this.Cancelar();
       },
       error: (err) => {
-        Swal.fire('Error','Error al guardar una terapia ','error');
+        Swal.fire('Error', 'Error al crear el Recurso', 'error')
       }
     });
   }

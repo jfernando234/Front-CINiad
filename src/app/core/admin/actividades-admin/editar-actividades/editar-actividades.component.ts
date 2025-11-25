@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActividadesService } from 'src/app/shared/services/actividades.service';
+import Swal from 'sweetalert2';
+import { EditarDetallesActividadesComponent } from './editar-detalles/editar-detalles.component';
+import { IActividad } from 'src/app/shared/models/actividades';
+import { IProgramas } from 'src/app/shared/models/programas';
+import { environment } from 'src/app/shared/enviroments/environment';
 
 @Component({
   selector: 'app-editar-actividades',
@@ -11,26 +17,44 @@ import { ActividadesService } from 'src/app/shared/services/actividades.service'
 export class EditarActividadesComponent implements OnInit {
   form!: FormGroup;
   public mostrarErrores = false;
-  fotoPreview: string | ArrayBuffer | null = null;
   actividadesId: any;
-  constructor(public bsModalRef: BsModalRef, private actividadesService: ActividadesService, public fb: FormBuilder) { }
+  detalles: any[] = [];
+  imagenSubirFoto!: File;
+  fotoPreview!: string | ArrayBuffer | null;
+  Programa!: IProgramas
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public modalService: BsModalService,
+    public bsModalRef: BsModalRef,
+    private actividadesService: ActividadesService,
+    public fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.actividadesId = Number(params.get('id'));
+    });
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required]
     });
-    const id = (this as any).usuarioId || this.actividadesId;
-    if (id) {
-      this.actividadesService.obetenerActividadesId(id).subscribe({
-        next: (data) => {
-          this.form.patchValue({ nombre: (data as any).nombre, descripcion: (data as any).descripcion });
-          const img = (data as any).imgen || (data as any).imagen || (data as any).imagenBase64;
-          if (img) { this.fotoPreview = img as any; }
-        },
-        error: (err) => console.error('Error fetching actividad', err)
+    this.actividadesService.obetenerActividadesId(this.actividadesId)
+      .subscribe((data: IActividad) => {
+        if (data) {
+          this.Programa = data;
+
+          // Actualiza solo los campos de texto
+          this.form.patchValue({
+            nombre: data.nombre,
+            descripcion: data.descripcion
+          });
+
+          // Prepara la imagen para mostrar en preview
+          this.fotoPreview = data.media_url
+            ? environment.apiURLmedia + data.media_url // URL completa de la imagen
+            : 'assets/img/user.jpg';
+        }
       });
-    }
   }
 
   onFileSelected(event: Event) {
@@ -41,22 +65,44 @@ export class EditarActividadesComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-
-  guardarActividad() {
+  guardarPrograma() {
     this.mostrarErrores = false;
     if (this.form.invalid) {
       this.mostrarErrores = true;
       this.form.markAllAsTouched();
       return;
     }
-    const payload = this.form.value;
-    this.actividadesService.editarActividades(payload as any).subscribe({
-      next: () => this.bsModalRef?.hide(),
-      error: (err) => console.error('Error al guardar actividad', err)
+    const formData = new FormData();
+    formData.append('nombre', this.form.get('nombre')?.value);
+    formData.append('descripcion', this.form.get('descripcion')?.value);
+    if (this.imagenSubirFoto) { formData.append('file', this.imagenSubirFoto); }
+    // === Enviar detalles como JSON ===
+    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    this.actividadesService.editarActividades(this.actividadesId, formData).subscribe({
+      next: (resp) => {
+        Swal.fire('Exito', 'Actividad Editada con Exito', 'success')
+        this.Cancelar();
+      },
+      error: (err) => {
+        Swal.fire('Error', 'Error al Editar la Actividad', 'error')
+      }
     });
   }
-  Cancelar() { this.bsModalRef?.hide(); }
 
+  agregarDetalle() {
+    this.bsModalRef = this.modalService.show(EditarDetallesActividadesComponent, {
+      class: 'modal-lg',
+    });
+    this.bsModalRef.content.onSave = (detalle: any) => {
+      this.detalles.push(detalle);
+    };
+  }
+
+  eliminarDetalle(i: number) {
+    this.detalles.splice(i, 1);
+  }
+  Cancelar() { this.router.navigate(['admin/actividades']) }
+  //**valifaciones  */
   isInvalid(controlName: string) {
     const control = this.form.get(controlName);
     return control?.invalid && control?.touched;

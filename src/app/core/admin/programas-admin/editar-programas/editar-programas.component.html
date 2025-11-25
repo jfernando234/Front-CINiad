@@ -1,56 +1,111 @@
-<div class="content-modal">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="card">
-				<div class="card-body">
-					<form>
-						<div class="row form-grid">
-							<div class="col-left">
-								<div class="form-heading">
-									<h4>Editar Programa</h4>
-								</div>
+<div class="page-wrapper">
+  <div class="content">
+    <!-- Page Header -->
+    <div class="page-header mb-3">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1><strong>Editar Programa</strong></h1>
+        </div>
+      </div>
+    </div>
 
-								<div class="row">
-									<div class="col-12 col-md-6">
-										<div class="form-group local-forms">
-											<label>Nombre <span class="login-danger">*</span></label>
-											<input name="nombre" class="form-control" type="text" placeholder="Nombre">
-										</div>
-									</div>
-									<div class="col-12 col-md-6">
-										<div class="form-group local-forms">
-											<label>Descripción <span class="login-danger">*</span></label>
-											<textarea name="descripcion" class="form-control" rows="3" placeholder="Descripción"></textarea>
-										</div>
-									</div>
-								</div>
-							</div>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body mt-2">
+              <!-- Encabezado de detalles -->
+              <div class="row mb-3">
+                <div class="col-12">
+                  <h2 class="modal-content"><strong>Detalles del Programa</strong></h2>
+                </div>
+              </div>
+              <!-- Nombre y Descripción -->
+              <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                  <div class="form-group local-forms">
+                    <label>Nombre <span class="login-danger">*</span></label>
+                    <input formControlName="nombre" class="form-control" type="text">
+                    <div *ngIf="isInvalid('nombre') || mostrarErrores" class="invalid-feedback d-block">
+                      Debe completar el campo*
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-group local-forms">
+                    <label>Descripción <span class="login-danger">*</span></label>
+                    <input formControlName="descripcion" class="form-control" type="text">
+                    <div *ngIf="isInvalid('descripcion') || mostrarErrores" class="invalid-feedback d-block">
+                      Debe completar el campo*
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Foto de Terapia -->
+              <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                  <div class="profile-block">
+                    <label><strong>Foto de Terapia</strong></label>
+                    <div class="profile-photo-container d-flex align-items-center gap-3">
+                      <div class="photo-preview">
+                        <img [src]="fotoPreview || 'assets/img/user.jpg'" alt="Foto de perfil" class="img-thumbnail"
+                          style="max-width: 500px;">
+                      </div>
+                      <div class="photo-upload">
+                        <input type="file" formControlName="imagen" #fotoInput (change)="onFileSelected($event)" hidden>
+                        <button type="button" class="btn btn-primary" (click)="fotoInput.click()">Subir Foto</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Botón Agregar detalle con título más grande y separado -->
+              <div class="row mt-4 mb-3">
+                <div class="col-12 d-flex align-items-center gap-3 flex-wrap">
+                  <h3 class="mb-0 fw-bold">Agregar Contenido</h3>
+                  <button (click)="agregarDetalle()" type="button" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Agregar
+                  </button>
+                </div>
+              </div>
+              <!-- Cards de detalles -->
+              <div class="row mt-3" *ngIf="detalles.length > 0">
+                <div class="col-12 mb-2">
+                  <h4><strong>Detalles agregados</strong></h4>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-3 mb-3" *ngFor="let d of detalles; let i = index">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <div class="text-center mb-3">
+                        <img [src]="d.fotoPreview || 'assets/img/user.jpg'" class="img-fluid rounded"
+                          style="max-height: 150px; object-fit: cover;">
+                      </div>
+                      <h5 class="card-title">{{ d.nombre }}</h5>
+                      <p class="card-text text-muted" style="font-size: 14px; max-height: 80px; overflow: hidden;">
+                        {{ d.descripcion }}
+                      </p>
+                      <div class="d-flex justify-content-between mt-3">
+                        <button type="button" class="btn btn-sm btn-danger"
+                          (click)="eliminarDetalle(i)">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-							<div class="col-right">
-								<div class="profile-block">
-									<label>Imagen</label>
-									<div class="profile-photo-container">
-										<div class="photo-preview">
-											<img src="assets/img/user.jpg" alt="Imagen">
-										</div>
-										<div class="photo-upload">
-											<input type="file" hidden>
-											<button type="button" class="btn btn-primary">Subir Imagen</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
 
-					<div class="col-12">
-						<div class="doctor-submit ">
-							<button type="button" class="btn btn-primary submit-form me-2">Guardar</button>
-							<button type="button" class="btn btn-primary cancel-form">Cancelar</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- Botones Guardar / Cancelar -->
+    <div class="row mt-4">
+      <div class="col-12 d-flex gap-2">
+        <button type="button" (click)="guardarPrograma()" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-secondary" (click)="Cancelar()">Cancelar</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -5,6 +5,7 @@ import { TalleresService } from 'src/app/shared/services/talleres.service';
 import { ITaller } from 'src/app/shared/models/talleres';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EditarTalleresComponent } from './editar-talleres/editar-talleres.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-talleres-admin',
@@ -48,36 +49,56 @@ export class TalleresAdminComponent {
   agregarTalleres() {
     this.router.navigate(['admin/talleres/add']);
   }
-  editarTalleres(tallerId: number) {
+  editarTalleres(id: number) {
     const initialState = {
-      talleresId: tallerId
+      id: id
     };
-    this.bsModalRef = this.modalService.show(EditarTalleresComponent, { class: 'modal-lg', initialState }),
-      this.bsModalRef.onHidden?.subscribe(() => {
-          this.refreshData();
-          this.obtenerTalleresData();
-      });
+    this.router.navigate(['admin/talleres/editar', initialState]);
+  }
+  eliminarTaller(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Quieres eliminar este Taller?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Llamada al servicio para eliminar
+        this.talleresService.eliminarTalleres(id).subscribe({
+          next: () => {
+            Swal.fire('Eliminado!', 'La terapia ha sido eliminada.', 'success');
+            this.obtenerTalleresData();
+          },
+          error: (err) => {
+            Swal.fire('Error', 'No se pudo eliminar la terapia.', 'error');
+            console.error(err);
+          }
+        });
+      }
+    });
+  }
+  /**Metodos de paginacion  */
+  getMoreData(direction: 'next' | 'previous'): void {
+    if (direction === 'next' && this.currentPage < this.pageNumberArray.length) {
+      this.moveToPage(this.currentPage + 1);
+    } else if (direction === 'previous' && this.currentPage > 1) {
+      this.moveToPage(this.currentPage - 1);
+    }
   }
 
-    /**Metodos de paginacion  */
-    getMoreData(direction: 'next' | 'previous'): void {
-      if (direction === 'next' && this.currentPage < this.pageNumberArray.length) {
-        this.moveToPage(this.currentPage + 1);
-      } else if (direction === 'previous' && this.currentPage > 1) {
-        this.moveToPage(this.currentPage - 1);
-      }
-    }
+  moveToPage(page: number): void {
+    this.currentPage = page;
+    const startIndex = (page - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.displayList = this.TalleresList.slice(startIndex, endIndex);
+    this.serialNumberArray = this.displayList.map((_, i) => startIndex + i + 1);
+  }
 
-    moveToPage(page: number): void {
-      this.currentPage = page;
-      const startIndex = (page - 1) * this.pageSize;
-      const endIndex = startIndex + this.pageSize;
-      this.displayList = this.TalleresList.slice(startIndex, endIndex);
-      this.serialNumberArray = this.displayList.map((_, i) => startIndex + i + 1);
-    }
-
-    calculateTotalPages(): void {
-      const totalPages = Math.ceil(this.totalData / this.pageSize);
-      this.pageNumberArray = Array.from({ length: totalPages }, (_, i) => i + 1);
-    }
+  calculateTotalPages(): void {
+    const totalPages = Math.ceil(this.totalData / this.pageSize);
+    this.pageNumberArray = Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
 }

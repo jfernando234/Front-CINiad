@@ -1,10 +1,8 @@
-<div class="card" role="button" tabindex="0" [attr.aria-label]="title" (click)="onCardClick()"
-  (keydown.enter)="onCardClick()" (keydown.space)="onCardClick()">
-  <img [src]="imageUrl" [alt]="altText || title" class="card-image" />
-  <div class="card-content">
+<div class="card" role="button" tabindex="0" [attr.aria-label]="title" (click)="onCardClick(itemId)"
+  (keydown.enter)="onCardClick(itemId)" (keydown.space)="onCardClick(itemId)">
+  <img [src]="media + imageUrl" [alt]="altText || title" class="card-image" />
+  <div class=" card-content">
     <h2 class="card-title">{{ title }}</h2>
     <p class="card-description">{{ description }}</p>
-    <a [routerLink]="['/detalle', itemId]" class="btn btn-primary btn-sm" (click)="$event.stopPropagation()">
-    </a>
   </div>
 </div>

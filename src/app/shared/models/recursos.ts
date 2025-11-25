@@ -3,4 +3,5 @@ export interface IRecurso{
   nombre: string;
   descripcion: string;
   imgen: Blob;
+  media_url: string;
 }

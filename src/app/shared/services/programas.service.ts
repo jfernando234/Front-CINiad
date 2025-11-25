@@ -13,18 +13,18 @@ export class ProgramasService {
   constructor(public http: HttpClient) { }
 
   obtenerAllProgramas(): Observable<IProgramas[]> {
-    return this.http.get<IProgramas[]>(`${this.apiUrl}Programas/ListarAllProgramass`);
+    return this.http.get<IProgramas[]>(`${this.apiUrl}programas`);
   }
   obetenerProgramasId(programasId: number) {
-    return this.http.get<IProgramas>(`${this.apiUrl}Programas/ObtenerProgramasId?ProgramasId=${programasId}`);
+    return this.http.get<IProgramas>(`${this.apiUrl}programas/${programasId}`);
   }
   agregarProgramas(programa: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}Programas/RegistrarProgramas`, programa);
+    return this.http.post(`${this.apiUrl}programas`, programa);
   }
-  editarProgramas(programasId: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}Programas/ModificarProgramas`, programasId);
+  editarProgramas(programasId: number,programa: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}programas/${programasId}`, programa);
   }
   eliminarProgramas(programasId: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}Programas/EliminarProgramas/${programasId}`, null);
+    return this.http.delete<any>(`${this.apiUrl}programas/${programasId}`);
   }
 }

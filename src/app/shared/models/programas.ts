@@ -3,4 +3,5 @@ export interface IProgramas{
   nombre: string;
   descripcion: string;
   imgen: Blob;
+  media_url: string;
 }

@@ -73,57 +73,57 @@
 
       <!-- Mis Terapias -->
       <section id="terapias" class="content-section mb-5" tabindex="-1">
-        <h2 class="section-title mb-4 text-center">Mis Terapias <span class="text-primary">.</span></h2>
+        <h2 class="section-title mb-4 text-center">Mis Terapias</h2>
         <p class="text-center text-muted mb-5">¿Que tipo de terapia haré hoy?</p>
 
         <div class="cards-container">
-          <app-componnets *ngFor="let item of TerapiasList" [title]="item.title" [description]="item.description"
-            [imageUrl]="item.imageUrl" [altText]="item.altText" [itemId]="item.terapiaId">
+          <app-componnets *ngFor="let item of TerapiasList" [title]="item.nombre" [description]="item.descripcion"
+            [imageUrl]="item.media_url" [altText]="item.altText" [itemId]="item.terapiaId">
           </app-componnets>
         </div>
       </section>
 
       <!-- Mis Programas -->
       <section id="programas" class="content-section mb-5" tabindex="-1">
-        <h2 class="section-title mb-4 text-center">Mis Programas <span class="text-primary">.</span></h2>
+        <h2 class="section-title mb-4 text-center">Mis Programas </h2>
         <p class="text-center text-muted mb-5">Programas estructurados diseñados para un progreso integral</p>
         <div class="cards-container">
-          <app-componnets *ngFor="let item of programaList" [title]="item.title" [description]="item.description"
-            [imageUrl]="item.imagen" [altText]="item.altText" [itemId]="item.programaId">
+          <app-componnets *ngFor="let item of programaList" [title]="item.nombre" [description]="item.descripcion"
+            [imageUrl]="item.media_url" [altText]="item.altText" [itemId]="item.programaId">
           </app-componnets>
         </div>
       </section>
 
       <!-- Mis Talleres -->
       <section id="talleres" class="content-section mb-5" tabindex="-1">
-        <h2 class="section-title mb-4 text-center">Mis Talleres <span class="text-primary">.</span></h2>
+        <h2 class="section-title mb-4 text-center">Mis Talleres</h2>
         <p class="text-center text-muted mb-5">Talleres grupales para fomentar habilidades sociales y desarrollo
           personal</p>
         <div class="cards-container">
-          <app-componnets *ngFor="let item of tallerList" [title]="item.title" [description]="item.description"
-            [imageUrl]="item.imageUrl" [altText]="item.altText" [itemId]="item.tallerId">
+          <app-componnets *ngFor="let item of tallerList" [title]="item.nombre" [description]="item.descripcion"
+            [imageUrl]="item.media_url" [altText]="item.altText" [itemId]="item.tallerId">
           </app-componnets>
         </div>
       </section>
 
       <!-- Actividades en Casa -->
       <section id="actividades" class="content-section mb-5" tabindex="-1">
-        <h2 class="section-title mb-4 text-center">Actividades en Casa <span class="text-primary">.</span></h2>
+        <h2 class="section-title mb-4 text-center">Actividades en Casa</h2>
         <p class="text-center text-muted mb-5">Sugerencias y ejercicios para continuar el desarrollo desde casa</p>
         <div class="cards-container">
-          <app-componnets *ngFor="let item of actividadList" [title]="item.title" [description]="item.description"
-            [imageUrl]="item.imageUrl" [altText]="item.altText" [itemId]="item.actividadId">
+          <app-componnets *ngFor="let item of actividadList" [title]="item.nombre" [description]="item.descripcion"
+            [imageUrl]="item.media_url" [altText]="item.altText" [itemId]="item.actividadId">
           </app-componnets>
         </div>
       </section>
 
       <!-- Recursos Adicionales -->
       <section id="recursos" class="content-section mb-5" tabindex="-1">
-        <h2 class="section-title mb-4 text-center">Recursos Adicionales <span class="text-primary">.</span></h2>
+        <h2 class="section-title mb-4 text-center">Recursos Adicionales </h2>
         <p class="text-center text-muted mb-5">Materiales y enlaces para apoyar el aprendizaje y desarrollo continuo</p>
         <div class="cards-container">
-          <app-componnets *ngFor="let item of recursoList" [title]="item.title" [description]="item.description"
-            [imageUrl]="item.imageUrl" [altText]="item.altText" [itemId]="item.recursoId">
+          <app-componnets *ngFor="let item of recursoList" [title]="item.nombre" [description]="item.descripcion"
+            [imageUrl]="item.media_url" [altText]="item.altText" [itemId]="item.recursoId">
           </app-componnets>
         </div>
       </section>
