@@ -10,6 +10,7 @@ import { LoginComponent } from '../autenticacion/login/login.component';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
+  menuOpen = false;
   constructor(
     private modalService: BsModalService,
     public authService: AuthService,
@@ -34,7 +35,9 @@ export class MenuComponent {
     this.authService.logout();
     this.router.navigate(['/inicio']);
   }
-
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
   // Redirigir al dashboard según el rol
   goToDashboard() {
     const user = this.authService.currentUser;

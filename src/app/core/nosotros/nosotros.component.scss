@@ -5,26 +5,22 @@
   min-height: 100vh
 }
 
-/* ====== Header ====== */
 
+/* ====== Header ====== */
 .header {
   z-index: 1000;
   background-color: #ffffff !important;
   border-bottom: 1px solid #e5e5e5;
-  height: 100px; // fija la altura del header
-  display: flex;
-  align-items: center;
 
-  .logo {
-    img {
-      max-height: 250px; // más grande que el header
-      width: auto;
-      object-fit: contain;
-      display: block;
-      position: relative;
-      top: -10px; // sube la imagen un poco sin aumentar el header
-    }
+  .container {
+    padding: 0 1rem;
   }
+}
+
+// Asegurar que el menú ocupe todo el ancho
+app-menu {
+  display: block;
+  width: 100%;
 }
 
 /* ====== Banner Principal ====== */
@@ -325,5 +321,6 @@ label,
 
 // Asegurar suficiente espacio entre elementos
 .content-section {
-  margin-bottom: 0 !important; /* Anulado para evitar huecos entre fondos full-width */
+  margin-bottom: 0 !important;
+  /* Anulado para evitar huecos entre fondos full-width */
 }

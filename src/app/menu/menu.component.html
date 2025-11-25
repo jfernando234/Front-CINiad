@@ -1,18 +1,28 @@
-<!-- menu.component.html -->
 <nav class="menu">
-  <a routerLink="/inicio" routerLinkActive="active">Inicio</a>
-  <a routerLink="/nosotros" routerLinkActive="active">Quiénes somos</a>
-  <!-- Mostrar botón de login si no hay usuario -->
+  <div class="menu-container">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo" class="logo-img">
+    </div>
 
-  <a *ngIf="!authService.currentUser" (click)="login()" class="login-link">
-    <i class="fas fa-sign-in-alt me-2"></i>Ingresar
-  </a>
-  <!-- Mostrar nombre de usuario y logout si está logueado -->
-  <span *ngIf="authService.currentUser" class="user-info">
-    <i class="fas fa-user-circle me-1"></i>
-    <a (click)="authService.logout()" class="ms-2">
-      <i class="fas fa-sign-out-alt me-1"></i>Cerrar sesión
-    </a>
-  </span>
+    <div class="nav-links">
+      <a routerLink="/inicio" routerLinkActive="active">Inicio</a>
+      <a routerLink="/nosotros" routerLinkActive="active">Quiénes somos</a>
 
+      <a *ngIf="!authService.currentUser" (click)="login()" class="login-link">
+        <i class="fas fa-sign-in-alt me-2"></i>Ingresar
+      </a>
+
+      <span *ngIf="authService.currentUser" class="user-info">
+        <i class="fas fa-user-circle me-1"></i>
+        <a (click)="authService.logout()" class="logout-link">
+          <i class="fas fa-sign-out-alt me-1"></i>Cerrar sesión
+        </a>
+      </span>
+    </div>
+
+    <!-- Botón hamburguesa para móvil -->
+    <button class="menu-toggle" (click)="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
 </nav>

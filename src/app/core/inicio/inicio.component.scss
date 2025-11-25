@@ -6,26 +6,22 @@
 }
 
 /* ====== Header ====== */
-
 .header {
   z-index: 1000;
   background-color: #ffffff !important;
   border-bottom: 1px solid #e5e5e5;
-  height: 100px; // fija la altura del header
-  display: flex;
-  align-items: center;
 
-  .logo {
-    img {
-      max-height: 250px; // más grande que el header
-      width: auto;
-      object-fit: contain;
-      display: block;
-      position: relative;
-      top: -10px; // sube la imagen un poco sin aumentar el header
-    }
+  .container {
+    padding: 0 1rem;
   }
 }
+
+// Asegurar que el menú ocupe todo el ancho
+app-menu {
+  display: block;
+  width: 100%;
+}
+
 /* ====== Banner Principal ====== */
 .banner {
   background: linear-gradient(135deg, #e8f3ff 0%, #ffffff 100%);
@@ -57,6 +53,14 @@
 /* ====== Botones de navegación ====== */
 .service-nav-btn {
   margin-bottom: 5px;
+  /* Asegurar que el cursor muestre pointer y que el elemento reciba eventos */
+  cursor: pointer;
+  pointer-events: auto;
+  /* Elevar por encima del header/menu (debugging) */
+  position: relative;
+  z-index: 1100;
+  /* Añadir sombra sutil para verificar visualmente si está encima */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   /* Menos espacio vertical entre botones */
   border-width: 2px;
   border-color: #0056b3;
@@ -107,7 +111,8 @@
 
 .content-section {
   scroll-margin-top: 120px;
-  P{
+
+  P {
     font-size: 2rem;
   }
 }
