@@ -1,90 +1,59 @@
 .admin-container {
-  min-height: 100vh;
   background-color: #f8f9fa;
 }
 
 .admin-header {
   background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
   color: white;
-  padding: 1rem 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-
-    h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-
-      span {
-        font-weight: 500;
-      }
-    }
-  }
+  height: 60px;
+  flex-shrink: 0;
 }
 
-/* Cuerpo con menú izquierdo y contenido */
 .admin-body {
+  flex: 1 1 auto;
   display: flex;
-  gap: 1rem;
+  overflow: hidden;
 }
 
 .admin-aside {
   width: 250px;
-  background: #ffffff;
-  border-right: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 1rem 0.5rem;
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.02);
-}
+  transition: all 0.3s ease;
+  flex-shrink: 0;
 
-.admin-nav {
-  padding: 0 0.5rem;
+  &.show {
+    transform: translateX(0);
+  }
 
-  .nav-item {
-    .nav-link {
-      color: #333;
-      padding: 0.5rem 0.75rem;
-      display: block;
-      border-radius: 6px;
-      transition: background 0.3s;
-
-      &.active {
-        background: linear-gradient(90deg, #e9f2ff, #fff);
-        color: #0d6efd;
-      }
-
-      &:hover {
-        background-color: #f1f1f1;
-      }
-    }
+  @media (max-width: 768px) {
+    position: absolute;
+    z-index: 1000;
+    height: 100%;
+    top: 60px;
+    left: 0;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 8px rgba(0,0,0,0.2);
   }
 }
-
 
 .admin-main {
   flex: 1 1 auto;
-  padding: 1rem 1.5rem;
+  overflow-y: auto;
   min-height: calc(100vh - 60px);
-  overflow: auto;
 }
 
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-  .admin-body {
-    flex-direction: column;
+.admin-nav .nav-link {
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.25rem;
+  transition: background 0.3s;
+  color: #333;
+
+  &.active {
+    background: linear-gradient(90deg, #e9f2ff, #fff);
+    color: #0d6efd;
   }
 
-  .admin-aside {
-    width: 100%;
+  &:hover {
+    background-color: #f1f1f1;
   }
 }

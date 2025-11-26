@@ -49,7 +49,7 @@ export class AddUsuarioComponent implements OnInit {
     });
   }
   Cancelar() {
-
+    this.bsModalRef?.hide();
   }
   /**validaciones */
   isInvalid(controlName: string) {

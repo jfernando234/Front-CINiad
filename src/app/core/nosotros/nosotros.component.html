@@ -1,11 +1,7 @@
 <!-- home.component.html -->
 <div class="home-container">
 
-  <header class="header bg-white shadow-sm sticky-top">
-    <div class="container">
-      <app-menu></app-menu>
-    </div>
-  </header>
+  <app-menu></app-menu>
 
   <!-- Banner Principal -->
   <section class="banner position-relative overflow-hidden" aria-labelledby="banner-heading">
@@ -60,13 +56,8 @@
 
       <div class="row align-items-center py-3">
         <div class="col-12">
-          <div class="video-container rounded-4 overflow-hidden shadow-lg">
-            <div class="ratio ratio-16x9">
-              <video class="w-100 h-100" autoplay muted loop playsinline aria-label="Video presentación de CINIAD">
-                <source src="assets/videos/presentacion.mp4" type="video/mp4">
-                Tu navegador no soporta la etiqueta de video.
-              </video>
-            </div>
+          <div class="banner-container rounded-4 overflow-hidden shadow-lg">
+            <img src="assets/img/banner.jpeg" alt="Banner principal CINIAD" class="banner-img">
           </div>
         </div>
       </div>
@@ -251,8 +242,9 @@
               </div>
 
               <div class="text-center mt-4">
-                <button class="btn btn-outline-primary me-2 mb-2" (click)="ubicacionOlivos()">Ver ubicación Los Olivos</button>
-                <button class="btn btn-outline-primary mb-2"  (click)="ubicacionBrena()">Ver ubicación Breña</button>
+                <button class="btn btn-outline-primary me-2 mb-2" (click)="ubicacionOlivos()">Ver ubicación Los
+                  Olivos</button>
+                <button class="btn btn-outline-primary mb-2" (click)="ubicacionBrena()">Ver ubicación Breña</button>
               </div>
             </div>
           </div>

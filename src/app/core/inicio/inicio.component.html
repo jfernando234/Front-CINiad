@@ -42,16 +42,10 @@
           </div>
         </div>
       </div>
-      <div class="row align-items-center py-3"> <!-- Reducido py-5 a py-3 -->
+      <div class="row align-items-center py-3">
         <div class="col-12">
-          <div class="video-container rounded-4 overflow-hidden shadow-lg">
-            <div class="ratio ratio-16x9">
-              <video class="w-100 h-100" autoplay muted loop playsinline>
-                <source src="assets/banner.mp4" type="video/mp4">
-                Tu navegador no soporta la etiqueta de video.
-              </video>
-              <!-- Eliminado el overlay con el botón de reproducción -->
-            </div>
+          <div class="banner-container rounded-4 overflow-hidden shadow-lg">
+            <img src="assets/img/banner.jpeg" alt="Banner principal CINIAD" class="banner-img">
           </div>
         </div>
       </div>
@@ -69,7 +63,7 @@
         <div class="cards-container">
           <app-componnets *ngFor="let item of TerapiasList" [title]="item.nombre" [description]="item.descripcion"
             [imageUrl]="item.media_card_url" [altText]="item.altText" [itemId]="item.id" [type]="'Terapia'">
-          </app-componnets>Terapia
+          </app-componnets>
         </div>
       </section>
 

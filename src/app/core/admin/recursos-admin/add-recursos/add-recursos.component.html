@@ -29,15 +29,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6">
-                  <div class="form-group local-forms">
-                    <label>Descripción <span class="login-danger">*</span></label>
-                    <input formControlName="descripcion" class="form-control" type="text">
-                    <div *ngIf="isInvalid('descripcion') || mostrarErrores" class="invalid-feedback d-block">
-                      Debe completar el campo*
-                    </div>
-                  </div>
-                </div>
               </div>
               <div class="row mb-3">
                 <div class="col-12 col-md-6">
@@ -46,7 +37,7 @@
                     <div class="profile-photo-container d-flex align-items-center gap-3">
                       <div class="photo-preview">
                         <img [src]="fotoPreview || 'assets/img/user.jpg'" alt="Imagen" class="img-thumbnail"
-                          style="max-width:150px;">
+                          style="max-width: 280px;">
                       </div>
                       <div class="photo-upload">
                         <input type="file" #fotoInput (change)="onFileSelected($event)" hidden>
@@ -59,7 +50,7 @@
                 <div class="col-12 col-md-6">
                   <div class="form-group">
                     <label>Contenido<span class="text-danger">*</span></label>
-                    <textarea formControlName="contenido" class="form-control" rows="3"
+                    <textarea formControlName="descripcion" class="form-control" rows="10"
                       placeholder="Ingrese contenido"></textarea>
                   </div>
                 </div>

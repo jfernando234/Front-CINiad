@@ -1,0 +1,20 @@
+.large-textarea {
+  min-height: 200px;
+  /* Altura mínima más grande */
+  font-size: 1.1rem;
+  /* Texto ligeramente más grande */
+  line-height: 1.5;
+  /* Mejor espaciado entre líneas */
+}
+
+/* Para pantallas más grandes, hacerlo aún más grande */
+@media (min-width: 768px) {
+  .large-textarea {
+    min-height: 250px;
+  }
+}
+
+.container {
+  max-width: 800px;
+  margin-top: 30px;
+}

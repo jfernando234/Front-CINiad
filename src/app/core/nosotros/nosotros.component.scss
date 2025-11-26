@@ -8,10 +8,8 @@
 
 /* ====== Header ====== */
 .header {
-  z-index: 1000;
   background-color: #ffffff !important;
   border-bottom: 1px solid #e5e5e5;
-
   .container {
     padding: 0 1rem;
   }
@@ -27,28 +25,36 @@ app-menu {
 .banner {
   background: linear-gradient(135deg, #e8f3ff 0%, #ffffff 100%);
   padding: 15px 0;
-  /* Reducido aún más el padding */
+  width: 100%;
+}
 
-  .row.justify-content-center.mb-3 {
-    margin-bottom: 15px;
-    /* Menos espacio entre botones y video */
-  }
+.banner .container {
+  max-width: 100%;
+  padding: 0 15px;
+}
 
-  .video-container {
-    position: relative;
-    max-height: 380px;
-    /* Ligeramente reducida la altura máxima */
-    overflow: hidden;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.banner .row.justify-content-center.mb-3 {
+  margin-bottom: 15px;
+}
 
-    video {
-      width: 100%;
-      height: 100%;
-    }
+.banner-img {
+  width: 100%;
+  height: auto; // Mantiene proporción natural
+  display: block;
+  object-fit: contain; // Ajusta la imagen para cubrir el contenedor sin deformarse
+  max-height: 600px; // Para desktop, ajustable según necesites
+}
 
-    /* Eliminado completamente el overlay y botón de reproducción */
-  }
+.video-container {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ====== Botones de navegación ====== */
@@ -64,7 +70,7 @@ app-menu {
   min-width: 120px; // Ancho mínimo para mejor usabilidad
   position: relative;
   /* asegurar que el botón pueda elevarse por z-index */
-  z-index: 1100;
+
   /* por encima de otros elementos como video o overlays */
   pointer-events: auto;
   /* forzar que acepte eventos pointer */
@@ -204,11 +210,15 @@ app-menu {
     gap: 16px;
   }
 }
+
 .card-link {
-  display: block; /* o display: flex si quieres alinear contenido */
+  display: block;
+  /* o display: flex si quieres alinear contenido */
   text-decoration: none;
-  color: inherit; /* mantener color de texto */
+  color: inherit;
+  /* mantener color de texto */
 }
+
 /* ====== Mejoras de accesibilidad y colores pastel ====== */
 
 // Colores pastel para mejor contraste y accesibilidad
@@ -328,6 +338,7 @@ label,
   margin-bottom: 0 !important;
   /* Anulado para evitar huecos entre fondos full-width */
 }
+
 .cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -335,21 +346,27 @@ label,
 }
 
 .card-link {
-  display: block; /* o display: flex si quieres alinear contenido */
+  display: block;
+  /* o display: flex si quieres alinear contenido */
   text-decoration: none;
-  color: inherit; /* mantener color de texto */
+  color: inherit;
+  /* mantener color de texto */
 }
 
 /* Ajustes para Misión y Visión */
 #misiónVision .card-body {
   position: relative;
-  z-index: 2; /* Para que el texto quede sobre la imagen */
+  z-index: 2;
+  /* Para que el texto quede sobre la imagen */
 }
 
 #misiónVision img {
-  z-index: 1; /* La imagen detrás del texto */
-  object-fit: cover; /* Ajusta la imagen sin deformar */
-  opacity: 0.25; /* Transparencia para que el texto se lea */
+  z-index: 1;
+  /* La imagen detrás del texto */
+  object-fit: cover;
+  /* Ajusta la imagen sin deformar */
+  opacity: 0.25;
+  /* Transparencia para que el texto se lea */
   border-radius: 0.5rem;
 }
 
@@ -367,4 +384,3 @@ label,
     text-align: center;
   }
 }
-
