@@ -44,18 +44,14 @@ app-menu {
 
 .video-container {
   position: relative;
-  max-height: 380px;
+  height: 600px;
   overflow: hidden;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   width: 100%;
-}
-
-.video-container video {
-  width: 100%;
-  height: auto;
-  max-height: 380px;
-  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ====== Botones de navegación ====== */
@@ -152,7 +148,7 @@ app-menu {
   }
 
   .video-container {
-    max-height: 320px;
+    height: 500px;
     border-radius: 0.8rem;
   }
 
@@ -178,7 +174,7 @@ app-menu {
   }
 
   .video-container {
-    max-height: 280px;
+    height: 380px;
     border-radius: 0.6rem;
   }
 
@@ -225,7 +221,7 @@ app-menu {
   }
 
   .video-container {
-    max-height: 200px;
+    height: 280px;
     border-radius: 0.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
@@ -274,7 +270,7 @@ app-menu {
 /* Móviles muy pequeños */
 @media (max-width: 375px) {
   .video-container {
-    max-height: 180px;
+    height: 240px;
   }
 
   .service-nav-btn {
