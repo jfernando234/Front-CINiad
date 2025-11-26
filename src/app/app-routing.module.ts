@@ -9,7 +9,7 @@ import { AuthGuard } from './shared/auth/auth.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: InicioComponent },
-  { path: 'nosotros', component: NosotrosComponent },
+  { path: 'quienessomos', component: NosotrosComponent },
   { path: 'detalle/:type/:id', component: ContenidoComponent },
   {
     path: 'admin',
@@ -21,7 +21,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    anchorScrolling: 'enabled',
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

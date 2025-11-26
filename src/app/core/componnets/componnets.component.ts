@@ -11,6 +11,7 @@ export class ComponnetsComponent {
   media = environment.apiURLmedia;
   @Input() title: string = '';
   @Input() description: string = '';
+  @Input() image?: string = '';
   @Input() imageUrl?: string = '';
   @Input() altText?: string = '';
   @Input() itemId: number = 0;

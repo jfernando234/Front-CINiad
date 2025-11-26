@@ -1,69 +1,54 @@
 <footer class="footer bg-dark text-white py-5">
-    <div class="container">
-      <div class="row">
-        <!-- Enlaces rápidos -->
-        <div class="col-md-6 col-lg-3 mb-4">
-          <h5 class="mb-3">Enlaces Rápidos</h5>
-          <div class="footer-links d-flex flex-column">
-            <a href="#" class="text-white-50 text-decoration-none mb-2">Inicio</a>
-            <a href="#" class="text-white-50 text-decoration-none mb-2">Nosotros</a>
-            <a href="#" class="text-white-50 text-decoration-none mb-2">Servicios</a>
-            <a href="#" class="text-white-50 text-decoration-none mb-2">Contacto</a>
-          </div>
-        </div>
-
-        <!-- Información de contacto -->
-        <div class="col-md-6 col-lg-3 mb-4">
-          <h5 class="mb-3">Contacto</h5>
-          <div class="contact-info">
-            <p class="text-white-50 mb-1"><i class="fas fa-phone me-2" aria-hidden="true"></i> +1 234 567 890</p>
-            <p class="text-white-50 mb-1"><i class="fas fa-envelope me-2" aria-hidden="true"></i> info@misitio.com</p>
-            <p class="text-white-50"><i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i> Ciudad, País</p>
-          </div>
-        </div>
-
-        <!-- Redes sociales -->
-        <div class="col-md-6 col-lg-3 mb-4">
-          <h5 class="mb-3">Síguenos</h5>
-          <div class="social-icons d-flex gap-3">
-            <a href="#" class="text-white-50" aria-label="Síguenos en Facebook"><i class="fab fa-facebook-f fa-lg"
-                aria-hidden="true"></i></a>
-            <a href="#" class="text-white-50" aria-label="Síguenos en Instagram"><i class="fab fa-instagram fa-lg"
-                aria-hidden="true"></i></a>
-            <a href="#" class="text-white-50" aria-label="Síguenos en Twitter"><i class="fab fa-twitter fa-lg"
-                aria-hidden="true"></i></a>
-            <a href="#" class="text-white-50" aria-label="Síguenos en YouTube"><i class="fab fa-youtube fa-lg"
-                aria-hidden="true"></i></a>
-          </div>
-        </div>
-
-        <!-- Newsletter -->
-        <div class="col-md-6 col-lg-3 mb-4">
-          <h5 class="mb-3">Newsletter</h5>
-          <div class="newsletter">
-            <p class="text-white-50 small mb-2">Suscríbete para recibir novedades</p>
-            <div class="input-group">
-              <input type="email" class="form-control" placeholder="Tu email" aria-label="Email para suscripción">
-              <button class="btn btn-primary" type="button" aria-label="Suscribirse">
-                <i class="fas fa-paper-plane" aria-hidden="true"></i>
-              </button>
-            </div>
-          </div>
+  <div class="container">
+    <div class="row">
+      <!-- Enlaces rápidos -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <h5 class="mb-3">Enlaces Rápidos</h5>
+        <div class="footer-links d-flex flex-column">
+          <a routerLink="/inicio"  [fragment]="'menu'"routerLinkActive="active" class="text-decoration-none mb-2">Inicio</a>
+          <a routerLink="/quienessomos" routerLinkActive="active" class="text-decoration-none mb-2">Nosotros</a>
+          <a routerLink="/quienessomos" [fragment]="'servicios'" routerLinkActive="active"
+            class="text-decoration-none mb-2">Servicios</a>
+          <a routerLink="/quienessomos" [fragment]="'contacto'" routerLinkActive="active"
+            class="text-decoration-none mb-2">Contacto</a>
         </div>
       </div>
-
-      <hr class="my-4 bg-white-50">
-
-      <div class="row align-items-center">
-        <div class="col-md-6 text-center text-md-start">
-          <p class="mb-0 text-white-50">&copy; 2025 Mi Sitio Web. Todos los derechos reservados.</p>
+      <div class="col-md-6 col-lg-3 mb-4">
+        <h5 class="mb-3">Servicio</h5>
+        <div class="footer-links d-flex flex-column">
+          <a routerLink="/quienessomos" [fragment]="'servicios'" routerLinkActive="active"
+            class="text-decoration-none mb-2">Terapia de Lenguaje</a>
+          <a routerLink="/quienessomos" [fragment]="'servicios'" routerLinkActive="active"
+            class="text-decoration-none mb-2">Psicomotrocidad</a>
+          <a routerLink="/quienessomos" [fragment]="'servicios'" routerLinkActive="active"
+            class="text-decoration-none mb-2">Apoyo al aprendisaje</a>
+          <a routerLink="/quienessomos" [fragment]="'servicios'" routerLinkActive="active"
+            class="text-decoration-none mb-2">Integración Sensorial</a>
         </div>
-        <div class="col-md-6 text-center text-md-end">
-          <div class="legal-links">
-            <a href="#" class="text-white-50 text-decoration-none me-3">Política de Privacidad</a>
-            <a href="#" class="text-white-50 text-decoration-none">Términos de Servicio</a>
-          </div>
+      </div>
+      <!-- Información de contacto -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <h5 class="mb-3">Contacto</h5>
+        <div class="contact-info">
+          <p class="text-white-50 mb-1"><i class="fas fa-phone me-2" aria-hidden="true"></i> +51 975 741 001</p>
+          <p class="text-white-50 mb-1"><i class="fas fa-envelope me-2" aria-hidden="true"></i>Contacto@ciniad.com</p>
+          <p class="text-white-50"><i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i> Lima, Peru</p>
         </div>
       </div>
     </div>
-  </footer>
+
+    <hr class="my-4 bg-white-50">
+
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center text-md-start">
+        <p class="mb-0 text-white-50">&copy; 2025 Mi Sitio Web. Todos los derechos reservados.</p>
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <div class="legal-links">
+          <a href="#" class="text-white-50 text-decoration-none me-3">Política de Privacidad</a>
+          <a href="#" class="text-white-50 text-decoration-none">Términos de Servicio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

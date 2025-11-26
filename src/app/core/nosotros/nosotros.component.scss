@@ -204,7 +204,11 @@ app-menu {
     gap: 16px;
   }
 }
-
+.card-link {
+  display: block; /* o display: flex si quieres alinear contenido */
+  text-decoration: none;
+  color: inherit; /* mantener color de texto */
+}
 /* ====== Mejoras de accesibilidad y colores pastel ====== */
 
 // Colores pastel para mejor contraste y accesibilidad
@@ -324,3 +328,43 @@ label,
   margin-bottom: 0 !important;
   /* Anulado para evitar huecos entre fondos full-width */
 }
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.card-link {
+  display: block; /* o display: flex si quieres alinear contenido */
+  text-decoration: none;
+  color: inherit; /* mantener color de texto */
+}
+
+/* Ajustes para Misión y Visión */
+#misiónVision .card-body {
+  position: relative;
+  z-index: 2; /* Para que el texto quede sobre la imagen */
+}
+
+#misiónVision img {
+  z-index: 1; /* La imagen detrás del texto */
+  object-fit: cover; /* Ajusta la imagen sin deformar */
+  opacity: 0.25; /* Transparencia para que el texto se lea */
+  border-radius: 0.5rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  #misionVision img {
+    width: 100%;
+    height: 150px;
+    opacity: 0.2;
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  #misionVision .card-body {
+    text-align: center;
+  }
+}
+

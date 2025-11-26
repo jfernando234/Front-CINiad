@@ -85,7 +85,7 @@
 
         <div class="row align-items-center">
           <div class="col-md-6 mb-4 mb-md-0">
-            <img src="assets/images/nosotros.jpg" alt="Niños participando en actividades terapéuticas en CINIAD"
+            <img src="assets/logo.png" alt="Niños participando en actividades terapéuticas en CINIAD"
               class="img-fluid rounded shadow-sm">
           </div>
           <div class="col-md-6">
@@ -106,7 +106,6 @@
         <h2 id="misionVision-heading" class="section-title mb-4 text-center">Misión y Visión <span
             class="text-primary">.</span></h2>
         <p class="text-center text-muted mb-5">Nuestros principios fundamentales que guían nuestro trabajo</p>
-
         <div class="row">
           <div class="col-md-6 mb-4">
             <div class="card h-100 border-0 shadow-sm">
@@ -151,9 +150,11 @@
           específicas de cada niño.</p>
 
         <div class="cards-container">
-          <app-componnets *ngFor="let item of programaList" [title]="item.title" [description]="item.description"
-            [imageUrl]="item.imageUrl" [altText]="item.altText" [itemId]="item.tallerId">
-          </app-componnets>
+          <a *ngFor="let item of programaList" [routerLink]="['/inicio']" [fragment]="'menu'" class="card-link">
+            <app-componnets [title]="item.title" [description]="item.description" [image]="item.imageUrl"
+              [altText]="item.altText" [itemId]="item.tallerId">
+            </app-componnets>
+          </a>
         </div>
       </section>
 
@@ -166,7 +167,7 @@
 
         <div class="row align-items-center">
           <div class="col-md-6 mb-4 mb-md-0">
-            <img src="assets/images/equipo.jpg" alt="Equipo de trabajo de CINIAD colaborando juntos"
+            <img src="assets/img/contacto.png" alt="Equipo de trabajo de CINIAD colaborando juntos"
               class="img-fluid rounded shadow-sm">
           </div>
           <div class="col-md-6">
@@ -174,19 +175,20 @@
               <div class="mb-3">
                 <label for="nombre" class="form-label h5">Nombre completo</label>
                 <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre completo"
-                  aria-required="true">
+                  [(ngModel)]="nombre" name="nombre" aria-required="true">
               </div>
               <div class="mb-3">
                 <label for="correo" class="form-label h5">Correo electrónico</label>
                 <input type="email" class="form-control" id="correo" placeholder="ejemplo@correo.com"
-                  aria-required="true">
+                  [(ngModel)]="correo" name="correo" aria-required="true">
               </div>
               <div class="mb-3">
                 <label for="mensaje" class="form-label h5">Mensaje</label>
                 <textarea class="form-control" id="mensaje" rows="4"
-                  placeholder="Cuéntanos por qué te interesa unirte a nuestro equipo" aria-required="true"></textarea>
+                  placeholder="Cuéntanos por qué te interesa unirte a nuestro equipo" [(ngModel)]="mensaje"
+                  name="mensaje" aria-required="true"></textarea>
               </div>
-              <button type="submit" class="btn btn-primary btn-lg w-100">Enviar solicitud</button>
+              <button type="submit" class="btn btn-primary btn-lg w-100" (click)="solicitud()">Enviar solicitud</button>
             </form>
           </div>
         </div>
@@ -207,24 +209,26 @@
                 <div class="mb-3">
                   <label for="contacto-nombre" class="form-label">Nombre completo</label>
                   <input type="text" class="form-control" id="contacto-nombre" placeholder="Ingresa tu nombre"
-                    aria-required="true">
+                    [(ngModel)]="nombre" name="nombre" aria-required="true">
                 </div>
                 <div class="mb-3">
                   <label for="contacto-correo" class="form-label">Correo electrónico</label>
                   <input type="email" class="form-control" id="contacto-correo" placeholder="ejemplo@correo.com"
-                    aria-required="true">
+                    [(ngModel)]="correo" name="correo" aria-required="true">
                 </div>
                 <div class="mb-3">
                   <label for="contacto-asunto" class="form-label">Asunto</label>
                   <input type="text" class="form-control" id="contacto-asunto" placeholder="Asunto de tu mensaje"
-                    aria-required="true">
+                    [(ngModel)]="asunto" name="asunto" aria-required="true">
                 </div>
                 <div class="mb-3">
                   <label for="contacto-mensaje" class="form-label">Mensaje</label>
                   <textarea class="form-control" id="contacto-mensaje" rows="4"
-                    placeholder="Describe cómo podemos ayudarte" aria-required="true"></textarea>
+                    placeholder="Describe cómo podemos ayudarte" [(ngModel)]="mensaje" name="mensaje"
+                    aria-required="true"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg">Solicitar ayuda</button>
+                <button type="submit" class="btn btn-primary btn-lg" (click)="enviarcorreo($event)">Solicitar
+                  ayuda</button>
               </form>
             </div>
           </div>
@@ -247,8 +251,8 @@
               </div>
 
               <div class="text-center mt-4">
-                <button class="btn btn-outline-primary me-2 mb-2">Ver ubicación Los Olivos</button>
-                <button class="btn btn-outline-primary mb-2">Ver ubicación Breña</button>
+                <button class="btn btn-outline-primary me-2 mb-2" (click)="ubicacionOlivos()">Ver ubicación Los Olivos</button>
+                <button class="btn btn-outline-primary mb-2"  (click)="ubicacionBrena()">Ver ubicación Breña</button>
               </div>
             </div>
           </div>

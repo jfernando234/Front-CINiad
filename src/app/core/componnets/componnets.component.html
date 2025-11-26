@@ -1,8 +1,7 @@
-<div class="card" role="button" tabindex="0" [attr.aria-label]="title"
-     (click)="onCardClick()"
-     (keydown.enter)="onCardClick()"
-     (keydown.space)="onCardClick()">
-  <img [src]="media + imageUrl" [alt]="altText || title" class="card-image" />
+<div class="card" role="button" tabindex="0" [attr.aria-label]="title" (click)="onCardClick()"
+  (keydown.enter)="onCardClick()" (keydown.space)="onCardClick()">
+  <img [src]="image ? image : (imageUrl ? media + imageUrl : 'assets/default-image.png')" [alt]="altText || title"
+    class="card-image" />
   <div class="card-content">
     <h2 class="card-title">{{ title }}</h2>
     <p class="card-description">{{ description }}</p>

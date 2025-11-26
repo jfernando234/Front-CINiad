@@ -20,8 +20,8 @@ import { TerapiasService } from 'src/app/shared/services/terapias.service';
 export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading = false;
   TerapiasList: ITerapia[] = [];
-  programaList:IProgramas[] = [];
-  tallerList:  ITaller[] = [];
+  programaList: IProgramas[] = [];
+  tallerList: ITaller[] = [];
   actividadList: IActividad[] = [];
   recursoList: IRecurso[] = [];
 
@@ -129,52 +129,52 @@ export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   cargarProgramasSiNecesario(): void {
-  if (!this.datosCargados.programas) {
-    this.isLoading = true;
-    this.programasServices.obtenerAllProgramas()
-      .pipe(finalize(() => this.isLoading = false))
-      .subscribe((data: IProgramas[]) => {
-        this.programaList = data;
-        this.datosCargados.programas = true;
-      });
+    if (!this.datosCargados.programas) {
+      this.isLoading = true;
+      this.programasServices.obtenerAllProgramas()
+        .pipe(finalize(() => this.isLoading = false))
+        .subscribe((data: IProgramas[]) => {
+          this.programaList = data;
+          this.datosCargados.programas = true;
+        });
+    }
   }
-}
 
-cargarTalleresSiNecesario(): void {
-  if (!this.datosCargados.talleres) {
-    this.isLoading = true;
-    this.talleresService.obtenerAllTalleres()
-      .pipe(finalize(() => this.isLoading = false))
-      .subscribe((data: ITaller[]) => {
-        this.tallerList = data;
-        this.datosCargados.talleres = true;
-      });
+  cargarTalleresSiNecesario(): void {
+    if (!this.datosCargados.talleres) {
+      this.isLoading = true;
+      this.talleresService.obtenerAllTalleres()
+        .pipe(finalize(() => this.isLoading = false))
+        .subscribe((data: ITaller[]) => {
+          this.tallerList = data;
+          this.datosCargados.talleres = true;
+        });
+    }
   }
-}
 
-cargarActividadesSiNecesario(): void {
-  if (!this.datosCargados.actividades) {
-    this.isLoading = true;
-    this.actividadServices.obtenerAllActividades()
-      .pipe(finalize(() => this.isLoading = false))
-      .subscribe((data: IActividad[]) => {
-        this.actividadList = data;
-        this.datosCargados.actividades = true;
-      });
+  cargarActividadesSiNecesario(): void {
+    if (!this.datosCargados.actividades) {
+      this.isLoading = true;
+      this.actividadServices.obtenerAllActividades()
+        .pipe(finalize(() => this.isLoading = false))
+        .subscribe((data: IActividad[]) => {
+          this.actividadList = data;
+          this.datosCargados.actividades = true;
+        });
+    }
   }
-}
 
-cargarRecursosSiNecesario(): void {
-  if (!this.datosCargados.recursos) {
-    this.isLoading = true;
-    this.recursosService.obtenerAllRecursos()
-      .pipe(finalize(() => this.isLoading = false))
-      .subscribe((data: IRecurso[]) => {
-        this.recursoList = data;
-        this.datosCargados.recursos = true;
-      });
+  cargarRecursosSiNecesario(): void {
+    if (!this.datosCargados.recursos) {
+      this.isLoading = true;
+      this.recursosService.obtenerAllRecursos()
+        .pipe(finalize(() => this.isLoading = false))
+        .subscribe((data: IRecurso[]) => {
+          this.recursoList = data;
+          this.datosCargados.recursos = true;
+        });
+    }
   }
-}
 
 
   scrollToSection(sectionId: string): void {
