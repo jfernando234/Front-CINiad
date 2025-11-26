@@ -21,7 +21,8 @@ export class AddProgramasComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      descripcion: [''],
+      contenido: [''],
       imagen: ['']
     });
   }
@@ -41,7 +42,9 @@ export class AddProgramasComponent implements OnInit {
     formData.append('file', this.imagenSubirFoto); // archivo
 
     // === Enviar detalles como JSON ===
-    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    if (this.form.get('contenido')?.value) {
+      formData.append('detalles', this.form.get('contenido')!.value);
+    }
 
     this.programasService.agregarProgramas(formData).subscribe({
       next: (resp) => {

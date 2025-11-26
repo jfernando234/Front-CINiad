@@ -11,11 +11,15 @@ export interface ITerapia {
   descripcion: string;
   imagen: Blob;
   media_url?: string;
-  detalle: IDetalle[];
+  contenido?:string
+  media_card_url?: string;
+  altText?: string;
+  id:number;
 }
 export interface IDetalle {
   detalleId: number;
   nombre: string;
   descripcion: string;
   imgen: Blob;
+  contenido?:string
 }

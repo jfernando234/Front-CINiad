@@ -35,7 +35,8 @@ export class EditarProgramasComponent implements OnInit {
     });
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      descripcion: [''],
+      contenido: [''],
     });
     this.obtenerPrograma();
 
@@ -50,7 +51,8 @@ export class EditarProgramasComponent implements OnInit {
           // Actualiza solo los campos de texto
           this.form.patchValue({
             nombre: data.nombre,
-            descripcion: data.descripcion
+            descripcion: data.descripcion,
+            detalles: data.contenido
           });
 
           // Prepara la imagen para mostrar en preview
@@ -82,7 +84,10 @@ export class EditarProgramasComponent implements OnInit {
     if (this.imagenSubirFoto) { formData.append('file', this.imagenSubirFoto); }
     // archivo
     // === Enviar detalles como JSON ===
-    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    // === Enviar detalles como JSON ===
+    if (this.form.get('contenido')?.value) {
+      formData.append('detalles', this.form.get('contenido')!.value);
+    }
     this.programasService.editarProgramas(this.programasId, formData).subscribe({
       next: (resp) => {
         Swal.fire('Exito', 'Programa Editado con Exito', 'success')

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActividadesService } from 'src/app/shared/services/actividades.service';
-import { AddDetallesActividadesComponent } from './add-detalles/add-detalles.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +21,8 @@ export class AddActividadesComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      descripcion: [''],
+      contenido: [''],
       imagen: ['']
     });
   }
@@ -40,7 +40,9 @@ export class AddActividadesComponent implements OnInit {
     formData.append('file', this.imagenSubirFoto); // archivo
 
     // === Enviar detalles como JSON ===
-    formData.append('detalle', JSON.stringify(this.detalles));
+    if (this.form.get('contenido')?.value) {
+      formData.append('detalles', this.form.get('contenido')!.value);
+    }
 
     this.actividadesService.agregarActividades(formData).subscribe({
       next: (resp) => {
@@ -51,16 +53,6 @@ export class AddActividadesComponent implements OnInit {
         Swal.fire('Error', 'Error al crear la Actividad', 'error')
       }
     });
-  }
-  agregarDetalle() {
-    this.bsModalRef = this.modalService.show(AddDetallesActividadesComponent, {
-      class: 'modal-lg',
-    });
-    // Definimos un callback para recibir el detalle desde el modal
-    this.bsModalRef.content.onSave = (detalle: any) => {
-      // Agregamos el detalle al array
-      this.detalles.push(detalle);
-    };
   }
   eliminarDetalle(i: number) {
     this.detalles.splice(i, 1);

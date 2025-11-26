@@ -37,11 +37,12 @@ export class EditarTerapiasComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.terapiaId = Number(params.get('id'));
     });
-    console.log(this.terapiaId)
+
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      imagen: []
+      descripcion: [''],
+      contenido: [''],
+      imagen: ['']
     });
     this.obtenerTerapia();
   }
@@ -57,7 +58,8 @@ export class EditarTerapiasComponent implements OnInit {
           // Actualiza solo los campos de texto
           this.form.patchValue({
             nombre: data.nombre,
-            descripcion: data.descripcion
+            descripcion: data.descripcion,
+            detalles: data.contenido
           });
 
           // Prepara la imagen para mostrar en preview
@@ -95,7 +97,9 @@ export class EditarTerapiasComponent implements OnInit {
     if (this.imagenSubirFoto) { formData.append('file', this.imagenSubirFoto); }
     // archivo
     // === Enviar detalles como JSON ===
-    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    if (this.form.get('contenido')?.value) {
+      formData.append('detalles', this.form.get('contenido')!.value);
+    }
     this.terapiasService.editarTerapias(this.terapiaId, formData).subscribe({
       next: (resp) => {
         Swal.fire('Exito', 'Terapia Editado con Exito', 'success')

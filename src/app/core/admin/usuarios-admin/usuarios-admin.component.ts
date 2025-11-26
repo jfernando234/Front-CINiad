@@ -32,7 +32,6 @@ export class UsuariosAdminComponent {
 
   ngOnInit() {
 
-    this.obtenerUsuariosData();
 
   }
   obtenerUsuariosData(): void {

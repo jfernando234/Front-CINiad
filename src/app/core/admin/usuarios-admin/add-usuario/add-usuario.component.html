@@ -13,10 +13,10 @@
                 <div class="row">
                   <div class="col-12 col-md-6">
                     <div class="form-group local-forms">
-                      <label>Nombre<span class="login-danger">*</span></label>
-                      <input formControlName="nombre" class="form-control" type="text">
-                      <div *ngIf="isInvalid('nombre') || mostrarErrores" class="invalid-feedback">
-                        <div *ngIf="isRequerido('nombre')|| mostrarErrores">
+                      <label>Usuario<span class="login-danger">*</span></label>
+                      <input formControlName="username" class="form-control" type="text">
+                      <div *ngIf="isInvalid('username') || mostrarErrores" class="invalid-feedback">
+                        <div *ngIf="isRequerido('username')|| mostrarErrores">
                           Debe completar el campo*
                         </div>
                       </div>
@@ -25,55 +25,13 @@
 
                   <div class="col-12 col-md-6">
                     <div class="form-group local-forms">
-                      <label>Apellidos<span class="login-danger">*</span></label>
-                      <input formControlName="apellidos" class="form-control" type="text">
-                      <div *ngIf="isInvalid('apellidos') || mostrarErrores" class="invalid-feedback">
-                        <div *ngIf="isRequerido('apellidos')|| mostrarErrores">
+                      <label>Contraseña<span class="login-danger">*</span></label>
+                      <input formControlName="password" class="form-control" type="text">
+                      <div *ngIf="isInvalid('password') || mostrarErrores" class="invalid-feedback">
+                        <div *ngIf="isRequerido('password')|| mostrarErrores">
                           Debe completar el campo*
                         </div>
                       </div>
-                    </div>
-                  </div>
-
-                  <div class="col-12 col-md-6">
-                    <div class="form-group local-forms">
-                      <label>Edad<span class="login-danger">*</span></label>
-                      <input formControlName="edad" class="form-control" type="text">
-                      <div *ngIf="isInvalid('edad') || mostrarErrores" class="invalid-feedback">
-                        <div *ngIf="isRequerido('edad')|| mostrarErrores">
-                          Debe completar el campo*
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-12 col-md-6">
-                    <div class="form-group local-forms">
-                      <label>Telefono<span class="login-danger">*</span></label>
-                      <input formControlName="telefono" class="form-control" type="text">
-                      <div *ngIf="isInvalid('telefono') || mostrarErrores" class="invalid-feedback">
-                        <div *ngIf="isRequerido('telefono')|| mostrarErrores">
-                          Debe completar el campo*
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <div class="col-right">
-                <div class="profile-block">
-                  <label><strong>Foto de perfil</strong><span class="login-danger"></span></label>
-                  <div class="profile-photo-container">
-                    <div class="photo-preview">
-                      <img [src]="fotoPreview || 'assets/img/user.jpg'" alt="Foto de perfil">
-                    </div>
-                    <div class="photo-upload">
-                      <input type="file" #fotoInput (change)="onFileSelected($event)" hidden>
-                      <button type="button" class="btn btn-primary" (click)="fotoInput.click()">
-                        Subir Foto
-                      </button>
                     </div>
                   </div>
                 </div>

@@ -28,7 +28,8 @@ export class AddTerapiasComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      descripcion: [''],
+      contenido: [''],
       imagen: ['']
     });
   }
@@ -48,7 +49,9 @@ export class AddTerapiasComponent implements OnInit {
     formData.append('descripcion', this.form.get('descripcion')?.value);
     formData.append('file', this.imagenSubirFoto); // archivo
     // === Enviar detalles como JSON ===
-    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    if (this.form.get('contenido')?.value) {
+      formData.append('detalles', this.form.get('contenido')!.value);
+    }
     this.terapiasService.agregarTerapias(formData).subscribe({
       next: (resp) => {
         Swal.fire('Exito','Terapia Creada con Exito','success')

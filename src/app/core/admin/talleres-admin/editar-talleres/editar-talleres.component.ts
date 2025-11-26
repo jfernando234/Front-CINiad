@@ -37,7 +37,8 @@ export class EditarTalleresComponent implements OnInit {
     });
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      descripcion: [''],
+      contenido: [''],
       imagen: ['']
     });
     this.obtenerTaller();
@@ -54,7 +55,8 @@ export class EditarTalleresComponent implements OnInit {
           // Actualiza solo los campos de texto
           this.form.patchValue({
             nombre: data.nombre,
-            descripcion: data.descripcion
+            descripcion: data.descripcion,
+            detalles: data.contenido
           });
 
           // Prepara la imagen para mostrar en preview
@@ -86,7 +88,9 @@ export class EditarTalleresComponent implements OnInit {
     if (this.imagenSubirFoto) { formData.append('file', this.imagenSubirFoto); }
 
     // === Enviar detalles como JSON ===
-    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    if (this.form.get('contenido')?.value) {
+      formData.append('detalles', this.form.get('contenido')!.value);
+    }
 
     this.talleresService.editarTalleres(this.talleresId,formData).subscribe({
       next: (resp) => {

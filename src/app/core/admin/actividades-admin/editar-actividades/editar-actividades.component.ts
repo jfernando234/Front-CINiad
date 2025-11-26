@@ -36,7 +36,8 @@ export class EditarActividadesComponent implements OnInit {
     });
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      descripcion: [''],
+      contenido: ['']
     });
     this.actividadesService.obetenerActividadesId(this.actividadesId)
       .subscribe((data: IActividad) => {
@@ -46,7 +47,8 @@ export class EditarActividadesComponent implements OnInit {
           // Actualiza solo los campos de texto
           this.form.patchValue({
             nombre: data.nombre,
-            descripcion: data.descripcion
+            descripcion: data.descripcion,
+            detalles: data.contenido
           });
 
           // Prepara la imagen para mostrar en preview
@@ -77,7 +79,10 @@ export class EditarActividadesComponent implements OnInit {
     formData.append('descripcion', this.form.get('descripcion')?.value);
     if (this.imagenSubirFoto) { formData.append('file', this.imagenSubirFoto); }
     // === Enviar detalles como JSON ===
-    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    // === Enviar detalles como JSON ===
+    if (this.form.get('contenido')?.value) {
+      formData.append('detalles', this.form.get('contenido')!.value);
+    }
     this.actividadesService.editarActividades(this.actividadesId, formData).subscribe({
       next: (resp) => {
         Swal.fire('Exito', 'Actividad Editada con Exito', 'success')

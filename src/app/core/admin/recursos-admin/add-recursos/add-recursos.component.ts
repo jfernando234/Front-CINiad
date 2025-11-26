@@ -23,7 +23,9 @@ export class AddRecursosComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      descripcion: [''],
+      contenido: [''],
+      imagen: ['']
     });
   }
 
@@ -40,7 +42,10 @@ export class AddRecursosComponent implements OnInit {
     formData.append('descripcion', this.form.get('descripcion')?.value);
     formData.append('file', this.imagenSubirFoto); // archivo
 
-    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    // === Enviar detalles como JSON ===
+    if (this.form.get('contenido')?.value) {
+      formData.append('detalles', this.form.get('contenido')!.value);
+    }
     this.recursosService.agregarRecursos(formData).subscribe({
       next: (resp) => {
         Swal.fire('Exito', 'Recurso Creado con Exito', 'success')

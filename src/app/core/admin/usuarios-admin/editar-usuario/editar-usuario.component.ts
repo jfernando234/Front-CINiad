@@ -54,7 +54,7 @@ export class EditarUsuarioComponent {
       edad: this.form.value.edad,
       telefono: this.form.value.telefono,
     };
-    console.log(this.Usuario);
+
     this.usuarioService.editarUsuario(Usuario).subscribe(
       (response) => {
         if (response.isSuccess) {

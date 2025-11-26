@@ -35,8 +35,9 @@ export class EditarRecursosComponent implements OnInit {
     });
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      imagen: []
+      descripcion: [''],
+      contenido: [''],
+      imagen: ['']
     });
     this.obtenerRecurso();
   }
@@ -49,7 +50,8 @@ export class EditarRecursosComponent implements OnInit {
           // Actualiza solo los campos de texto
           this.form.patchValue({
             nombre: data.nombre,
-            descripcion: data.descripcion
+            descripcion: data.descripcion,
+            detalles: data.contenido
           });
 
           // Prepara la imagen para mostrar en preview
@@ -81,7 +83,9 @@ export class EditarRecursosComponent implements OnInit {
     if (this.imagenSubirFoto) { formData.append('file', this.imagenSubirFoto); }
     // archivo
     // === Enviar detalles como JSON ===
-    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    if (this.form.get('contenido')?.value) {
+      formData.append('detalles', this.form.get('contenido')!.value);
+    }
     this.recursosService.editarRecursos(this.recursoId, formData).subscribe({
       next: (resp) => {
         Swal.fire('Exito', 'Recurso Editado con Exito', 'success')

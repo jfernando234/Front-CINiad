@@ -5,7 +5,6 @@ import { ActividadesAdminRoutingModule } from './actividades-admin-routing.modul
 import { ActividadesAdminComponent } from './actividades-admin.component';
 import { AddActividadesComponent } from './add-actividades/add-actividades.component';
 import { EditarActividadesComponent } from './editar-actividades/editar-actividades.component';
-import { AddDetallesActividadesComponent } from './add-actividades/add-detalles/add-detalles.component';
 import { EditarDetallesActividadesComponent } from './editar-actividades/editar-detalles/editar-detalles.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -15,7 +14,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   declarations: [
     AddActividadesComponent,
     EditarActividadesComponent,
-    AddDetallesActividadesComponent,
     EditarDetallesActividadesComponent
   ],
   imports: [

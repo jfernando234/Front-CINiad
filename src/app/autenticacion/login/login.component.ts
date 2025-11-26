@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AuthService } from 'src/app/shared/auth/auth.service';
-import { Role } from 'src/app/shared/models/login';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +12,9 @@ import { Role } from 'src/app/shared/models/login';
 export class LoginComponent {
 
   public username = '';
-  public password ='';
+  public password = '';
   errorMessage = '';
+  loading = false;
 
   @Output() onDistribucionFinalizada = new EventEmitter<void>();
 
@@ -25,29 +25,39 @@ export class LoginComponent {
   ) { }
 
   login() {
-    let user;
-    if (this.username === 'admin') {
-      user = { id: 1, nombre: 'Admin', rol: 'admin' as Role };
-    } else if (this.username === 'profesor') {
-      user = { id: 2, nombre: 'Profesor', rol: 'profesor' as Role };
-    } else if (this.username === 'alumno') {
-      user = { id: 3, nombre: 'Alumno', rol: 'alumno' as Role };
-    } else {
-      this.errorMessage = 'Usuario o contraseña incorrecta';
+    this.errorMessage = '';
+    this.loading = true;
+
+    // Validar campos requeridos
+    if (!this.username || !this.password) {
+      this.errorMessage = 'Usuario y contraseña son requeridos';
+      this.loading = false;
       return;
     }
 
-    this.authService.login(user);
+    this.authService.login(this.username, this.password).subscribe({
+      next: (response) => {
+        this.loading = false;
+        // Emitir evento de login completado
+        this.onDistribucionFinalizada.emit();
+        // Cerrar modal
+        this.bsModalRef.hide();
+        // Redirigir según el usuario o a dashboard por defecto
+        this.router.navigate(['/admin']);
+        localStorage.setItem('access_token', response.access_token);
+      },
+      error: (err) => {
+        this.loading = false;
+        console.error('Login error', err);
 
-    // Emitir evento al completar login
-    this.onDistribucionFinalizada.emit();
-
-    // Cerrar modal
-    this.bsModalRef.hide();
-
-    // Redirigir según rol
-    switch (user.rol) {
-      case 'admin': this.router.navigate(['/admin']); break;
-    }
+        if (err.status === 401) {
+          this.errorMessage = 'Usuario o contraseña incorrectos';
+        } else if (err.status === 0) {
+          this.errorMessage = 'Error de conexión con el servidor';
+        } else {
+          this.errorMessage = 'Error al iniciar sesión';
+        }
+      }
+    });
   }
 }

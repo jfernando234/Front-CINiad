@@ -1,6 +1,21 @@
-export interface User {
+
+export interface LoginResponse {
+  access_token: string;
+  token_type: string;
   id: number;
-  nombre: string;
-  rol: Role;
+  username: string;
 }
-export type Role = 'admin';
+
+export interface LoginRequest {
+  username: string;
+  password: string;
+}
+export interface RegisterRequest {
+  username: string;
+  password: string;
+}
+
+export interface UserPublic {
+  id: number;
+  username: string;
+}

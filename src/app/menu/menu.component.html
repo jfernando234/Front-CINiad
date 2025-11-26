@@ -1,28 +1,42 @@
-<nav class="menu">
-  <div class="menu-container">
-    <div class="logo">
-      <img src="assets/Logo.png" alt="logo" class="logo-img">
-    </div>
+<nav class="menu navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
 
-    <div class="nav-links">
-      <a routerLink="/inicio" routerLinkActive="active">Inicio</a>
-      <a routerLink="/nosotros" routerLinkActive="active">Quiénes somos</a>
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/inicio">
+      <img src="assets/logo.png" alt="logo" class="logo-img">
+    </a>
 
-      <a *ngIf="!authService.currentUser" (click)="login()" class="login-link">
-        <i class="fas fa-sign-in-alt me-2"></i>Ingresar
-      </a>
-
-      <span *ngIf="authService.currentUser" class="user-info">
-        <i class="fas fa-user-circle me-1"></i>
-        <a (click)="authService.logout()" class="logout-link">
-          <i class="fas fa-sign-out-alt me-1"></i>Cerrar sesión
-        </a>
-      </span>
-    </div>
-
-    <!-- Botón hamburguesa para móvil -->
-    <button class="menu-toggle" (click)="toggleMenu()">
-      <i class="fas fa-bars"></i>
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler" type="button" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" [ngClass]="{'show': menuOpen}">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/inicio" routerLinkActive="active" (click)="menuOpen = false">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/nosotros" routerLinkActive="active" (click)="menuOpen = false">Quiénes
+            somos</a>
+        </li>
+
+        <!-- No autenticado -->
+        <li class="nav-item" *ngIf="!authService.isAuthenticated()">
+          <button class="btn btn-primary login-link ms-lg-3" (click)="login()">Ingresar</button>
+        </li>
+
+        <!-- Autenticado -->
+        <li class="nav-item dropdown" *ngIf="authService.isAuthenticated()">
+          <span class="nav-link d-flex align-items-center">
+            <i class="fas fa-user-circle me-1"></i> {{ authService.getCurrentUser()?.username }}
+          </span>
+          <button class="btn btn-outline-danger ms-lg-2 logout-link" (click)="logout()">Cerrar sesión</button>
+        </li>
+      </ul>
+    </div>
+
   </div>
 </nav>

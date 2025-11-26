@@ -1,205 +1,82 @@
-/* ====== Contenedor general ====== */
-.home-container {
-  background-color: #ffffff;
-  color: #1a1a1a;
-  min-height: 100vh;
-  display: flex; // <-- importante
-  flex-direction: column; // <-- apila header, main y footer
-  min-height: 100vh;
-}
-
-main.content {
-  flex: 1; // ocupa todo el espacio disponible
-}
-
-footer {
-  flex-shrink: 0; // no se encoge
-}
-
-
-/* ====== Header ====== */
-
-.header {
-  z-index: 1000;
-  background-color: #ffffff !important;
-  border-bottom: 1px solid #e5e5e5;
-  height: 100px; // fija la altura del header
+.content-detail-container {
   display: flex;
-  align-items: center;
-
-  .logo {
-    img {
-      max-height: 250px; // más grande que el header
-      width: auto;
-      object-fit: contain;
-      display: block;
-      position: relative;
-      top: -10px; // sube la imagen un poco sin aumentar el header
-    }
-  }
+  flex-direction: column;
+  min-height: 100vh;
+  color: #1a1a1a;
+  background-color: #ffffff;
 }
 
-/* ====== Banner Principal ====== */
+.content-hero {
+  background-color: #f8f9fa;
+  padding: 3rem 0;
+  text-align: center;
 
-.banner {
-  background: linear-gradient(135deg,
-      #e8f3ff 0%,
-      #ffffff 100%);
-  padding: 60px 0;
-
-  .title-section h1 {
+  h1,
+  h2 {
     line-height: 1.2;
   }
 
-  .video-container {
-    position: relative;
-
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      transition: 0.3s ease;
-
-      .play-btn {
-        background-color: #ffffff;
-        border: 2px solid #007bff;
-        color: #007bff;
-        font-weight: bold;
-        transition: 0.2s ease;
-
-        &:hover {
-          background-color: #007bff;
-          color: #ffffff;
-        }
-      }
-    }
-
-    &:hover .video-overlay,
-    &:focus-within .video-overlay {
-      opacity: 1;
-    }
-  }
-}
-
-/* ====== Sección de Navegación Rápida ====== */
-
-.navigation-section {
-  background-color: #f8f9fa;
-
-  .section-title {
-    font-size: 2rem;
-    color: #1a1a1a;
-  }
-
-  .service-nav-btn {
-    min-width: 140px;
-    text-align: center;
-    font-weight: 500;
-    transition: 0.25s ease;
-    border-width: 2px;
-
-    i {
-      font-size: 1.8rem;
-    }
-
-    &:hover,
-    &:focus {
-      background-color: #007bff;
-      color: #ffffff;
-      border-color: #007bff;
-    }
-  }
-}
-
-/* ====== Contenido Principal ====== */
-
-.content {
-  background-color: #ffffff;
-}
-
-.section-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1a1a1a;
-
-  span {
+  h1 {
     color: #007bff;
   }
 }
 
-.content-section {
-  scroll-margin-top: 120px;
-}
+.content-body {
+  flex: 1;
+  padding: 3rem 0;
 
-.cards-container {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  .content-image-section {
+    overflow: hidden;
+    border-radius: 0.5rem;
 
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
-
-/* ====== Footer ====== */
-
-.footer {
-  background-color: #111111;
-  color: #ffffff;
-
-  .footer-links a,
-  .contact-info p,
-  .social-icons a,
-  .legal-links a {
-    transition: 0.25s ease;
-
-    &:hover,
-    &:focus {
-      color: #ffffff !important;
-      text-decoration: underline;
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
   }
 
-  .social-icons a {
-    font-size: 1.3rem;
-  }
-
-  input.form-control {
-    background-color: #222222;
-    border: 1px solid #444444;
-    color: #ffffff;
-
-    &:focus {
-      border-color: #007bff;
-      outline: 2px solid #007bff;
+  .content-text-section {
+    .content-html {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #343a40;
     }
-  }
 
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-
-    &:hover,
-    &:focus {
-      background-color: #0056b3;
+    .alert {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
     }
   }
 }
 
-/* ====== Accesibilidad ====== */
+/* Footer */
+footer {
+  flex-shrink: 0;
+}
 
+/* Accesibilidad WCAG 2.1 */
 :focus {
   outline: 3px solid #005fcc !important;
   outline-offset: 3px;
 }
 
-img {
+/* Imágenes y video */
+img,
+video {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
-video {
-  display: block;
+/* Responsive */
+@media (max-width: 992px) {
+  .content-hero h1 {
+    font-size: 2rem;
+  }
+
+  .content-hero h2 {
+    font-size: 1.5rem;
+  }
 }

@@ -25,7 +25,9 @@ export class AddTalleresComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      descripcion: [''],
+      contenido: [''],
+      imagen: ['']
     });
   }
   crearTaller() {
@@ -42,7 +44,9 @@ export class AddTalleresComponent implements OnInit {
     formData.append('file', this.imagenSubirFoto);
 
     // === Enviar detalles como JSON ===
-    if (this.detalles.length > 0) { formData.append('detalle', JSON.stringify(this.detalles)); }
+    if (this.form.get('contenido')?.value) {
+      formData.append('detalles', this.form.get('contenido')!.value);
+    }
 
     this.talleresService.agregarTalleres(formData).subscribe({
       next: (resp) => {

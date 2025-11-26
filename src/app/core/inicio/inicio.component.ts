@@ -19,11 +19,11 @@ import { TerapiasService } from 'src/app/shared/services/terapias.service';
 })
 export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading = false;
-  TerapiasList: any;
-  programaList: any;
-  tallerList: any;
-  actividadList: any;
-  recursoList: any;
+  TerapiasList: ITerapia[] = [];
+  programaList:IProgramas[] = [];
+  tallerList:  ITaller[] = [];
+  actividadList: IActividad[] = [];
+  recursoList: IRecurso[] = [];
 
   // Flags para controlar qué datos ya se cargaron
   private datosCargados: any = {
@@ -55,7 +55,6 @@ export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
       threshold: 0.1
     });
   }
-
   ngOnInit(): void {
     this.loadDatosIniciales();
   }
@@ -130,52 +129,53 @@ export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   cargarProgramasSiNecesario(): void {
-    if (!this.datosCargados.programas && !this.programaList) {
-      this.isLoading = true;
-      this.programasServices.obtenerAllProgramas()
-        .pipe(finalize(() => this.isLoading = false))
-        .subscribe((data: IProgramas[]) => {
-          this.programaList = data;
-          this.datosCargados.programas = true;
-        });
-    }
+  if (!this.datosCargados.programas) {
+    this.isLoading = true;
+    this.programasServices.obtenerAllProgramas()
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe((data: IProgramas[]) => {
+        this.programaList = data;
+        this.datosCargados.programas = true;
+      });
   }
+}
 
-  cargarTalleresSiNecesario(): void {
-    if (!this.datosCargados.talleres && !this.tallerList) {
-      this.isLoading = true;
-      this.talleresService.obtenerAllTalleres()
-        .pipe(finalize(() => this.isLoading = false))
-        .subscribe((data: ITaller[]) => {
-          this.tallerList = data;
-          this.datosCargados.talleres = true;
-        });
-    }
+cargarTalleresSiNecesario(): void {
+  if (!this.datosCargados.talleres) {
+    this.isLoading = true;
+    this.talleresService.obtenerAllTalleres()
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe((data: ITaller[]) => {
+        this.tallerList = data;
+        this.datosCargados.talleres = true;
+      });
   }
+}
 
-  cargarActividadesSiNecesario(): void {
-    if (!this.datosCargados.actividades && !this.actividadList) {
-      this.isLoading = true;
-      this.actividadServices.obtenerAllActividades()
-        .pipe(finalize(() => this.isLoading = false))
-        .subscribe((data: IActividad[]) => {
-          this.actividadList = data;
-          this.datosCargados.actividades = true;
-        });
-    }
+cargarActividadesSiNecesario(): void {
+  if (!this.datosCargados.actividades) {
+    this.isLoading = true;
+    this.actividadServices.obtenerAllActividades()
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe((data: IActividad[]) => {
+        this.actividadList = data;
+        this.datosCargados.actividades = true;
+      });
   }
+}
 
-  cargarRecursosSiNecesario(): void {
-    if (!this.datosCargados.recursos && !this.recursoList) {
-      this.isLoading = true;
-      this.recursosService.obtenerAllRecursos()
-        .pipe(finalize(() => this.isLoading = false))
-        .subscribe((data: IRecurso[]) => {
-          this.recursoList = data;
-          this.datosCargados.recursos = true;
-        });
-    }
+cargarRecursosSiNecesario(): void {
+  if (!this.datosCargados.recursos) {
+    this.isLoading = true;
+    this.recursosService.obtenerAllRecursos()
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe((data: IRecurso[]) => {
+        this.recursoList = data;
+        this.datosCargados.recursos = true;
+      });
   }
+}
+
 
   scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);
@@ -185,15 +185,4 @@ export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  getSafeUrl(videoId: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${videoId}`);
-  }
-
-  openCardDetail(item: number) {
-    // Tu implementación
-  }
-
-  cambiar() {
-    // Tu implementación
-  }
 }

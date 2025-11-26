@@ -11,11 +11,12 @@ import { MenuComponent } from './menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './core/admin/admin.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ComponnetsComponent } from './core/componnets/componnets.component';
 import { ContenidoComponent } from './core/contenido/contenido.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { NosotrosComponent } from './core/nosotros/nosotros.component';
+import { AuthInterceptor } from './shared/auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,13 @@ import { NosotrosComponent } from './core/nosotros/nosotros.component';
     NgScrollbarModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

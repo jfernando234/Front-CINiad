@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 import { IUsuario } from 'src/app/shared/models/usuarios';
 import { UsuariosService } from 'src/app/shared/services/usuarios.service';
 import Swal from 'sweetalert2';
@@ -12,21 +13,18 @@ import Swal from 'sweetalert2';
 export class AddUsuarioComponent implements OnInit {
 
   form!: FormGroup;
-  Usuario: IUsuario [] = [];
+  Usuario: IUsuario[] = [];
   public mostrarErrores = false;
   fotoPreview: string | ArrayBuffer | null = null;
   ngOnInit(): void {
     this.form = this.fb.group({
-      nombre: ['', Validators.required],
-      apellidos: ['', Validators.required],
-      edad: ['', Validators.required],
-      telefono: ['', Validators.required],
-
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
   constructor(
     public bsModalRef: BsModalRef,
-    private usuarioService: UsuariosService,
+    private authservice: AuthService,
     public fb: FormBuilder
   ) { }
 
@@ -38,25 +36,17 @@ export class AddUsuarioComponent implements OnInit {
       this.isTouched()
       return;
     }
-    const Usuario: IUsuario = {
-      nombreUsuario: this.form.value.nombre,
-      apellidos: this.form.value.apellidos,
-      edad: this.form.value.edad,
-      telefono: this.form.value.telefono,
-    };
-    console.log(this.Usuario);
-    this.usuarioService.agregarUsuario(Usuario).subscribe(
-      (response) => {
-        if (response.isSuccess) {
-          Swal.fire(response.message, 'Usuario Agregado correctamente', 'success');
-          this.bsModalRef.hide();
-        } else {
-          console.error(response.message);
-        }
+    const username = this.form.get('username')?.value;
+    const password = this.form.get('password')?.value;
+    this.authservice.register(username, password).subscribe({
+      next: (resp) => {
+        Swal.fire('Exito', 'Usuario Creado con Exito', 'success')
+        this.Cancelar();
       },
-      (error) => {
-        console.error(error);
-      });
+      error: (err) => {
+        Swal.fire('Error', 'Error al Crear el Usuario', 'error')
+      }
+    });
   }
   Cancelar() {
 

@@ -7,5 +7,8 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent {
-   constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService) { }
+  get userName(): string {
+    return this.authService.getCurrentUser()?.username || 'Usuario';
+  }
 }

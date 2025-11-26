@@ -16,7 +16,7 @@ export class NosotrosComponent {
   }
   // Método para navegar a secciones
   scrollToSection(sectionId: string): void {
-    console.log('[NosotrosComponent] scrollToSection called:', sectionId);
+
     const element = document.getElementById(sectionId);
     if (element) {
       // Scroll suave con offset para el header fijo

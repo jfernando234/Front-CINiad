@@ -11,6 +11,7 @@ import { LoginComponent } from '../autenticacion/login/login.component';
 })
 export class MenuComponent {
   menuOpen = false;
+
   constructor(
     private modalService: BsModalService,
     public authService: AuthService,
@@ -23,33 +24,30 @@ export class MenuComponent {
     // Escuchar cuando se completa el login
     if (modalRef.content) {
       modalRef.content.onDistribucionFinalizada.subscribe(() => {
-        // El login se completó exitosamente
-        console.log('Login completado desde el modal');
+
       });
     }
   }
+
   navigateTo(path: string) {
     this.router.navigate([path]);
   }
+
   logout() {
     this.authService.logout();
-    this.router.navigate(['/inicio']);
+    this.menuOpen = false;
   }
+
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
-  // Redirigir al dashboard según el rol
+
   goToDashboard() {
-    const user = this.authService.currentUser;
-    if (user) {
-      switch (user.rol) {
-        case 'admin':
-          this.router.navigate(['/admin']);
-          break;
-        default:
-          this.router.navigate(['/inicio']);
-          break;
-      }
+    // Verificar autenticación antes de navegar
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/inicio']);
     }
   }
 }

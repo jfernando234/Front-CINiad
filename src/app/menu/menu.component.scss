@@ -1,201 +1,53 @@
 .menu {
-  width: 100%;
-  background: white;
+  .logo-img {
+    height: 60px;
+    object-fit: contain;
+    max-width: 200px;
+  }
 
-  .menu-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    position: relative;
+  .nav-link {
+    font-weight: 500;
+    color: #495057;
+    transition: color 0.3s;
 
-    .logo {
-      .logo-img {
-        height: 80px; // Aumentado para mejor visibilidad
-        width: auto;
-        object-fit: contain;
-        max-width: 300px; // Máximo ancho para el logo
-      }
+    &:hover, &.active {
+      color: #4a6fa5;
     }
+  }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
+  .login-link {
+    background: linear-gradient(135deg, #4a6fa5, #6b8cbc);
+    color: #fff;
+    border-radius: 25px;
+    font-weight: 600;
 
-      a {
-        text-decoration: none;
-        color: #495057;
-        font-weight: 500;
-        font-size: 1rem;
-        padding: 0.5rem 0;
-        position: relative;
-        transition: all 0.3s ease;
-        border: none;
-        background: none;
-        cursor: pointer;
-
-        &:hover {
-          color: #4a6fa5;
-        }
-
-        &.active {
-          color: #4a6fa5;
-          font-weight: 600;
-
-          &::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, #4a6fa5, #6b8cbc);
-            border-radius: 2px;
-          }
-        }
-      }
-
-      .login-link {
-        background: linear-gradient(135deg, #4a6fa5, #6b8cbc);
-        color: white !important;
-        padding: 0.5rem 1.5rem !important;
-        border-radius: 25px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-
-        &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(74, 111, 165, 0.3);
-          color: white !important;
-        }
-
-        &::after {
-          display: none;
-        }
-      }
-
-      .user-info {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: #495057;
-        font-weight: 500;
-        white-space: nowrap;
-
-        .logout-link {
-          color: #dc3545;
-          font-weight: 500;
-          text-decoration: none;
-          cursor: pointer;
-
-          &:hover {
-            color: #c82333;
-          }
-        }
-      }
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(74, 111, 165, 0.3);
     }
+  }
 
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: #495057;
-      cursor: pointer;
-      padding: 0.5rem;
-    }
+  .logout-link {
+    font-weight: 500;
   }
 }
 
-// Responsive
-@media (max-width: 992px) {
+// Ajustes para pantallas pequeñas
+@media (max-width: 991px) {
   .menu {
-    .menu-container {
-      .nav-links {
-        gap: 1.5rem;
-
-        .logo-img {
-          height: 75px; // Un poco más pequeño en tablets
-          max-width: 250px;
-        }
-      }
+    .logo-img {
+      height: 50px;
+      max-width: 150px;
     }
-  }
-}
 
-@media (max-width: 768px) {
-  .menu {
-    .menu-container {
-      .logo {
-        .logo-img {
-          height: 70px; // Logo más grande en móvil
-          max-width: 220px;
-        }
-      }
-
-      .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        flex-direction: column;
-        gap: 0;
-        padding: 1rem 0;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        display: none;
-        z-index: 1000;
-
-        &.show {
-          display: flex;
-        }
-
-        a,
-        .user-info {
-          width: 100%;
-          padding: 1rem 1.5rem !important;
-          text-align: left;
-          border-bottom: 1px solid #f8f9fa;
-          justify-content: flex-start;
-          margin: 0;
-
-          &:last-child {
-            border-bottom: none;
-          }
-        }
-
-        .login-link {
-          margin: 0.5rem 1.5rem;
-          width: auto;
-          text-align: center;
-          justify-content: center;
-        }
-
-        .user-info {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 1rem;
-        }
-      }
-
-      .menu-toggle {
-        display: block;
-      }
+    .nav-link {
+      padding: 0.5rem 1rem;
     }
-  }
-}
 
-@media (max-width: 480px) {
-  .menu {
-    .menu-container {
-      .logo {
-        .logo-img {
-          height: 65px; // Logo más grande en pantallas muy pequeñas
-          max-width: 180px;
-        }
-      }
+    .login-link, .logout-link {
+      width: 100%;
+      margin-top: 0.5rem;
+      text-align: center;
     }
   }
 }

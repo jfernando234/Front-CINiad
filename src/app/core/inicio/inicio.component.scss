@@ -7,19 +7,6 @@
   overflow-x: hidden;
 }
 
-/* ====== Header ====== */
-.header {
-  z-index: 1000;
-  background-color: #ffffff !important;
-  border-bottom: 1px solid #e5e5e5;
-  position: relative;
-}
-
-.header .container {
-  padding: 0 1rem;
-  max-width: 100%;
-}
-
 /* Asegurar que el menú ocupe todo el ancho */
 app-menu {
   display: block;

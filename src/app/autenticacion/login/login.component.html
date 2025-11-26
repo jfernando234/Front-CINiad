@@ -9,13 +9,13 @@
       <div class="mb-3">
         <label for="username" class="form-label">Usuario</label>
         <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username"
-          placeholder="Ingrese su usuario" required>
+          placeholder="Ingrese su usuario" [disabled]="loading" required>
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label">Contraseña</label>
         <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password"
-          placeholder="Ingrese su contraseña" required>
+          placeholder="Ingrese su contraseña" [disabled]="loading" required>
       </div>
 
       <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
@@ -23,8 +23,11 @@
       </div>
 
       <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-primary btn-login">
-          Iniciar Sesión
+        <button type="submit" class="btn btn-primary btn-login" [disabled]="loading">
+          <span *ngIf="!loading">Iniciar Sesión</span>
+          <span *ngIf="loading">
+            <i class="fas fa-spinner fa-spin me-2"></i>Iniciando...
+          </span>
         </button>
       </div>
     </form>
@@ -33,8 +36,7 @@
       <small class="text-muted">
         <strong>Usuarios de prueba:</strong><br>
         admin / cualquier contraseña<br>
-        profesor / cualquier contraseña<br>
-        alumno / cualquier contraseña
+        <!-- Agrega más usuarios si los tienes -->
       </small>
     </div>
   </div>

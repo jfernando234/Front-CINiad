@@ -8,8 +8,8 @@ const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
-    // canActivate: [AuthGuard],  // comentado temporalmente
-    // data: { roles: ['admin'] },
+    canActivate: [AuthGuard],  // comentado temporalmente
+    data: { roles: ['admin'] },
     children: [
       { path: '', redirectTo: 'terapias', pathMatch: 'full' },
       { path: 'usuarios', loadChildren: () => import('./usuarios-admin/usuarios-admin.module').then(m => m.UsuariosAdminModule) },

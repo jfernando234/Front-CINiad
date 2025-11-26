@@ -4,7 +4,7 @@
     <div class="header-content">
       <h1>Panel de Administración</h1>
       <div class="user-info">
-        <span>Bienvenido, {{ authService.currentUser?.nombre }}</span>
+        <span>Bienvenido, {{ authService.getCurrentUser()?.username }}</span>
         <button class="btn btn-outline-danger btn-sm" (click)="authService.logout()">
           Cerrar Sesión
         </button>
